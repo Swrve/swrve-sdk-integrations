@@ -9,6 +9,9 @@
 #import "Swrve.h"
 #import "ADBMobile.h"
 
+typedef void (^SwrveADBMobileTrackEventCallback)(NSString*, NSDictionary*);
+typedef void (^SwrveADBMobileTrackStateCallback)(NSString*, NSDictionary*);
+
 @interface SwrveADBMobile : NSObject
 
 /*! Initializes a Swrve object that has already been allocated using [Swrve alloc].
@@ -66,5 +69,17 @@
  * \returns An initialized Swrve object.
  */
 +(Swrve*) initWithAppIDAndAdobeIntegration:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID config:(SwrveConfig*)swrveConfig;
+
+/*! Set this callback to control how the event data is passed down to the Swrve SDK.
+ *
+ *  By default the event name will be kept the same and the data used as a payload.
+ */
++(void)setEventCallback:(SwrveADBMobileTrackEventCallback)callback;
+
+/*! Set this callback to control how the state data is passed down to the Swrve SDK.
+ *
+ *  By default the state name won't be used and the data will be sent as a user update.
+ */
++(void)setTrackStateCallback:(SwrveADBMobileTrackStateCallback)callback;
 
 @end

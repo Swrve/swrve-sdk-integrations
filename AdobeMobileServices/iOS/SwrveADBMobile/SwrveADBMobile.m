@@ -26,6 +26,9 @@ static ADBMobileTrackStateSignature originalTrackStateMethod;
 static ADBMobileTrackActionSignature originalTrackActionFromBackgroundMethod;
 static ADBMobileSetPushIdentifierSignature originalSetPushIdentifierMethod;
 
+static SwrveADBMobileTrackEventCallback trackActionCallback;
+static SwrveADBMobileTrackStateCallback trackStateCallback;
+
 +(Swrve*) initWithAppIDAndAdobeIntegration:(int)swrveAppID apiKey:(NSString*)swrveAPIKey
 {
     return [SwrveADBMobile initWithAppIDAndAdobeIntegration:swrveAppID apiKey:swrveAPIKey userID:nil];
@@ -65,6 +68,16 @@ static ADBMobileSetPushIdentifierSignature originalSetPushIdentifierMethod;
     return [Swrve sharedInstanceWithAppID:swrveAppID apiKey:swrveAPIKey userID:swrveUserID config:swrveConfig];
 }
 
++(void)setEventCallback:(SwrveADBMobileTrackEventCallback)callback
+{
+    trackActionCallback = callback;
+}
+
++(void)setTrackStateCallback:(SwrveADBMobileTrackStateCallback)callback
+{
+    trackStateCallback = callback;
+}
+
 + (IMP) swizzleClassMethod:(SEL)selector inClass:(Class)c withImplementationIn:(Class)c2;
 {
     // Obtain meta classes
@@ -87,11 +100,15 @@ static ADBMobileSetPushIdentifierSignature originalSetPushIdentifierMethod;
 
 // ADMobile captured methods
 + (void) trackAction:(NSString *)action data:(NSDictionary *)data {
-    Swrve* swrveInstance = [Swrve sharedInstance];
-    if( swrveInstance == NULL) {
-        DebugLog(@"Error: Swrve Adobe Mobile SDK Integration only works if you are using the Swrve instance singleton.", nil);
+    if (trackActionCallback == nil) {
+        Swrve* swrveInstance = [Swrve sharedInstance];
+        if( swrveInstance == NULL) {
+            DebugLog(@"Error: Swrve Adobe Mobile SDK Integration only works if you are using the Swrve instance singleton.", nil);
+        } else {
+            [swrveInstance event:action payload:data];
+        }
     } else {
-        [swrveInstance event:action payload:data];
+        trackActionCallback(action, data);
     }
     
     // Call original method
@@ -102,11 +119,15 @@ static ADBMobileSetPushIdentifierSignature originalSetPushIdentifierMethod;
 }
 
 + (void) trackState:(NSString *)action data:(NSDictionary *)data {
-    Swrve* swrveInstance = [Swrve sharedInstance];
-    if( swrveInstance == NULL) {
-        DebugLog(@"Error: Swrve Adobe Mobile SDK Integration only works if you are using the Swrve instance singleton.", nil);
+    if (trackStateCallback == nil) {
+        Swrve* swrveInstance = [Swrve sharedInstance];
+        if( swrveInstance == NULL) {
+            DebugLog(@"Error: Swrve Adobe Mobile SDK Integration only works if you are using the Swrve instance singleton.", nil);
+        } else {
+            [swrveInstance userUpdate:data];
+        }
     } else {
-        [swrveInstance userUpdate:data];
+        trackStateCallback(action, data);
     }
     
     // Call original method
@@ -117,11 +138,15 @@ static ADBMobileSetPushIdentifierSignature originalSetPushIdentifierMethod;
 }
 
 + (void) trackActionFromBackground:(NSString *)action data:(NSDictionary *)data {
-    Swrve* swrveInstance = [Swrve sharedInstance];
-    if( swrveInstance == NULL) {
-        DebugLog(@"Error: Swrve Adobe Mobile SDK Integration only works if you are using the Swrve instance singleton.", nil);
+    if (trackActionCallback == nil) {
+        Swrve* swrveInstance = [Swrve sharedInstance];
+        if( swrveInstance == NULL) {
+            DebugLog(@"Error: Swrve Adobe Mobile SDK Integration only works if you are using the Swrve instance singleton.", nil);
+        } else {
+            [swrveInstance event:action payload:data];
+        }
     } else {
-        [swrveInstance event:action payload:data];
+        trackActionCallback(action, data);
     }
     
     // Call original method
