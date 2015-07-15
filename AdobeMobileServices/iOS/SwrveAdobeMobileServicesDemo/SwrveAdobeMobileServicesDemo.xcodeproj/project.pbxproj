@@ -1,0 +1,558 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B2673F81B53B01700B3BF1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2673F71B53B01700B3BF1C /* main.m */; };
+		1B2673FB1B53B01700B3BF1C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2673FA1B53B01700B3BF1C /* AppDelegate.m */; };
+		1B2673FE1B53B01700B3BF1C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2673FD1B53B01700B3BF1C /* ViewController.m */; };
+		1B2674011B53B01700B3BF1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B2673FF1B53B01700B3BF1C /* Main.storyboard */; };
+		1B2674031B53B01700B3BF1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B2674021B53B01700B3BF1C /* Images.xcassets */; };
+		1B2674061B53B01700B3BF1C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2674041B53B01700B3BF1C /* LaunchScreen.xib */; };
+		1B26741E1B53B3CE00B3BF1C /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1B26741C1B53B3CE00B3BF1C /* ADBMobileConfig.json */; };
+		1B26741F1B53B3CE00B3BF1C /* ADBMobileConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1B26741C1B53B3CE00B3BF1C /* ADBMobileConfig.json */; };
+		1B2674201B53B3CE00B3BF1C /* AdobeMobileLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B26741D1B53B3CE00B3BF1C /* AdobeMobileLibrary.a */; };
+		1B2674211B53B3CE00B3BF1C /* AdobeMobileLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B26741D1B53B3CE00B3BF1C /* AdobeMobileLibrary.a */; };
+		1B2674231B53B83700B3BF1C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2674221B53B83700B3BF1C /* libsqlite3.dylib */; };
+		1B2674251B53B84D00B3BF1C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2674241B53B84D00B3BF1C /* CFNetwork.framework */; };
+		1B2674271B53B87B00B3BF1C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2674261B53B87B00B3BF1C /* SystemConfiguration.framework */; };
+		1B2674291B53B8BB00B3BF1C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2674281B53B8BB00B3BF1C /* libPods.a */; };
+		1B26742A1B53B8C300B3BF1C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2674221B53B83700B3BF1C /* libsqlite3.dylib */; };
+		1B26742B1B53B8C600B3BF1C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2674261B53B87B00B3BF1C /* SystemConfiguration.framework */; };
+		1B26742C1B53B8CC00B3BF1C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2674241B53B84D00B3BF1C /* CFNetwork.framework */; };
+		1B2674351B53C88200B3BF1C /* SwrveADBMobile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2674341B53C88200B3BF1C /* SwrveADBMobile.m */; };
+		9E2C64A4C39AA114E0AE816D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44268A98924F3062BAA8F0CB /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1B26740C1B53B01700B3BF1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B2673EA1B53B01700B3BF1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B2673F11B53B01700B3BF1C;
+			remoteInfo = SwrveAdobeMobileServicesDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1B2673F21B53B01700B3BF1C /* SwrveAdobeMobileServicesDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwrveAdobeMobileServicesDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B2673F61B53B01700B3BF1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B2673F71B53B01700B3BF1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1B2673F91B53B01700B3BF1C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1B2673FA1B53B01700B3BF1C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1B2673FC1B53B01700B3BF1C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1B2673FD1B53B01700B3BF1C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1B2674001B53B01700B3BF1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1B2674021B53B01700B3BF1C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1B2674051B53B01700B3BF1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		1B26740B1B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwrveAdobeMobileServicesDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B2674101B53B01700B3BF1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B2674111B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwrveAdobeMobileServicesDemoTests.m; sourceTree = "<group>"; };
+		1B26741B1B53B3CE00B3BF1C /* ADBMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBMobile.h; sourceTree = SOURCE_ROOT; };
+		1B26741C1B53B3CE00B3BF1C /* ADBMobileConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ADBMobileConfig.json; sourceTree = SOURCE_ROOT; };
+		1B26741D1B53B3CE00B3BF1C /* AdobeMobileLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = AdobeMobileLibrary.a; sourceTree = SOURCE_ROOT; };
+		1B2674221B53B83700B3BF1C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		1B2674241B53B84D00B3BF1C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1B2674261B53B87B00B3BF1C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1B2674281B53B8BB00B3BF1C /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		1B2674311B53BF0700B3BF1C /* libPods-SwrveSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SwrveSDK.a"; path = "Pods/build/Debug-iphoneos/libPods-SwrveSDK.a"; sourceTree = "<group>"; };
+		1B2674331B53C88200B3BF1C /* SwrveADBMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwrveADBMobile.h; path = ../SwrveADBMobile/SwrveADBMobile.h; sourceTree = SOURCE_ROOT; };
+		1B2674341B53C88200B3BF1C /* SwrveADBMobile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwrveADBMobile.m; path = ../SwrveADBMobile/SwrveADBMobile.m; sourceTree = SOURCE_ROOT; };
+		44268A98924F3062BAA8F0CB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3C48A9A34BD99C5072F3D60 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E6E44686577B3A086E09376D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B2673EF1B53B01700B3BF1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B2674271B53B87B00B3BF1C /* SystemConfiguration.framework in Frameworks */,
+				1B2674251B53B84D00B3BF1C /* CFNetwork.framework in Frameworks */,
+				1B2674231B53B83700B3BF1C /* libsqlite3.dylib in Frameworks */,
+				1B2674201B53B3CE00B3BF1C /* AdobeMobileLibrary.a in Frameworks */,
+				9E2C64A4C39AA114E0AE816D /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B2674081B53B01700B3BF1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B26742C1B53B8CC00B3BF1C /* CFNetwork.framework in Frameworks */,
+				1B26742B1B53B8C600B3BF1C /* SystemConfiguration.framework in Frameworks */,
+				1B26742A1B53B8C300B3BF1C /* libsqlite3.dylib in Frameworks */,
+				1B2674291B53B8BB00B3BF1C /* libPods.a in Frameworks */,
+				1B2674211B53B3CE00B3BF1C /* AdobeMobileLibrary.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04BFEDF344691F9106AB7C8D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E6E44686577B3A086E09376D /* Pods.debug.xcconfig */,
+				A3C48A9A34BD99C5072F3D60 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		1B2673E91B53B01700B3BF1C = {
+			isa = PBXGroup;
+			children = (
+				1B2673F41B53B01700B3BF1C /* SwrveAdobeMobileServicesDemo */,
+				1B26740E1B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests */,
+				1B2673F31B53B01700B3BF1C /* Products */,
+				1B26741B1B53B3CE00B3BF1C /* ADBMobile.h */,
+				1B26741C1B53B3CE00B3BF1C /* ADBMobileConfig.json */,
+				1B26741D1B53B3CE00B3BF1C /* AdobeMobileLibrary.a */,
+				1B2674331B53C88200B3BF1C /* SwrveADBMobile.h */,
+				1B2674341B53C88200B3BF1C /* SwrveADBMobile.m */,
+				04BFEDF344691F9106AB7C8D /* Pods */,
+				A0363E7BDD6850D9197A0E29 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1B2673F31B53B01700B3BF1C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1B2673F21B53B01700B3BF1C /* SwrveAdobeMobileServicesDemo.app */,
+				1B26740B1B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1B2673F41B53B01700B3BF1C /* SwrveAdobeMobileServicesDemo */ = {
+			isa = PBXGroup;
+			children = (
+				1B2673F91B53B01700B3BF1C /* AppDelegate.h */,
+				1B2673FA1B53B01700B3BF1C /* AppDelegate.m */,
+				1B2673FC1B53B01700B3BF1C /* ViewController.h */,
+				1B2673FD1B53B01700B3BF1C /* ViewController.m */,
+				1B2673FF1B53B01700B3BF1C /* Main.storyboard */,
+				1B2674021B53B01700B3BF1C /* Images.xcassets */,
+				1B2674041B53B01700B3BF1C /* LaunchScreen.xib */,
+				1B2673F51B53B01700B3BF1C /* Supporting Files */,
+			);
+			path = SwrveAdobeMobileServicesDemo;
+			sourceTree = "<group>";
+		};
+		1B2673F51B53B01700B3BF1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1B2673F61B53B01700B3BF1C /* Info.plist */,
+				1B2673F71B53B01700B3BF1C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1B26740E1B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				1B2674111B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests.m */,
+				1B26740F1B53B01700B3BF1C /* Supporting Files */,
+			);
+			path = SwrveAdobeMobileServicesDemoTests;
+			sourceTree = "<group>";
+		};
+		1B26740F1B53B01700B3BF1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1B2674101B53B01700B3BF1C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A0363E7BDD6850D9197A0E29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B2674311B53BF0700B3BF1C /* libPods-SwrveSDK.a */,
+				1B2674281B53B8BB00B3BF1C /* libPods.a */,
+				1B2674261B53B87B00B3BF1C /* SystemConfiguration.framework */,
+				1B2674241B53B84D00B3BF1C /* CFNetwork.framework */,
+				1B2674221B53B83700B3BF1C /* libsqlite3.dylib */,
+				44268A98924F3062BAA8F0CB /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1B2673F11B53B01700B3BF1C /* SwrveAdobeMobileServicesDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B2674151B53B01700B3BF1C /* Build configuration list for PBXNativeTarget "SwrveAdobeMobileServicesDemo" */;
+			buildPhases = (
+				FEEBB8456A7653BD966656D5 /* Check Pods Manifest.lock */,
+				1B2673EE1B53B01700B3BF1C /* Sources */,
+				1B2673EF1B53B01700B3BF1C /* Frameworks */,
+				1B2673F01B53B01700B3BF1C /* Resources */,
+				CD4FFAC6D1A0FFC69C8ED402 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwrveAdobeMobileServicesDemo;
+			productName = SwrveAdobeMobileServicesDemo;
+			productReference = 1B2673F21B53B01700B3BF1C /* SwrveAdobeMobileServicesDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1B26740A1B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B2674181B53B01700B3BF1C /* Build configuration list for PBXNativeTarget "SwrveAdobeMobileServicesDemoTests" */;
+			buildPhases = (
+				1B2674071B53B01700B3BF1C /* Sources */,
+				1B2674081B53B01700B3BF1C /* Frameworks */,
+				1B2674091B53B01700B3BF1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B26740D1B53B01700B3BF1C /* PBXTargetDependency */,
+			);
+			name = SwrveAdobeMobileServicesDemoTests;
+			productName = SwrveAdobeMobileServicesDemoTests;
+			productReference = 1B26740B1B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1B2673EA1B53B01700B3BF1C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = Swrve;
+				TargetAttributes = {
+					1B2673F11B53B01700B3BF1C = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					1B26740A1B53B01700B3BF1C = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 1B2673F11B53B01700B3BF1C;
+					};
+				};
+			};
+			buildConfigurationList = 1B2673ED1B53B01700B3BF1C /* Build configuration list for PBXProject "SwrveAdobeMobileServicesDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1B2673E91B53B01700B3BF1C;
+			productRefGroup = 1B2673F31B53B01700B3BF1C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1B2673F11B53B01700B3BF1C /* SwrveAdobeMobileServicesDemo */,
+				1B26740A1B53B01700B3BF1C /* SwrveAdobeMobileServicesDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1B2673F01B53B01700B3BF1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B2674011B53B01700B3BF1C /* Main.storyboard in Resources */,
+				1B26741E1B53B3CE00B3BF1C /* ADBMobileConfig.json in Resources */,
+				1B2674061B53B01700B3BF1C /* LaunchScreen.xib in Resources */,
+				1B2674031B53B01700B3BF1C /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B2674091B53B01700B3BF1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B26741F1B53B3CE00B3BF1C /* ADBMobileConfig.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CD4FFAC6D1A0FFC69C8ED402 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FEEBB8456A7653BD966656D5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1B2673EE1B53B01700B3BF1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B2673FE1B53B01700B3BF1C /* ViewController.m in Sources */,
+				1B2674351B53C88200B3BF1C /* SwrveADBMobile.m in Sources */,
+				1B2673FB1B53B01700B3BF1C /* AppDelegate.m in Sources */,
+				1B2673F81B53B01700B3BF1C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B2674071B53B01700B3BF1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1B26740D1B53B01700B3BF1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B2673F11B53B01700B3BF1C /* SwrveAdobeMobileServicesDemo */;
+			targetProxy = 1B26740C1B53B01700B3BF1C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1B2673FF1B53B01700B3BF1C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B2674001B53B01700B3BF1C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1B2674041B53B01700B3BF1C /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B2674051B53B01700B3BF1C /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1B2674131B53B01700B3BF1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1B2674141B53B01700B3BF1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1B2674161B53B01700B3BF1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6E44686577B3A086E09376D /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SwrveAdobeMobileServicesDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1B2674171B53B01700B3BF1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3C48A9A34BD99C5072F3D60 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SwrveAdobeMobileServicesDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1B2674191B53B01700B3BF1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SwrveAdobeMobileServicesDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwrveAdobeMobileServicesDemo.app/SwrveAdobeMobileServicesDemo";
+			};
+			name = Debug;
+		};
+		1B26741A1B53B01700B3BF1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SwrveAdobeMobileServicesDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwrveAdobeMobileServicesDemo.app/SwrveAdobeMobileServicesDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B2673ED1B53B01700B3BF1C /* Build configuration list for PBXProject "SwrveAdobeMobileServicesDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B2674131B53B01700B3BF1C /* Debug */,
+				1B2674141B53B01700B3BF1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B2674151B53B01700B3BF1C /* Build configuration list for PBXNativeTarget "SwrveAdobeMobileServicesDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B2674161B53B01700B3BF1C /* Debug */,
+				1B2674171B53B01700B3BF1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B2674181B53B01700B3BF1C /* Build configuration list for PBXNativeTarget "SwrveAdobeMobileServicesDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B2674191B53B01700B3BF1C /* Debug */,
+				1B26741A1B53B01700B3BF1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1B2673EA1B53B01700B3BF1C /* Project object */;
+}

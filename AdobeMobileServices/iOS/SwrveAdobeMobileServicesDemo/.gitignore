@@ -1,0 +1,6 @@
+project.xcworkspace/
+xcuserdata/
+build
+DerivedData
+Pods/
+
