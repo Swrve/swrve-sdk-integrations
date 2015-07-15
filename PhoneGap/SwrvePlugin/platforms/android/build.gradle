@@ -1,0 +1,9 @@
+repositories {
+    jcenter{
+        url = 'http://dl.bintray.com/swrve-inc/android'
+    }
+}
+
+dependencies {
+    compile 'com.swrve.sdk.android:swrve:4.0.0'
+}

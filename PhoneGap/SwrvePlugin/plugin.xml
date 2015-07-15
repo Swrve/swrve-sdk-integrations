@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.swrve.SwrvePlugin" version="0.0.1">
+
+      <name>SwrvePlugin</name>
+      <description>Android and iOS Cordova plugin for Swrve.</description>
+      <author>Swrve Mobile Inc</author>
+      <license>Apache 2.0</license>
+      <keywords>swrve,analytics,messaging</keywords>
+
+	<js-module src="js/swrve.js" name="SwrvePlugin">
+		<clobbers target="SwrvePlugin"/>
+	</js-module>
+
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="SwrvePlugin">
+				<param name="android-package" value="com.swrve.SwrvePlugin"/>
+                        <param name="onload" value="true" />
+			</feature>
+		</config-file>
+
+		<source-file src="platforms/android/src/com/swrve/SwrvePlugin.java" target-dir="src/com/swrve/" />
+		<framework src="platforms/android/build.gradle" custom="true" type="gradleReference" />
+
+            <config-file target="AndroidManifest.xml" parent="/manifest">
+                  <uses-permission android:name="android.permission.INTERNET"/>
+                  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+            </config-file>
+	</platform>
+
+	<platform name="ios">
+            <config-file target="config.xml" parent="/*">
+                  <feature name="SwrvePlugin">
+                        <param name="ios-package" value="SwrvePlugin"/>
+                        <param name="onload" value="true" />
+                  </feature>
+            </config-file>
+
+            <header-file src="platforms/ios/SwrvePlugin.h" />
+            <source-file src="platforms/ios/SwrvePlugin.m" />
+
+            <header-file src="platforms/ios/Sdk/Track/Swrve.h" target-dir="Sdk/Track/" />
+            <source-file src="platforms/ios/Sdk/Track/Swrve.m" target-dir="Sdk/Track/" />
+            <header-file src="platforms/ios/Sdk/Track/SwrveReceiptProvider.h" target-dir="Sdk/Track/" />
+            <source-file src="platforms/ios/Sdk/Track/SwrveReceiptProvider.m" target-dir="Sdk/Track/" />
+            <header-file src="platforms/ios/Sdk/Track/SwrveResourceManager.h" target-dir="Sdk/Track/" />
+            <source-file src="platforms/ios/Sdk/Track/SwrveResourceManager.m" target-dir="Sdk/Track/" />
+            <header-file src="platforms/ios/Sdk/Track/SwrveSignatureProtectedFile.h" target-dir="Sdk/Track/" />
+            <source-file src="platforms/ios/Sdk/Track/SwrveSignatureProtectedFile.m" target-dir="Sdk/Track/" />
+            <header-file src="platforms/ios/Sdk/Track/SwrveSwizzleHelper.h" target-dir="Sdk/Track/" />
+            <source-file src="platforms/ios/Sdk/Track/SwrveSwizzleHelper.m" target-dir="Sdk/Track/" />
+
+            <header-file src="platforms/ios/Sdk/Talk/SwrveButton.h" target-dir="Sdk/Talk/" />
+            <source-file src="platforms/ios/Sdk/Talk/SwrveButton.m" target-dir="Sdk/Talk/" />
+            <header-file src="platforms/ios/Sdk/Talk/SwrveCampaign.h" target-dir="Sdk/Talk/" />
+            <source-file src="platforms/ios/Sdk/Talk/SwrveCampaign.m" target-dir="Sdk/Talk/" />
+            <header-file src="platforms/ios/Sdk/Talk/SwrveImage.h" target-dir="Sdk/Talk/" />
+            <source-file src="platforms/ios/Sdk/Talk/SwrveImage.m" target-dir="Sdk/Talk/" />
+            <header-file src="platforms/ios/Sdk/Talk/SwrveInterfaceOrientation.h" target-dir="Sdk/Talk/" />
+            <header-file src="platforms/ios/Sdk/Talk/SwrveMessage.h" target-dir="Sdk/Talk/" />
+            <source-file src="platforms/ios/Sdk/Talk/SwrveMessage.m" target-dir="Sdk/Talk/" />
+            <header-file src="platforms/ios/Sdk/Talk/SwrveMessageController.h" target-dir="Sdk/Talk/" />
+            <source-file src="platforms/ios/Sdk/Talk/SwrveMessageController.m" target-dir="Sdk/Talk/" />
+            <header-file src="platforms/ios/Sdk/Talk/SwrveMessageFormat.h" target-dir="Sdk/Talk/" />
+            <source-file src="platforms/ios/Sdk/Talk/SwrveMessageFormat.m" target-dir="Sdk/Talk/" />
+            <header-file src="platforms/ios/Sdk/Talk/SwrveMessageViewController.h" target-dir="Sdk/Talk/" />
+            <source-file src="platforms/ios/Sdk/Talk/SwrveMessageViewController.m" target-dir="Sdk/Talk/" />
+            <header-file src="platforms/ios/Sdk/Talk/SwrveTalkQA.h" target-dir="Sdk/Talk/" />
+            <source-file src="platforms/ios/Sdk/Talk/SwrveTalkQA.m" target-dir="Sdk/Talk/" />
+      </platform>
+</plugin>
