@@ -69,14 +69,19 @@ var app = {
                 window.plugins.toast.showShortTop("Error: purchase not queued");
             });
         });
-        parentElement.querySelector('.swrve-iap').addEventListener('click', function() {
-            window.plugins.swrve.iap(2, "your.item", 2.99, "USD", function() {
-                window.plugins.toast.showShortTop("IAP queued");
-            }, function () {
-                window.plugins.toast.showShortTop("Error: IAP not queued");
+        
+        if (window.plugins.swrve.android) {
+            parentElement.querySelector('.swrve-iap').addEventListener('click', function() {
+                window.plugins.swrve.iap(2, "your.item", 2.99, "USD", function() {
+                    window.plugins.toast.showShortTop("IAP queued");
+                }, function () {
+                    window.plugins.toast.showShortTop("Error: IAP not queued");
+                });
             });
-        });
-        parentElement.querySelector('.swrve-flush-button').addEventListener('click', function() {
+        } else {
+            parentElement.querySelector('.swrve-iap').setAttribute('style','display:none;');
+        }
+        parentElement.querySelector('.swrve-send-events-button').addEventListener('click', function() {
             window.plugins.swrve.sendEvents(function() {
                 window.plugins.toast.showShortTop("Event queue sent to Swrve");
             }, function () {
@@ -84,15 +89,15 @@ var app = {
             });
         });
         parentElement.querySelector('.swrve-resources-button').addEventListener('click', function() {
-            window.plugins.swrve.getUserResources(function(resourcesJSON) {
-                window.alert(resourcesJSON);
+            window.plugins.swrve.getUserResources(function(resources) {
+                window.alert(resources);
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources");
             });
         });
         parentElement.querySelector('.swrve-resources-diff-button').addEventListener('click', function() {
-            window.plugins.swrve.getUserResourcesDiff(function(resourcesDiffJSON) {
-                window.alert(resourcesDiffJSON);
+            window.plugins.swrve.getUserResourcesDiff(function(resourcesDiff) {
+                window.alert(resourcesDiff);
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources diff");
             });

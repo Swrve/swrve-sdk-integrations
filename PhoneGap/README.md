@@ -6,15 +6,38 @@ How to integrate with Android
 1. Install this plugin into your project.
 2. Add a custom Application class to platforms/android/your.package.name
 3. Initialise the Swrve SDK as follows on onCreate:
-   SwrveSDK.createInstance(this, appId, apiKey);
+  * 
+```Java
+import com.swrve.sdk.SwrveSDK;
+public class Application extends android.app.Application {
+    @Override
+    public void onCreate() {
+        // Initialise the Swrve SDK with your configuration
+        SwrveSDK.createInstance(this, 1, "your_api_key");
+    }
+}
+```
+
 4. Modify the AndroidManifest.xml file to use the new custom Application class
-android:name=".Application
+android:name=".Application"
+5. Use window.plguins.swrve
 
 If you have any issues we recommend debugging with [Chrome's Remote Debugging](https://developer.chrome.com/devtools/docs/remote-debugging).
 
 How to integrate with iOS
 -----------------------------
-WIP
+1. Install this plugin into your project.
+2. Drag the SwrveSDK.framework into General - Embedded Binaries
+3. Initialise the Swrve SDK in your AppDelegate.m:
+  *
+```Objective-C
+#import <SwrveSDK/Swrve.h>
+    - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
+        [Swrve sharedInstanceWithAppID:1 apiKey:@"your_api_key"];
+        // The existing code
+    }
+```
+4. Use window.plguins.swrve
 
 Contributing
 ------------

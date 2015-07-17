@@ -5,10 +5,6 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="SwrvePlugin">
-        <param name="android-package" value="com.swrve.SwrvePlugin" />
-        <param name="onload" value="true" />
-    </feature>
     <feature name="Toast">
         <param name="android-package" value="nl.xservices.plugins.Toast" />
     </feature>
@@ -87,4 +83,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <feature name="SwrvePlugin">
+        <param name="android-package" value="com.swrve.SwrvePlugin" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>

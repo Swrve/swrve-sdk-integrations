@@ -1,5 +1,8 @@
 package com.swrve;
 
+import android.content.Context;
+
+import org.apache.cordova.Whitelist;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,12 +21,19 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
+import org.xmlpull.v1.XmlPullParser;
 
 public class SwrvePlugin extends CordovaPlugin {
+
+    // Used when instantiated via reflection by PluginManager
+    public SwrvePlugin() {
+    }
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
+        // Activity started
+        SwrveSDK.onCreate(cordova.getActivity());
     }
 
     private HashMap<String, String> getMapFromJSON(JSONObject json) throws JSONException {
@@ -148,36 +158,36 @@ public class SwrvePlugin extends CordovaPlugin {
     @Override
     public boolean execute(final String action, final JSONArray arguments, final CallbackContext callbackContext) {
         if ("event".equals(action)) {
-            if (isBadArgument(arguments, callbackContext, 1, "event arguments need to be supplied."))
-                return true;
-            sendEvent(arguments, callbackContext);
+            if (!isBadArgument(arguments, callbackContext, 1, "event arguments need to be supplied.")) {
+                sendEvent(arguments, callbackContext);
+            }
             return true;
 
         } else if ("userUpdate".equals(action)) {
-            if (isBadArgument(arguments, callbackContext, 1, "user update arguments need to be supplied."))
-                return true;
-            sendUserUpdate(arguments, callbackContext);
+            if (!isBadArgument(arguments, callbackContext, 1, "user update arguments need to be supplied.")) {
+                sendUserUpdate(arguments, callbackContext);
+            }
             return true;
 
         } else if ("currencyGiven".equals(action)) {
-            if (isBadArgument(arguments, callbackContext, 2, "currency given arguments need to be supplied."))
-                return true;
-            sendCurrencyGiven(arguments, callbackContext);
+            if (!isBadArgument(arguments, callbackContext, 2, "currency given arguments need to be supplied.")) {
+                sendCurrencyGiven(arguments, callbackContext);
+            }
             return true;
 
         } else if ("purchase".equals(action)) {
-            if (isBadArgument(arguments, callbackContext, 4, "purchase arguments need to be supplied."))
-                return true;
-            sendPurchase(arguments, callbackContext);
+            if (!isBadArgument(arguments, callbackContext, 4, "purchase arguments need to be supplied.")) {
+                sendPurchase(arguments, callbackContext);
+            }
             return true;
 
         } else if ("iap".equals(action)) {
-            if (isBadArgument(arguments, callbackContext, 4, "iap arguments need to be supplied."))
-                return true;
-            sendIap(arguments, callbackContext);
+            if (!isBadArgument(arguments, callbackContext, 4, "iap arguments need to be supplied.")) {
+                sendIap(arguments, callbackContext);
+            }
             return true;
 
-        } else if ("flushEvents".equals(action)) {
+        } else if ("sendEvents".equals(action)) {
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     SwrveSDK.sendQueuedEvents();
@@ -227,9 +237,9 @@ public class SwrvePlugin extends CordovaPlugin {
             });
             return true;
 
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     @Override
@@ -246,8 +256,7 @@ public class SwrvePlugin extends CordovaPlugin {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         SwrveSDK.onDestroy(cordova.getActivity());
+        super.onDestroy();
     }
 }
-

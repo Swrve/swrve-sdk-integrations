@@ -13,11 +13,11 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"SwrvePlugin\"><param name=\"android-package\" value=\"com.swrve.SwrvePlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
+                            "xml": "<feature name=\"SwrvePlugin\"><param name=\"android-package\" value=\"com.swrve.SwrvePlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -43,10 +43,10 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
-        "com.swrve.SwrvePlugin": {
+        "nl.x-services.plugins.toast": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
-        "nl.x-services.plugins.toast": {
+        "com.swrve.SwrvePlugin": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     },

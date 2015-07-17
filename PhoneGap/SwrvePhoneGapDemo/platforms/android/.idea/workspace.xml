@@ -1744,7 +1744,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve.js">
+    <entry file="file://$PROJECT_DIR$/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.5965346">
           <caret line="43" column="2" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />

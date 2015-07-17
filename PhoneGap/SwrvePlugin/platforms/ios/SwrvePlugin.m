@@ -1,68 +1,76 @@
 #import "SwrvePlugin.h"
-#import <Cordova/CDV.h>
 
-#import "Swrve.h"
+#import <Cordova/CDV.h>
+#import <SwrveSDK/Swrve.h>
 
 @implementation SwrvePlugin
 
-/*- (void)init:(CDVInvokedUrlCommand*)command
-{
-    @try {
-        NSNumber* appId = [self getNSNumberParam:command.arguments at:0];
-        NSString* apiKey = [self getNSStringParam:command.arguments at:1];
-        
-        // Initialize Swrve
-        [Swrve sharedInstanceWithAppID:[appId intValue] apiKey:apiKey];
-
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"OK"];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
-    
-    @catch ( NSException *e ) {
-        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-}*/
-
 - (void)event:(CDVInvokedUrlCommand*)command
 {
-    @try {
-        NSString* eventName = [self getNSStringParam:command.arguments at:0];
-        [[Swrve sharedInstance] event:eventName];
-        
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"OK"];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
+    CDVPluginResult* pluginResult = nil;
+    NSString* eventName = [command.arguments objectAtIndex:0];
     
-    @catch ( NSException *e ) {
-        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    if (eventName != nil) {
+        if ([command.arguments count] == 2) {
+            NSDictionary* payload = [command.arguments objectAtIndex:1];
+            [[Swrve sharedInstance] event:eventName payload:payload];
+        } else {
+            [[Swrve sharedInstance] event:eventName];
+        }
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Event name was null"];
     }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)userUpdate:(CDVInvokedUrlCommand*)command
 {
+    CDVPluginResult* pluginResult = nil;
+    NSDictionary* attributes = [command.arguments objectAtIndex:0];
+    
+    if (attributes != nil) {
+        [[Swrve sharedInstance] userUpdate:attributes];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Attributes were null"];
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)currencyGiven:(CDVInvokedUrlCommand*)command
 {
+    CDVPluginResult* pluginResult = nil;
+    if ([command.arguments count] == 2) {
+        NSString* currencyName = [command.arguments objectAtIndex:0];
+        NSNumber* amount = [command.arguments objectAtIndex:1];
+        
+        [[Swrve sharedInstance] currencyGiven:currencyName givenAmount:[amount doubleValue]];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Not enough args"];
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)purchase:(CDVInvokedUrlCommand*)command
 {
+    CDVPluginResult* pluginResult = nil;
+    if ([command.arguments count] == 4) {
+        NSString* itemName = [command.arguments objectAtIndex:0];
+        NSString* currencyName = [command.arguments objectAtIndex:1];
+        NSNumber* quantity = [command.arguments objectAtIndex:2];
+        NSNumber* cost = [command.arguments objectAtIndex:2];
+        
+        [[Swrve sharedInstance] purchaseItem:itemName currency:currencyName cost:[cost intValue] quantity:[quantity intValue]];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Not enough args"];
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)iap:(CDVInvokedUrlCommand*)command
-{
-}
-
-- (void)onPause:(CDVInvokedUrlCommand*)command
-{
-}
-
-- (void)onResume:(CDVInvokedUrlCommand*)command
-{
-}
-
-- (void)flushEvents:(CDVInvokedUrlCommand *)command
+- (void)sendEvents:(CDVInvokedUrlCommand *)command
 {
     @try {
         [[Swrve sharedInstance] sendQueuedEvents];
@@ -78,39 +86,18 @@
 
 - (void)getUserResources:(CDVInvokedUrlCommand *)command
 {
-    @try {
-        NSDictionary* userResourcesDic = [[[Swrve sharedInstance] getSwrveResourceManager] getResources];
-        
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:userResourcesDic];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
-    
-    @catch ( NSException *e ) {
-        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
+    NSDictionary* userResourcesDic = [[[Swrve sharedInstance] getSwrveResourceManager] getResources];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:userResourcesDic];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)getUserResourcesDiff:(CDVInvokedUrlCommand *)command
 {
-}
-
-// Utilities
--(NSString*) getNSStringParam:(NSArray*)array at:(int)index
-{
-    if ([[array objectAtIndex:index] isKindOfClass:[NSString class]]) {
-        return (NSString*)[array objectAtIndex:index];
-    }
-    
-    @throw([NSException exceptionWithName:@"Invalid plugin parameter" reason:@"Could not find NSString parameter" userInfo:nil]);
-}
-
--(NSNumber*) getNSNumberParam:(NSArray*)array at:(int)index
-{
-    if ([[array objectAtIndex:index] isKindOfClass:[NSNumber class]]) {
-        return (NSNumber*)[array objectAtIndex:index];
-    }
-    
-    @throw([NSException exceptionWithName:@"Invalid plugin parameter" reason:@"Could not find NSNumber parameter" userInfo:nil]);
+    [[Swrve sharedInstance] getUserResourcesDiff:^(NSDictionary *oldResourcesValues, NSDictionary *newResourcesValues, NSString *resourcesAsJSON) {
+        NSMutableDictionary* resourcesDictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:newResourcesValues, @"new", oldResourcesValues, @"old", nil];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resourcesDictionary];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 @end
