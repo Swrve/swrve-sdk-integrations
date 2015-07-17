@@ -6,13 +6,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/com.swrve.SwrvePlugin/js/swrve.js",
-        "id": "com.swrve.SwrvePlugin.SwrvePlugin",
-        "clobbers": [
-            "SwrvePlugin"
-        ]
-    },
-    {
         "file": "plugins/nl.x-services.plugins.toast/www/Toast.js",
         "id": "nl.x-services.plugins.toast.Toast",
         "clobbers": [
@@ -22,14 +15,21 @@ module.exports = [
     {
         "file": "plugins/nl.x-services.plugins.toast/test/tests.js",
         "id": "nl.x-services.plugins.toast.tests"
+    },
+    {
+        "file": "plugins/com.swrve.SwrvePlugin/js/swrve-android.js",
+        "id": "com.swrve.SwrvePlugin.SwrvePlugin",
+        "clobbers": [
+            "SwrvePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.0.0",
-    "com.swrve.SwrvePlugin": "0.0.1",
-    "nl.x-services.plugins.toast": "2.0.4"
+    "nl.x-services.plugins.toast": "2.0.4",
+    "com.swrve.SwrvePlugin": "0.0.1"
 }
 // BOTTOM OF METADATA
 });
