@@ -90,6 +90,7 @@ var app = {
         });
         parentElement.querySelector('.swrve-resources-button').addEventListener('click', function() {
             window.plugins.swrve.getUserResources(function(resources) {
+                // JSON object containing the resources
                 window.alert(resources);
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources");
@@ -97,6 +98,7 @@ var app = {
         });
         parentElement.querySelector('.swrve-resources-diff-button').addEventListener('click', function() {
             window.plugins.swrve.getUserResourcesDiff(function(resourcesDiff) {
+                // JSON object containing the resources
                 window.alert(resourcesDiff);
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources diff");
