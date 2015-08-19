@@ -19,7 +19,12 @@
 
 package com.phonegap.helloworld;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+
+import com.swrve.sdk.SwrveSDK;
+
 import org.apache.cordova.*;
 
 public class MainActivity extends CordovaActivity
@@ -31,4 +36,12 @@ public class MainActivity extends CordovaActivity
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
     }
+
+    // Add this to your MainActivity
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        SwrveSDK.processIntent(intent);
+    }
+    // End of changes
 }

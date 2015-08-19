@@ -1,4 +1,5 @@
 # Non-project-specific build files:
+.idea/
 build.xml
 local.properties
 /gradlew

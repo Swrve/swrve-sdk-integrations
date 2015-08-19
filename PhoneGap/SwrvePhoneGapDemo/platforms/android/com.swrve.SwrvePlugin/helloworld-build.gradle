@@ -5,5 +5,5 @@ repositories {
 }
 
 dependencies {
-    compile 'com.swrve.sdk.android:swrve:4.0.0'
+    compile 'com.swrve.sdk.android:swrve-google:4.0.1'
 }

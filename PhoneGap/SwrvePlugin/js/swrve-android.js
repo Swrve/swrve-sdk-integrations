@@ -1,4 +1,4 @@
-var SwrvePlugin = function() {}
+function SwrvePlugin() {}
 
 SwrvePlugin.prototype.android = true;
 SwrvePlugin.prototype.ios = false;
@@ -46,11 +46,13 @@ SwrvePlugin.prototype.getUserResourcesDiff = function(success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "getUserResourcesDiff", []);
 };
 
-if (!window.plugins) {
-  window.plugins = {};
-}
-if (!window.plugins.swrve) {
-  window.plugins.swrve = new SwrvePlugin();
-}
+SwrvePlugin.install = function () {
+  if (!window.plugins) {
+    window.plugins = {};
+  }
 
-module.exports = SwrvePlugin;
+  window.plugins.swrve = new SwrvePlugin();
+  return window.plugins.swrve;
+};
+
+cordova.addConstructor(SwrvePlugin.install);

@@ -203,7 +203,7 @@ public class SwrvePlugin extends CordovaPlugin {
                             new UIThreadSwrveResourcesRunnable() {
                                 @Override
                                 public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsJSON) {
-                                    callbackContext.success(resources);
+                                    callbackContext.success(new JSONObject(resources));
                                 }
 
                                 @Override
@@ -223,10 +223,14 @@ public class SwrvePlugin extends CordovaPlugin {
                             new UIThreadSwrveResourcesDiffRunnable() {
                                 @Override
                                 public void onUserResourcesDiffSuccess(Map<String, Map<String, String>> oldResources, Map<String, Map<String, String>> newResources, String resourcesAsJSON) {
-                                    Map<String, String> result = new HashMap<String, String>();
-                                    result.put("old", oldResources);
-                                    result.put("new", newResources);
-                                    callbackContext.success(result);
+                                    try {
+                                        JSONObject result = new JSONObject();
+                                        result.put("old", oldResources);
+                                        result.put("new", newResources);
+                                        callbackContext.success(result);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
 
                                 @Override
