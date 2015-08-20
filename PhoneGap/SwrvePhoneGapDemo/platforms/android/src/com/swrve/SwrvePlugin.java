@@ -1,6 +1,8 @@
 package com.swrve;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
 import org.apache.cordova.Whitelist;
 import org.json.JSONArray;
@@ -10,8 +12,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
+import java.util.Set;
 
 import com.swrve.sdk.SwrveSDK;
+import com.swrve.sdk.gcm.ISwrvePushNotificationListener;
+import com.swrve.sdk.messaging.ISwrveCustomButtonListener;
 import com.swrve.sdk.runnable.UIThreadSwrveResourcesRunnable;
 import com.swrve.sdk.UIThreadSwrveUserResourcesListener;
 import com.swrve.sdk.runnable.UIThreadSwrveResourcesDiffRunnable;
@@ -25,8 +30,12 @@ import org.xmlpull.v1.XmlPullParser;
 
 public class SwrvePlugin extends CordovaPlugin {
 
+    private static SwrvePlugin instance;
+
     // Used when instantiated via reflection by PluginManager
     public SwrvePlugin() {
+        super();
+        instance = this;
     }
 
     @Override
@@ -243,7 +252,6 @@ public class SwrvePlugin extends CordovaPlugin {
                 }
             });
             return true;
-
         }
 
         return false;
@@ -266,4 +274,34 @@ public class SwrvePlugin extends CordovaPlugin {
         SwrveSDK.onDestroy(cordova.getActivity());
         super.onDestroy();
     }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        SwrveSDK.processIntent(intent);
+    }
+
+    public static ISwrveCustomButtonListener customButtonListener = new ISwrveCustomButtonListener() {
+        @Override
+        public void onAction(String action) {
+            instance.webView.loadUrl("javascript:window.swrveCustomButtonListener('"+ action +"')");
+        }
+    };
+
+    public static ISwrvePushNotificationListener pushNotificationListener = new ISwrvePushNotificationListener() {
+
+        @Override
+        public void onPushNotification(Bundle bundle) {
+            JSONObject json = new JSONObject();
+            Set<String> keys = bundle.keySet();
+            for (String key : keys) {
+                try {
+                    json.put(key, bundle.get(key));
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            instance.webView.loadUrl("javascript:window.swrvePushNotificationListener('"+ json.toString() +"')");
+        }
+    };
 }
