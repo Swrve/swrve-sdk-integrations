@@ -1,21 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 var app = {
     // Application Constructor
     initialize: function() {
@@ -32,6 +14,15 @@ var app = {
     onDeviceReady: function() {
         var parentElement = document.getElementById('swrve-panel');
         parentElement.setAttribute('style','display:block;');
+
+        // Set IAM custom button listener
+        window.swrveCustomButtonListener = function(action) { 
+            alert("IAM custom button clicked: " + action);
+        };
+        // Set push payload listener
+        window.swrvePushNotificationListener = function(payload) {
+            alert("Push payload: " + payload);
+        };
 
         parentElement.querySelector('.swrve-event-button').addEventListener('click', function() {
             window.plugins.swrve.event("helo.from.phonegap", [], function() {
@@ -56,19 +47,20 @@ var app = {
             });
         });
         parentElement.querySelector('.swrve-currency-given').addEventListener('click', function() {
-            window.plugins.swrve.currencyGiven("gold", 20, function() {
+            window.plugins.swrve.currencyGiven("Gold", 20, function() {
                 window.plugins.toast.showShortTop("Currency given queued");
             }, function () {
                 window.plugins.toast.showShortTop("Error: currency given not queued");
             });
         });
         parentElement.querySelector('.swrve-purchase').addEventListener('click', function() {
-            window.plugins.swrve.purchase("your.item", "gold", 2, 15, function() {
+            window.plugins.swrve.purchase("your.item", "Gold", 2, 15, function() {
                 window.plugins.toast.showShortTop("Purchase queued");
             }, function () {
                 window.plugins.toast.showShortTop("Error: purchase not queued");
             });
         });
+
         if (window.plugins.swrve.android) {
             parentElement.querySelector('.swrve-iap').addEventListener('click', function() {
                 window.plugins.swrve.iap(2, "your.item", 2.99, "USD", function() {
@@ -89,6 +81,7 @@ var app = {
         });
         parentElement.querySelector('.swrve-resources-button').addEventListener('click', function() {
             window.plugins.swrve.getUserResources(function(resources) {
+                // JSON object containing the resources
                 window.alert(resources);
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources");
@@ -96,6 +89,7 @@ var app = {
         });
         parentElement.querySelector('.swrve-resources-diff-button').addEventListener('click', function() {
             window.plugins.swrve.getUserResourcesDiff(function(resourcesDiff) {
+                // JSON object containing the resources
                 window.alert(resourcesDiff);
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources diff");

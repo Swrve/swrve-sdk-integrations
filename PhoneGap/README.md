@@ -8,16 +8,21 @@ How to integrate with Android
 3. Initialise the Swrve SDK as follows on onCreate:
   * 
 ```Java
+import com.swrve.SwrvePlugin;
 import com.swrve.sdk.SwrveSDK;
 import com.swrve.sdk.config.SwrveConfig;
 public class Application extends android.app.Application {
     @Override
     public void onCreate() {
-        // Initialise the Swrve SDK with your configuration
+        super.onCreate();
         // Optional: Google GCM configuration
         SwrveConfig config = new SwrveConfig();
-        config.setSenderID(your_gcm_sender_id);
-        SwrveSDK.createInstance(this, 1, "your_api_key", config);
+        config.setSenderId("334691050849");
+        // Initialise the Swrve SDK with your configuration
+        SwrveSDK.createInstance(this, 1, "your_api_key");
+        SwrveSDK.setCustomButtonListener(SwrvePlugin.customButtonListener);
+        // Optional: Set a push notification listener
+        SwrveSDK.setPushNotificationListener(SwrvePlugin.pushNotificationListener);
     }
 }
 ```
@@ -25,17 +30,6 @@ public class Application extends android.app.Application {
 4. Modify the AndroidManifest.xml file to use the new custom Application class
 android:name=".Application"
 5. (Optional for GCM push) Make the same AndroidManifest.xml modifications as the native SDK in the following doc to your PhoneGap app: http://docs.swrve.com/developer-documentation/advanced-integration/39456203/. If you don't want to use Google GCM pushes you can compile against our standard SDK by changing the plugin's dependency to compile 'com.swrve.sdk.android:swrve:X.X.X'
-
-
-Then modify your MainActivity like follows:
-  * 
-```Java
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        SwrveSDK.processIntent(intent);
-    }
-```
 6. Use window.plugins.swrve and enjoy!
 
 If you have any issues we recommend debugging with [Chrome's Remote Debugging](https://developer.chrome.com/devtools/docs/remote-debugging).

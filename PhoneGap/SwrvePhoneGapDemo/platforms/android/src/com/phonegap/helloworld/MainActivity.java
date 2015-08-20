@@ -36,12 +36,4 @@ public class MainActivity extends CordovaActivity
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
     }
-
-    // Add this to your MainActivity
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        SwrveSDK.processIntent(intent);
-    }
-    // End of changes
 }
