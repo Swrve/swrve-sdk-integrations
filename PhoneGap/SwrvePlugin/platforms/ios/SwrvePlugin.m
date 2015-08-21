@@ -1,9 +1,60 @@
 #import "SwrvePlugin.h"
+#import "AppDelegate.h"
 
 #import <Cordova/CDV.h>
 #import <SwrveSDK/Swrve.h>
 
+static CDVViewController* globalViewController;
+
 @implementation SwrvePlugin
+
++ (void)initWithAppID:(int)appId apiKey:(NSString*)apiKey viewController:(CDVViewController*)viewController launchOptions:(NSDictionary*)launchOptions
+{
+    [SwrvePlugin initWithAppID:appId apiKey:apiKey config:nil viewController:viewController launchOptions:launchOptions];
+}
+
++ (void)initWithAppID:(int)appId apiKey:(NSString*)apiKey config:(SwrveConfig*)config viewController:(CDVViewController*)viewController launchOptions:(NSDictionary*)launchOptions
+{
+    globalViewController = viewController;
+    if (config == nil) {
+        config = [[SwrveConfig alloc] init];
+        config.pushEnabled = YES;
+    }
+    
+    [Swrve sharedInstanceWithAppID:appId apiKey:apiKey config:config];
+
+    // Tell the Swrve SDK your app was launched from a push notification
+    NSDictionary * remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteNotification) {
+        [SwrvePlugin notifySwrvePluginOfRemoteNotification:remoteNotification];
+    }
+    // Notify the Swrve JS plugin of the IAM custom button click
+    [Swrve sharedInstance].talk.customButtonCallback = ^(NSString* action) {
+        [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.swrveCustomButtonListener('%@')", action]];
+    };
+}
+
++ (void) application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    UIApplicationState swrveState = [application applicationState];
+    if (swrveState == UIApplicationStateInactive || swrveState == UIApplicationStateBackground) {
+        [SwrvePlugin notifySwrvePluginOfRemoteNotification:userInfo];
+    }
+}
+
++ (void)notifySwrvePluginOfRemoteNotification:(NSDictionary* )userInfo
+{
+    [[Swrve sharedInstance].talk pushNotificationReceived:userInfo];
+    // Notify the Swrve JS plugin of this remote notification
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:0 error:&error];
+    if (!jsonData) {
+        NSLog(@"Could not serialize remote push notification payload: %@", error);
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.swrvePushNotificationListener('%@')", jsonString]];
+    }
+}
 
 - (void)event:(CDVInvokedUrlCommand*)command
 {

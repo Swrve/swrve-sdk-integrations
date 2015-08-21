@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1B24B9FA1B57E70900D8A5F4 /* SwrvePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24B9F91B57E70900D8A5F4 /* SwrvePlugin.m */; };
-		1B86AFDD1B5910F400071545 /* SwrveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A80B8366F44C3D8ABEDFC0 /* SwrveSDK.framework */; };
 		1B86AFDE1B5910F400071545 /* SwrveSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 98A80B8366F44C3D8ABEDFC0 /* SwrveSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B8CFFE61B876A9D004C4168 /* SwrveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A80B8366F44C3D8ABEDFC0 /* SwrveSDK.framework */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
@@ -138,7 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */,
-				1B86AFDD1B5910F400071545 /* SwrveSDK.framework in Frameworks */,
+				1B8CFFE61B876A9D004C4168 /* SwrveSDK.framework in Frameworks */,
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
@@ -461,6 +461,12 @@
 					World/Plugins/com.swrve.SwrvePlugin,
 					"$(PROJECT_DIR)/Hello",
 					World/Plugins/com.swrve.SwrvePlugin,
+					"$(PROJECT_DIR)/Hello",
+					World/Plugins/com.swrve.SwrvePlugin,
+					"$(PROJECT_DIR)/Hello",
+					World/Plugins/com.swrve.SwrvePlugin,
+					"$(PROJECT_DIR)/Hello",
+					World/Plugins/com.swrve.SwrvePlugin,
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -483,6 +489,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.swrve.iOSQAApp;
 				PRODUCT_NAME = "Hello World";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -510,6 +517,12 @@
 					World/Plugins/com.swrve.SwrvePlugin,
 					"$(PROJECT_DIR)/Hello",
 					World/Plugins/com.swrve.SwrvePlugin,
+					"$(PROJECT_DIR)/Hello",
+					World/Plugins/com.swrve.SwrvePlugin,
+					"$(PROJECT_DIR)/Hello",
+					World/Plugins/com.swrve.SwrvePlugin,
+					"$(PROJECT_DIR)/Hello",
+					World/Plugins/com.swrve.SwrvePlugin,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hello World/Hello World-Prefix.pch";
@@ -530,6 +543,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.swrve.iOSQAApp;
 				PRODUCT_NAME = "Hello World";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -1,6 +1,11 @@
 #import <Cordova/CDV.h>
+#import <SwrveSDK/Swrve.h>
 
 @interface SwrvePlugin : CDVPlugin
+
++ (void)initWithAppID:(int)appId apiKey:(NSString*)apiKey viewController:(CDVViewController*)viewController launchOptions:(NSDictionary*)launchOptions;
++ (void)initWithAppID:(int)appId apiKey:(NSString*)apiKey config:(SwrveConfig*)config viewController:(CDVViewController*)viewController launchOptions:(NSDictionary*)launchOptions;
++ (void) application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo;
 
 - (void)event:(CDVInvokedUrlCommand*)command;
 - (void)userUpdate:(CDVInvokedUrlCommand*)command;
