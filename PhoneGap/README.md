@@ -17,9 +17,9 @@ public class Application extends android.app.Application {
         super.onCreate();
         // Optional: Google GCM configuration
         SwrveConfig config = new SwrveConfig();
-        config.setSenderId("334691050849");
+        config.setSenderId("your_sender_id");
         // Initialise the Swrve SDK with your configuration
-        SwrveSDK.createInstance(this, 1, "your_api_key");
+        SwrveSDK.createInstance(this, 1, "your_api_key", config);
         SwrveSDK.setCustomButtonListener(SwrvePlugin.customButtonListener);
         // Optional: Set a push notification listener
         SwrveSDK.setPushNotificationListener(SwrvePlugin.pushNotificationListener);
@@ -38,13 +38,17 @@ How to integrate with iOS
 -----------------------------
 1. Install this plugin into your project.
 2. Drag the SwrveSDK.framework into General - Embedded Binaries
-3. Initialise the Swrve SDK in your AppDelegate.m:
+3. Initialise the Swrve SDK in your AppDelegate.m and add support for remote notifications received while the app is open:
   *
 ```Objective-C
 #import <SwrveSDK/Swrve.h>
     - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
-        [Swrve sharedInstanceWithAppID:1 apiKey:@"your_api_key"];
-        // The existing code
+        [SwrvePlugin initWithAppID:1 apiKey:@"api_key" viewController:self.viewController launchOptions:launchOptions];
+        //...
+    }
+
+    -(void) application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+        [SwrvePlugin application:application didReceiveRemoteNotification:userInfo];
     }
 ```
 4. Use window.plugins.swrve and enjoy!

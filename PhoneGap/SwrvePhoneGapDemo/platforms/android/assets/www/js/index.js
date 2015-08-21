@@ -17,11 +17,11 @@ var app = {
 
         // Set IAM custom button listener
         window.swrveCustomButtonListener = function(action) { 
-            alert("IAM custom button clicked: " + action);
+            window.plugins.toast.showShortTop("IAM custom button clicked: " + action);
         };
         // Set push payload listener
         window.swrvePushNotificationListener = function(payload) {
-            alert("Push payload: " + payload);
+            window.plugins.toast.showShortTop("Push payload: " + payload);
         };
 
         parentElement.querySelector('.swrve-event-button').addEventListener('click', function() {
