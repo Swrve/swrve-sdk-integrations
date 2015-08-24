@@ -469,7 +469,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.swrve.iOSQAApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phonegap.helloworld;
 				PRODUCT_NAME = "Hello World";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -504,7 +504,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.swrve.iOSQAApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phonegap.helloworld;
 				PRODUCT_NAME = "Hello World";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

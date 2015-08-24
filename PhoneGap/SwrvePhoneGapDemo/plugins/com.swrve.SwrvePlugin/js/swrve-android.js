@@ -55,7 +55,11 @@ SwrvePlugin.install = function () {
   // Empty callback, override this to listen to custom IAM buttons
   window.swrveCustomButtonListener = function(action) {};
   // Empty callback, override this to listen to push notifications
-  window.swrvePushNotificationListener = function(paylod) {};
+  window.swrveProcessPushNotification = function(base64Payload) {
+    // Decode the base64 encoded string sent by the plugin
+    window.swrvePushNotificationListener(JSON.parse(window.atob(base64Payload)));
+  };
+  window.swrvePushNotificationListener = function(payload) {};
   
   return window.plugins.swrve;
 };
