@@ -39,3 +39,6 @@ task :build do
 	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap prepare ios && phonegap compile ios')
 	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap prepare android && phonegap compile android')
 end
+
+task :test do
+end

@@ -53,6 +53,10 @@ How to integrate with iOS
 ```
 4. Use window.plugins.swrve and enjoy!
 
+Testing
+-----------------------------
+Run the rake task 'rake build test'. This will update the demo project with the latest source from the Swrve plugin and compile both Android and iOS platforms. It will also run any tests that exist in the demo project.
+
 Contributing
 ------------
 We would love to see your contributions! Follow these steps:
