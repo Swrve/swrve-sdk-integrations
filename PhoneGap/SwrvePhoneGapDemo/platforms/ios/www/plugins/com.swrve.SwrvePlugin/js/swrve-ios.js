@@ -1,4 +1,4 @@
-cordova.define("com.swrve.SwrvePlugin.SwrvePlugin", function(require, exports, module) {function SwrvePlugin() {}
+cordova.define("com.swrve.SwrvePlugin.SwrvePlugin", function(require, exports, module) { function SwrvePlugin() {}
 
 SwrvePlugin.prototype.android = false;
 SwrvePlugin.prototype.ios = true;
@@ -50,4 +50,5 @@ SwrvePlugin.install = function () {
 };
 
 cordova.addConstructor(SwrvePlugin.install);
+
 });

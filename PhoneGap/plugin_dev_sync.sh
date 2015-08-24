@@ -8,7 +8,7 @@ DEMOIOS="SwrvePhoneGapDemo/platforms/ios"
 DEMOANDROID="SwrvePhoneGapDemo/platforms/android"
 
 # Global plugin
-cp -R $PLUGIN/ $DEMO/com.swrve.SwrvePlugin/
+cp -R $PLUGIN/ $DEMO/plugins/com.swrve.SwrvePlugin/
 
 # Android platform
 cp $PLUGIN/platforms/android/build.gradle $DEMOANDROID/com.swrve.SwrvePlugin/helloworld-build.gradle

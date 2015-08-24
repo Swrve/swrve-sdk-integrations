@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
-import java.util.Set;
 
 import com.swrve.sdk.SwrveSDK;
 import com.swrve.sdk.gcm.ISwrvePushNotificationListener;
