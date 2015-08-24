@@ -1,0 +1,39 @@
+require 'open3'
+
+$parentDir = File.dirname(__FILE__)
+
+class String
+	def green;          "\033[32m#{self}\033[0m" end
+	def bg_red;         "\033[41m#{self}\033[0m" end
+	def bold;           "\033[1m#{self}\033[22m" end
+end
+
+def announce(title)
+	puts "[####] #{title}".green.bold
+end
+
+def exec(title, cmd)
+	announce(title) unless title.nil?
+	sh cmd do |ok, res|
+ 		raise "[####] #{title} failed with exit code #{res.exitstatus}".bg_red.bold unless ok || title.nil?
+ 		raise "[####] Last command failed with exit code #{res.exitstatus}".bg_red.bold unless ok
+ 	end
+end
+
+def error(title)
+	raise "[####] #{title}".bg_red.bold
+end
+
+def relative(path)
+	$parentDir + "/" + path
+end
+
+def execInDir(title, dir, cmd)
+	exec(title, %Q{(cd #{dir}/; #{cmd})})
+end
+
+task :default => :build
+
+task :build do
+	execInDir('Building ADBMobile iOS Demo', relative('SwrveAdobeMobileServicesDemo'), 'pod install && xcodebuild -workspace SwrveAdobeMobileServicesDemo.xcworkspace -scheme SwrveAdobeMobileServicesDemo build')
+end
