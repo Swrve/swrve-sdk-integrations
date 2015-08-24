@@ -35,5 +35,5 @@ end
 task :default => :build
 
 task :build do
-	execInDir('Building Android ADBMobile iOS Demo', relative('SwrveAdobeMobileServicesDemo'), 'pod install && xcodebuild -workspace SwrveAdobeMobileServicesDemo.xcworkspace -scheme SwrveAdobeMobileServicesDemo build')
+	execInDir('Building ADBMobile iOS Demo', relative('SwrveAdobeMobileServicesDemo'), 'pod install && xcodebuild -workspace SwrveAdobeMobileServicesDemo.xcworkspace -scheme SwrveAdobeMobileServicesDemo build')
 end
