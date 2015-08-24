@@ -35,5 +35,5 @@ end
 task :default => :build
 
 task :build do
-	execInDir('Building Android ADBMobile Android Demo', relative('SwrveAdobeMobileServicesDemo'), './gradlew build')
+	execInDir('Building ADBMobile Android Demo', relative('SwrveAdobeMobileServicesDemo'), './gradlew build')
 end
