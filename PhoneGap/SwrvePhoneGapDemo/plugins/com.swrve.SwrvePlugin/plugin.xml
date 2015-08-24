@@ -7,28 +7,28 @@
       <license>Apache 2.0</license>
       <keywords>swrve,analytics,messaging</keywords>
 
-      <platform name="android">
+	<platform name="android">
             <js-module src="js/swrve-android.js" name="SwrvePlugin">
                   <clobbers target="SwrvePlugin"/>
             </js-module>
 
-            <config-file target="res/xml/config.xml" parent="/*">
-                  <feature name="SwrvePlugin">
-                        <param name="android-package" value="com.swrve.SwrvePlugin"/>
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="SwrvePlugin">
+				<param name="android-package" value="com.swrve.SwrvePlugin"/>
                         <param name="onload" value="true" />
-                  </feature>
-            </config-file>
+			</feature>
+		</config-file>
 
-            <source-file src="platforms/android/src/com/swrve/SwrvePlugin.java" target-dir="src/com/swrve/" />
-            <framework src="platforms/android/build.gradle" custom="true" type="gradleReference" />
+		<source-file src="platforms/android/src/com/swrve/SwrvePlugin.java" target-dir="src/com/swrve/" />
+		<framework src="platforms/android/build.gradle" custom="true" type="gradleReference" />
 
             <config-file target="AndroidManifest.xml" parent="/manifest">
                   <uses-permission android:name="android.permission.INTERNET"/>
                   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
             </config-file>
-      </platform>
+	</platform>
 
-      <platform name="ios">
+	<platform name="ios">
             <js-module src="js/swrve-ios.js" name="SwrvePlugin">
                   <clobbers target="SwrvePlugin"/>
             </js-module>

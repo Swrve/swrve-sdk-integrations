@@ -1,5 +1,6 @@
-var SwrvePlugin = function() {}
+function SwrvePlugin() {}
 
+SwrvePlugin.prototype.android = false;
 SwrvePlugin.prototype.ios = true;
 
 // parameters is a JSON object
@@ -27,12 +28,6 @@ SwrvePlugin.prototype.purchase = function(name, currency, quantity, cost, succes
   return cordova.exec(success, fail, "SwrvePlugin", "purchase", [name, currency, quantity, cost]);
 };
 
-// quantity is int
-// price is float
-SwrvePlugin.prototype.iap = function(quantity, product_id, price, currency, success, fail) {
-  return cordova.exec(success, fail, "SwrvePlugin", "iap", [quantity, product_id, price, currency]);
-};
-
 SwrvePlugin.prototype.sendEvents = function(success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "sendEvents", []);
 };
@@ -45,11 +40,13 @@ SwrvePlugin.prototype.getUserResourcesDiff = function(success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "getUserResourcesDiff", []);
 };
 
-if (!window.plugins) {
-  window.plugins = {};
-}
-if (!window.plugins.swrve) {
-  window.plugins.swrve = new SwrvePlugin();
-}
+SwrvePlugin.install = function () {
+  if (!window.plugins) {
+    window.plugins = {};
+  }
 
-module.exports = SwrvePlugin;
+  window.plugins.swrve = new SwrvePlugin();
+  return window.plugins.swrve;
+};
+
+cordova.addConstructor(SwrvePlugin.install);

@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		1B24B9FA1B57E70900D8A5F4 /* SwrvePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24B9F91B57E70900D8A5F4 /* SwrvePlugin.m */; };
 		1B6F8AE41B8B1A65007636E0 /* SwrveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A80B8366F44C3D8ABEDFC0 /* SwrveSDK.framework */; };
@@ -447,28 +446,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					Hello,
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
+					"\"$(PROJECT_DIR)/Hello World/Plugins/com.swrve.SwrvePlugin\"/**",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -505,28 +483,7 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					Hello,
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
-					"$(PROJECT_DIR)/Hello",
-					World/Plugins/com.swrve.SwrvePlugin,
+					"\"$(PROJECT_DIR)/Hello World/Plugins/com.swrve.SwrvePlugin\"/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hello World/Hello World-Prefix.pch";

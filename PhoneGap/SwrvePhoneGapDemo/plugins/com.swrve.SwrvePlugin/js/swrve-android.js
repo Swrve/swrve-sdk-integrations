@@ -1,6 +1,7 @@
-var SwrvePlugin = function() {}
+function SwrvePlugin() {}
 
 SwrvePlugin.prototype.android = true;
+SwrvePlugin.prototype.ios = false;
 
 // parameters is a JSON object
 SwrvePlugin.prototype.event = function(name, parameters, success, fail) {
@@ -45,11 +46,18 @@ SwrvePlugin.prototype.getUserResourcesDiff = function(success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "getUserResourcesDiff", []);
 };
 
-if (!window.plugins) {
-  window.plugins = {};
-}
-if (!window.plugins.swrve) {
-  window.plugins.swrve = new SwrvePlugin();
-}
+SwrvePlugin.install = function () {
+  if (!window.plugins) {
+    window.plugins = {};
+  }
 
-module.exports = SwrvePlugin;
+  window.plugins.swrve = new SwrvePlugin();
+  // Empty callback, override this to listen to custom IAM buttons
+  window.swrveCustomButtonListener = function(action) {};
+  // Empty callback, override this to listen to push notifications
+  window.swrvePushNotificationListener = function(paylod) {};
+  
+  return window.plugins.swrve;
+};
+
+cordova.addConstructor(SwrvePlugin.install);
