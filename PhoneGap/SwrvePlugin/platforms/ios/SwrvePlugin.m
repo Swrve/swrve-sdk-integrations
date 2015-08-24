@@ -51,8 +51,10 @@ static CDVViewController* globalViewController;
     if (!jsonData) {
         NSLog(@"Could not serialize remote push notification payload: %@", error);
     } else {
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.swrvePushNotificationListener('%@')", jsonString]];
+        NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64Json = [jsonData cdv_base64EncodedString];
+        [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.swrvePushNotificationListener('%@')", base64Json]];
     }
 }
 

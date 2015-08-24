@@ -3,6 +3,7 @@ package com.swrve;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 
 import org.apache.cordova.Whitelist;
 import org.json.JSONArray;
@@ -301,7 +302,9 @@ public class SwrvePlugin extends CordovaPlugin {
                     e.printStackTrace();
                 }
             }
-            instance.webView.loadUrl("javascript:window.swrvePushNotificationListener('"+ json.toString() +"')");
+            String jsonString = json.toString();
+            byte[] jsonBytes = jsonString.getBytes();
+            instance.webView.loadUrl("javascript:window.swrvePushNotificationListener('"+ Base64.encodeToString(jsonBytes, Base64.DEFAULT) +"')");
         }
     };
 }
