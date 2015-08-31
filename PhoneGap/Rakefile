@@ -40,12 +40,12 @@ task :build do
 	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap prepare android && phonegap compile android')
 end
 
-task :testInEmulators, [:simulator] do |t, args|
+task :testInEmulator, [:simulator] do |t, args|
 	simulator = args[:simulator]
 	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild test -scheme 'Hello World' -destination #{simulator}")
 end
 
 task :test do
 	# Default emulator to test on
-	task(:testInEmulators).invoke("OS=8.3,name='iPad Air'")
+	task(:testInEmulator).invoke("OS=8.3,name='iPad Air'")
 end
