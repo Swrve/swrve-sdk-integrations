@@ -36,8 +36,8 @@ task :default => :build
 
 task :build do
 	execInDir('Updating to latest plugin source', $parentDir, 'sh plugin_dev_sync.sh')
-	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap prepare ios && phonegap compile ios')
-	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap prepare android && phonegap compile android')
+	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile ios')
+	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile android')
 end
 
 task :testInEmulator, [:simulator] do |t, args|
