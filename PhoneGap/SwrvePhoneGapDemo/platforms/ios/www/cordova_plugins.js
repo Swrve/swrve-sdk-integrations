@@ -24,7 +24,7 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.0.0",
     "nl.x-services.plugins.toast": "2.0.4",
-    "com.swrve.SwrvePlugin": "0.0.1"
+    "com.swrve.SwrvePlugin": "1.0.0"
 }
 // BOTTOM OF METADATA
 });
