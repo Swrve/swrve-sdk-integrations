@@ -38,10 +38,6 @@
  */
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
-    // SWRVE CHANGES
-    [SwrvePlugin initWithAppID:1 apiKey:@"api_key" viewController:self.viewController launchOptions:launchOptions];
-    // END OF CHANGES
-    
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
 
 #if __has_feature(objc_arc)
@@ -66,14 +62,26 @@
 
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    // SWRVE CHANGES
+    [self setupSwrveWithLaunchOptions:launchOptions];
+    // END OF CHANGES
 
     return YES;
 }
 
 // SWRVE CHANGES
--(void) application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+-(void) setupSwrveWithLaunchOptions:(NSDictionary*)launchOptions
+{
+    [SwrvePlugin initWithAppID:1 apiKey:@"api_key" viewController:self.viewController launchOptions:launchOptions];
+}
+
+#ifndef DISABLE_PUSH_NOTIFICATIONS
+-(void) application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
     [SwrvePlugin application:application didReceiveRemoteNotification:userInfo];
 }
+#endif
 // END OF CHANGES
 
 // this happens while we are running ( in the background, or from within our own app )
