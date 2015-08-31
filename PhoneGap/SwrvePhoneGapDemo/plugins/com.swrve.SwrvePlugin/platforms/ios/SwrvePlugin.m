@@ -54,7 +54,7 @@ static CDVViewController* globalViewController;
         NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSString *base64Json = [jsonData cdv_base64EncodedString];
-        [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.swrvePushNotificationListener('%@')", base64Json]];
+        [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.swrveProcessPushNotification('%@')", base64Json]];
     }
 }
 
@@ -113,7 +113,7 @@ static CDVViewController* globalViewController;
         NSString* itemName = [command.arguments objectAtIndex:0];
         NSString* currencyName = [command.arguments objectAtIndex:1];
         NSNumber* quantity = [command.arguments objectAtIndex:2];
-        NSNumber* cost = [command.arguments objectAtIndex:2];
+        NSNumber* cost = [command.arguments objectAtIndex:3];
         
         [[Swrve sharedInstance] purchaseItem:itemName currency:currencyName cost:[cost intValue] quantity:[quantity intValue]];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];

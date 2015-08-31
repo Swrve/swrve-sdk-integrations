@@ -43,6 +43,7 @@ How to integrate with iOS
 ```Objective-C
 #import <SwrveSDK/Swrve.h>
     - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
+        // Put this code after the viewController has been assigned
         [SwrvePlugin initWithAppID:1 apiKey:@"api_key" viewController:self.viewController launchOptions:launchOptions];
         //...
     }

@@ -50,6 +50,7 @@ SwrvePlugin.install = function () {
   window.swrveCustomButtonListener = function(action) {};
   // Empty callback, override this to listen to push notifications
   window.swrveProcessPushNotification = function(base64Payload) {
+    alert(base64Payload);
     // Decode the base64 encoded string sent by the plugin
     window.swrvePushNotificationListener(JSON.parse(window.atob(base64Payload)));
   };

@@ -25,7 +25,7 @@ var app = {
         };
 
         parentElement.querySelector('.swrve-event-button').addEventListener('click', function() {
-            window.plugins.swrve.event("helo.from.phonegap", [], function() {
+            window.plugins.swrve.event("helo.from.phonegap", function() {
                 window.plugins.toast.showShortTop("Event queued");
             }, function () {
                 window.plugins.toast.showShortTop("Error: event not queued");

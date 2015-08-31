@@ -65,5 +65,4 @@ SwrvePlugin.install = function () {
 };
 
 cordova.addConstructor(SwrvePlugin.install);
-
 });
