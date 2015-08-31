@@ -41,4 +41,5 @@ task :build do
 end
 
 task :test do
+	execInDir('Testing PhoneGap iOS wrapper', relative('SwrvePhoneGapDemo/platforms/ios'), 'xcodebuild test -scheme "Hello World" -destination OS=8.3,name="iPad 2"')
 end

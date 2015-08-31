@@ -234,12 +234,18 @@
     // Display IAM to check that the custom button listener works
     // Inject javascript listeners
     [self runJS:@"window.swrveCustomButtonListener = function(action) { window.testCustomAction = action; };"];
-    // Launch IAM campaign
-    [self runJS:@"window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);"];
-    [self waitForSeconds:5];
-    // Detect view controller
-    UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    XCTAssertEqual([viewController class], [SwrveMessageViewController class]);
+
+    UIViewController* viewController = nil;
+    int retries = 5;
+    do {
+        // Launch IAM campaign
+        [self runJS:@"window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);"];
+        [self waitForSeconds:5];
+        // Detect view controller
+        viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        
+    } while(retries-- > 0 && (viewController == nil || [viewController class] != [SwrveMessageViewController class]));
+    
     SwrveMessageViewController* iamController = (SwrveMessageViewController*)viewController;
     UIView* messageView = [iamController.view.subviews firstObject];
     UIButton* customButton = [messageView.subviews firstObject];
