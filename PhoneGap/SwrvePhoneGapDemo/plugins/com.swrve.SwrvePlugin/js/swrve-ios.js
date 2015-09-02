@@ -3,29 +3,32 @@ function SwrvePlugin() {}
 SwrvePlugin.prototype.android = false;
 SwrvePlugin.prototype.ios = true;
 
-// parameters is a JSON object
-SwrvePlugin.prototype.event = function(name, parameters, success, fail) {
-  if (!parameters || parameters.length < 1) {
+// payload is a JSON object
+SwrvePlugin.prototype.event = function(name, payload, success, fail) {
+  if (!payload || payload.length < 1) {
     return cordova.exec(success, fail, "SwrvePlugin", "event", [name]);
   } else {
-    return cordova.exec(success, fail, "SwrvePlugin", "event", [name, parameters]);
+    return cordova.exec(success, fail, "SwrvePlugin", "event", [name, payload]);
   }
 };
 
-// parameters is a JSON object
-SwrvePlugin.prototype.userUpdate = function(parameters, success, fail) {
-  return cordova.exec(success, fail, "SwrvePlugin", "userUpdate", [parameters]);
+// attributes is a JSON object
+SwrvePlugin.prototype.userUpdate = function(attributes, success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "userUpdate", [attributes]);
 };
 
+// currency is a string
 // quantity is an int
 SwrvePlugin.prototype.currencyGiven = function(currency, quantity, success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "currencyGiven", [currency, quantity]);
 };
 
+// itemName is a string
+// currency is a string
 // quantity is an int
 // cost is a int
-SwrvePlugin.prototype.purchase = function(name, currency, quantity, cost, success, fail) {
-  return cordova.exec(success, fail, "SwrvePlugin", "purchase", [name, currency, quantity, cost]);
+SwrvePlugin.prototype.purchase = function(itemName, currency, quantity, cost, success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "purchase", [itemName, currency, quantity, cost]);
 };
 
 SwrvePlugin.prototype.sendEvents = function(success, fail) {
@@ -50,7 +53,6 @@ SwrvePlugin.install = function () {
   window.swrveCustomButtonListener = function(action) {};
   // Empty callback, override this to listen to push notifications
   window.swrveProcessPushNotification = function(base64Payload) {
-    alert(base64Payload);
     // Decode the base64 encoded string sent by the plugin
     window.swrvePushNotificationListener(JSON.parse(window.atob(base64Payload)));
   };

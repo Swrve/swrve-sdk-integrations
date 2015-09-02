@@ -136,7 +136,7 @@ public class SwrvePlugin extends CordovaPlugin {
 
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    SwrveSDK.purchase(name, currency, quantity, cost);
+                    SwrveSDK.purchase(name, currency, cost, quantity);
                     callbackContext.success();
                 }
             });
@@ -234,10 +234,7 @@ public class SwrvePlugin extends CordovaPlugin {
                                 @Override
                                 public void onUserResourcesDiffSuccess(Map<String, Map<String, String>> oldResources, Map<String, Map<String, String>> newResources, String resourcesAsJSON) {
                                     try {
-                                        JSONObject result = new JSONObject();
-                                        result.put("old", oldResources);
-                                        result.put("new", newResources);
-                                        callbackContext.success(result);
+                                        callbackContext.success(new JSONObject(resourcesAsJSON));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

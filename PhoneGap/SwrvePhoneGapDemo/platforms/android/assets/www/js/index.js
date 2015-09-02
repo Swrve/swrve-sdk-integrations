@@ -1,3 +1,8 @@
+// Capture Javascript errors
+window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    alert(errorMsg + lineNumber + errorObj);
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -25,7 +30,7 @@ var app = {
         };
 
         parentElement.querySelector('.swrve-event-button').addEventListener('click', function() {
-            window.plugins.swrve.event("helo.from.phonegap", function() {
+            window.plugins.swrve.event("helo.from.phonegap", undefined, function() {
                 window.plugins.toast.showShortTop("Event queued");
             }, function () {
                 window.plugins.toast.showShortTop("Error: event not queued");
@@ -82,7 +87,7 @@ var app = {
         parentElement.querySelector('.swrve-resources-button').addEventListener('click', function() {
             window.plugins.swrve.getUserResources(function(resources) {
                 // JSON object containing the resources
-                window.alert(resources);
+                window.plugins.toast.showShortTop(JSON.stringify(resources));
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources");
             });
@@ -90,7 +95,7 @@ var app = {
         parentElement.querySelector('.swrve-resources-diff-button').addEventListener('click', function() {
             window.plugins.swrve.getUserResourcesDiff(function(resourcesDiff) {
                 // JSON object containing the resources
-                window.alert(resourcesDiff);
+                window.plugins.toast.showShortTop(JSON.stringify(resourcesDiff));
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources diff");
             });
