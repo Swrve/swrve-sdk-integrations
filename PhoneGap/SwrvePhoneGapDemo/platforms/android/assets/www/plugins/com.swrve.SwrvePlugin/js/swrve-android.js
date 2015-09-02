@@ -63,7 +63,7 @@ SwrvePlugin.install = function () {
     // Decode the base64 encoded string sent by the plugin
     window.swrvePushNotificationListener(JSON.parse(window.atob(base64Payload)));
   };
-
+  
   return window.plugins.swrve;
 };
 

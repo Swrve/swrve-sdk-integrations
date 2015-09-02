@@ -1,11 +1,12 @@
 package com.swrve;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
+import android.webkit.ValueCallback;
 
-import org.apache.cordova.Whitelist;
+import org.apache.cordova.engine.SystemWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +28,6 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
-import org.xmlpull.v1.XmlPullParser;
 
 public class SwrvePlugin extends CordovaPlugin {
 
@@ -234,7 +234,10 @@ public class SwrvePlugin extends CordovaPlugin {
                                 @Override
                                 public void onUserResourcesDiffSuccess(Map<String, Map<String, String>> oldResources, Map<String, Map<String, String>> newResources, String resourcesAsJSON) {
                                     try {
-                                        callbackContext.success(new JSONObject(resourcesAsJSON));
+                                        JSONObject result = new JSONObject();
+                                        result.put("old", new JSONObject(oldResources));
+                                        result.put("new", new JSONObject(newResources));
+                                        callbackContext.success(result);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -245,7 +248,6 @@ public class SwrvePlugin extends CordovaPlugin {
                                     exception.printStackTrace();
                                     callbackContext.error(exception.getMessage());
                                 }
-
                             }));
                 }
             });
@@ -279,15 +281,33 @@ public class SwrvePlugin extends CordovaPlugin {
         SwrveSDK.processIntent(intent);
     }
 
+    public void runJS(String js) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            SystemWebView systemWebView = (SystemWebView)webView.getView();
+            systemWebView.evaluateJavascript(js, new ValueCallback<String>() {
+                @Override
+                public void onReceiveValue(String s) {
+                }
+            });
+        } else {
+            // Fallback method
+            webView.loadUrl("javascript:" + js);
+        }
+    }
+
     public static ISwrveCustomButtonListener customButtonListener = new ISwrveCustomButtonListener() {
         @Override
-        public void onAction(String action) {
-            instance.webView.loadUrl("javascript:window.swrveCustomButtonListener('"+ action +"')");
+        public void onAction(final String action) {
+            instance.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    instance.runJS("if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('" + action + "') }");
+                }
+            });
         }
     };
 
     public static ISwrvePushNotificationListener pushNotificationListener = new ISwrvePushNotificationListener() {
-
         @Override
         public void onPushNotification(Bundle bundle) {
             JSONObject json = new JSONObject();
@@ -295,13 +315,18 @@ public class SwrvePlugin extends CordovaPlugin {
             for (String key : keys) {
                 try {
                     json.put(key, bundle.get(key));
-                } catch(JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
             String jsonString = json.toString();
-            byte[] jsonBytes = jsonString.getBytes();
-            instance.webView.loadUrl("javascript:window.swrvePushNotificationListener('"+ Base64.encodeToString(jsonBytes, Base64.DEFAULT) +"')");
+            final byte[] jsonBytes = jsonString.getBytes();
+            instance.cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    instance.runJS("if (window.swrveProcessPushNotification !== undefined) { window.swrveProcessPushNotification('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "') }");
+                }
+            });
         }
     };
 }

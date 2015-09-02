@@ -4,6 +4,12 @@ repositories {
     }
 }
 
+android {
+    lintOptions {
+        abortOnError false
+    }
+}
+
 dependencies {
     compile 'com.swrve.sdk.android:swrve-google:4.0.1'
 }
