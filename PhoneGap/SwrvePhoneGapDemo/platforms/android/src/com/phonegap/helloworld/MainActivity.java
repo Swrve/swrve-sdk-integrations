@@ -19,12 +19,7 @@
 
 package com.phonegap.helloworld;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-
-import com.swrve.sdk.SwrveSDK;
-
 import org.apache.cordova.*;
 
 public class MainActivity extends CordovaActivity
