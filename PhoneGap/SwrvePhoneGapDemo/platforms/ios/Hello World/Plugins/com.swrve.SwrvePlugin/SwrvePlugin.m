@@ -123,6 +123,23 @@ static CDVViewController* globalViewController;
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+-(void)unvalidatedIap:(CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = nil;
+    if ([command.arguments count] == 4) {
+        NSNumber* localCost = [command.arguments objectAtIndex:0];
+        NSString* localCurrency = [command.arguments objectAtIndex:1];
+        NSString* productId = [command.arguments objectAtIndex:2];
+        NSNumber* quantity = [command.arguments objectAtIndex:3];
+        
+        [[Swrve sharedInstance] unvalidatedIap:nil localCost:[localCost doubleValue] localCurrency:localCurrency productId:productId productIdQuantity:[quantity intValue]];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Not enough args"];
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (void)sendEvents:(CDVInvokedUrlCommand *)command
 {
     @try {

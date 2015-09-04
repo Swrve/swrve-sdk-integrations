@@ -165,6 +165,26 @@ public class SwrvePlugin extends CordovaPlugin {
         }
     }
 
+    private void sendIapPlay(JSONArray arguments, final CallbackContext callbackContext) {
+        try {
+            final String productId = arguments.getString(0);
+            final double productPrice = arguments.getDouble(1);
+            final String currency = arguments.getString(2);
+            final String purchaseData = arguments.getString(3);
+            final String dataSignature = arguments.getString(4);
+
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    SwrveSDK.iapPlay(productId, productPrice, currency, purchaseData, dataSignature);
+                    callbackContext.success();
+                }
+            });
+        } catch (JSONException e) {
+            callbackContext.error("JSON_EXCEPTION");
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public boolean execute(final String action, final JSONArray arguments, final CallbackContext callbackContext) {
         if ("event".equals(action)) {
@@ -194,6 +214,12 @@ public class SwrvePlugin extends CordovaPlugin {
         } else if ("iap".equals(action)) {
             if (!isBadArgument(arguments, callbackContext, 4, "iap arguments need to be supplied.")) {
                 sendIap(arguments, callbackContext);
+            }
+            return true;
+
+        } else if ("iapPlay".equals(action)) {
+            if (!isBadArgument(arguments, callbackContext, 5, "iap arguments need to be supplied.")) {
+                sendIapPlay(arguments, callbackContext);
             }
             return true;
 
@@ -301,7 +327,7 @@ public class SwrvePlugin extends CordovaPlugin {
             instance.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    instance.runJS("if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('" + action + "') }");
+                    instance.runJS("if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('" + action + "'); }");
                 }
             });
         }
@@ -324,7 +350,7 @@ public class SwrvePlugin extends CordovaPlugin {
             instance.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    instance.runJS("if (window.swrveProcessPushNotification !== undefined) { window.swrveProcessPushNotification('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "') }");
+                    instance.runJS("if (window.swrveProcessPushNotification !== undefined) { window.swrveProcessPushNotification('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
                 }
             });
         }

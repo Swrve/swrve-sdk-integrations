@@ -105,10 +105,10 @@
 {
     // Wait 10s for the view to load
     NSDate *timerStart = [NSDate date];
-    NSString* domButton = nil;
+    NSString* pluginState = nil;
     for (int i = 0; i < 10; i++) {
-        domButton = [self runJS:@"document.querySelector('.swrve-event-button').toString();"];
-        if (domButton != nil && ![domButton isEqualToString:@""]) {
+        pluginState = [self runJS:@"((window !== undefined && 'plugins' in window && 'swrve' in window.plugins)? 'yes' : 'no')"];
+        if (pluginState != nil && ![pluginState isEqualToString:@"no"]) {
             break;
         } else {
             // Wait a bit more...
@@ -116,7 +116,7 @@
             [[NSRunLoop currentRunLoop] runUntilDate:runUntil];
         }
     }
-    XCTAssert(domButton != nil && ![domButton isEqualToString:@""]);
+    XCTAssert(pluginState != nil && [pluginState isEqualToString:@"yes"]);
 }
 
 - (NSString*) runJS:(NSString*)js
@@ -142,14 +142,8 @@
     [self runJS:@"window.plugins.swrve.userUpdate({\"phonegap\":\"TRUE\"}, undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.currencyGiven(\"Gold\", 20, undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.purchase(\"sword\", \"Gold\", 2, 15, undefined, undefined);"];
+    [self runJS:@"window.plugins.swrve.unvalidatedIap(99.2,\"USD\",\"iap_item\", 15, undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.sendEvents(undefined, undefined);"];
-    // Give 10 seconds for the events to go through
-    [self waitForSeconds:10];
-    
-    // Check event data
-    NSString* lastBatchJSON = [lastEventBatches lastObject];
-    NSDictionary *lastBatch = [NSJSONSerialization JSONObjectWithData:[lastBatchJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-    NSArray* lastEvents = [lastBatch objectForKey:@"data"];
     
     typedef BOOL (^EventChecker)(NSDictionary* event);
     NSMutableArray *eventChecks = [[NSMutableArray alloc] init];
@@ -182,19 +176,45 @@
         && [[event objectForKey:@"currency"] isEqualToString:@"Gold"]
         && [[event objectForKey:@"item"] isEqualToString:@"sword"];
     }];
+    // Check for unvalidated IAP event
+    [eventChecks addObject:^BOOL(NSDictionary* event) {
+        return [[event objectForKey:@"type"] isEqualToString:@"iap"]
+        && [[event objectForKey:@"quantity"] longValue] == 15
+        && [[event objectForKey:@"cost"] doubleValue] == 99.2
+        && [[event objectForKey:@"local_currency"] isEqualToString:@"USD"]
+        && [[event objectForKey:@"product_id"] isEqualToString:@"iap_item"];
+    }];
 
-    for(EventChecker check in eventChecks) {
-        BOOL checkPasses = NO;
-        for (NSDictionary* event in lastEvents) {
-            if (check(event)) {
-                checkPasses = YES;
-                break;
+    // Search for the event in all sent batches
+    BOOL allChecksPass = NO;
+    for(int i = 0; i < 30 && !allChecksPass; i++) {
+        allChecksPass = TRUE;
+        for(EventChecker check in eventChecks) {
+            BOOL checkPasses = NO;
+            for (NSString* batchJSON in lastEventBatches) {
+                NSDictionary *batchDictionary = [NSJSONSerialization JSONObjectWithData:[batchJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+                NSArray* batchEvents = [batchDictionary objectForKey:@"data"];
+                for (NSDictionary* event in batchEvents) {
+                    if (check(event)) {
+                        checkPasses = YES;
+                        break;
+                    }
+                }
+                if (checkPasses) {
+                    break;
+                }
+            }
+            if (!checkPasses) {
+                allChecksPass = NO;
             }
         }
-        if (!checkPasses) {
-            XCTFail(@"Event defined in check not found");
+        
+        if (!allChecksPass) {
+            [self waitForSeconds:1];
         }
     }
+    
+    XCTAssertTrue(allChecksPass);
 }
 
 - (void)testUserResourcesAndResourcesDiff
@@ -212,16 +232,26 @@
         @"window.testResources = resources;"
      @"}, function () {});"];
     
-    // Give 10 seconds for the response to be received by the Javascript callbacks
-    [self waitForSeconds:10];
+    // Give 30 seconds for the response to be received by the Javascript callbacks
+    NSString* userResourcesObtainedJSON = nil;
+    NSString* userResourcesDiffObtainedJSON = nil;
+    
+    BOOL resourcesReceived = NO;
+    for(int i = 0; i < 30 && !resourcesReceived; i++) {
+        userResourcesObtainedJSON = [self runJS:@"JSON.stringify(window.testResources)"];
+        userResourcesDiffObtainedJSON = [self runJS:@"JSON.stringify(window.testResourcesDiff)"];
+        resourcesReceived = (userResourcesObtainedJSON != nil && ![userResourcesObtainedJSON isEqualToString:@""] && userResourcesDiffObtainedJSON != nil && ![userResourcesDiffObtainedJSON isEqualToString:@""]);
+        if (!resourcesReceived) {
+            [self waitForSeconds:1];
+        }
+    }
+    XCTAssertTrue(resourcesReceived);
     
     // Check user resources obtained through the plugin
-    NSString* userResourcesObtainedJSON = [self runJS:@"JSON.stringify(window.testResources)"];
     NSDictionary *userResourcesObtained = [NSJSONSerialization JSONObjectWithData:[userResourcesObtainedJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     XCTAssertEqual([[[userResourcesObtained objectForKey:@"house"] objectForKey:@"cost"] integerValue], 999);
 
     // Check user resources diff obtained through the plugin
-    NSString* userResourcesDiffObtainedJSON = [self runJS:@"JSON.stringify(window.testResourcesDiff)"];
     NSDictionary *userResourcesDiffObtained = [NSJSONSerialization JSONObjectWithData:[userResourcesDiffObtainedJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     XCTAssertEqual([[[[userResourcesDiffObtained objectForKey:@"new"] objectForKey:@"house"] objectForKey:@"cost"] integerValue], 666);
     XCTAssertEqual([[[[userResourcesDiffObtained objectForKey:@"old"] objectForKey:@"house"] objectForKey:@"cost"] integerValue], 550);
@@ -236,44 +266,55 @@
     [self runJS:@"window.swrveCustomButtonListener = function(action) { window.testCustomAction = action; };"];
 
     UIViewController* viewController = nil;
-    int retries = 5;
+    int retries = 30;
     do {
         // Launch IAM campaign
         [self runJS:@"window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);"];
-        [self waitForSeconds:5];
+        [self waitForSeconds:1];
         // Detect view controller
         viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        
     } while(retries-- > 0 && (viewController == nil || [viewController class] != [SwrveMessageViewController class]));
     
     SwrveMessageViewController* iamController = (SwrveMessageViewController*)viewController;
     UIView* messageView = [iamController.view.subviews firstObject];
     UIButton* customButton = [messageView.subviews firstObject];
     [customButton sendActionsForControlEvents: UIControlEventTouchUpInside];
-    [self waitForSeconds:5];
     
-    NSString* listenerCustomAction = [self runJS:@"window.testCustomAction"];
-    XCTAssert([listenerCustomAction isEqualToString:@"custom_action_from_server"]);
+    BOOL customActionReceived = NO;
+    for(int i = 0; i < 30 && !customActionReceived; i++) {
+        NSString* listenerCustomAction = [self runJS:@"window.testCustomAction"];
+        customActionReceived = [listenerCustomAction isEqualToString:@"custom_action_from_server"];
+        if (!customActionReceived) {
+            [self waitForSeconds:1];
+        }
+    }
+    XCTAssert(customActionReceived);
 }
 
 - (void)testCustomPushPayloadListener
 {
     [self waitForPhoneGapAppToLoad];
-
+    
     // Send fake remote notification to check that the custom push payload listener works
     // Inject javascript listeners
     [self runJS:@"window.swrvePushNotificationListener = function(payload) { window.testPushPayload = payload; };"];
     [self waitForSeconds:1];
-    
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1234], @"_p", @"custom", @"custom_payload", nil];
-    // Mock state of the app
+    // Mock state of the app to be in the background
     UIApplication* backgroundStateApp = mock([UIApplication class]);
     [given([backgroundStateApp applicationState]) willReturnInt:UIApplicationStateBackground];
-    [appDelegate application:backgroundStateApp didReceiveRemoteNotification:userInfo];
-    [self waitForSeconds:5];
     
-    NSString* listenerPushPayloadPayload = [self runJS:@"window.testPushPayload.custom_payload"];
-    XCTAssert([listenerPushPayloadPayload isEqualToString:@"custom"]);
+    BOOL customPayloadReceived = NO;
+    for(int i = 0; i < 30 && !customPayloadReceived; i++) {
+        NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"_p", @"custom", @"custom_payload", nil];
+        [appDelegate application:backgroundStateApp didReceiveRemoteNotification:userInfo];
+    
+        NSString* listenerPushPayloadPayload = [self runJS:@"window.testPushPayload.custom_payload"];
+        customPayloadReceived = [listenerPushPayloadPayload isEqualToString:@"custom"];
+        if (!customPayloadReceived) {
+            [self waitForSeconds:1];
+        }
+    }
+    XCTAssert(customPayloadReceived);
 }
 
 @end

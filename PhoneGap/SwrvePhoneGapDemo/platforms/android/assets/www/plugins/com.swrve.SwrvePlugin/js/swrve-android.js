@@ -26,15 +26,26 @@ SwrvePlugin.prototype.currencyGiven = function(currency, quantity, success, fail
 // itemName is a string
 // currency is a string
 // quantity is an int
-// cost is a int
+// cost is a double
 SwrvePlugin.prototype.purchase = function(itemName, currency, quantity, cost, success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "purchase", [itemName, currency, quantity, cost]);
 };
 
-// quantity is int
-// price is float
-SwrvePlugin.prototype.iap = function(quantity, product_id, price, currency, success, fail) {
-  return cordova.exec(success, fail, "SwrvePlugin", "iap", [quantity, product_id, price, currency]);
+// quantity is an int
+// productId is a string
+// price is double
+// currency is a string
+SwrvePlugin.prototype.iap = function(quantity, productId, price, currency, success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "iap", [quantity, productId, price, currency]);
+};
+
+// productId is a string
+// productPrice is a double
+// currency is a string
+// purchaseData is a string
+// dataSignature is a string
+SwrvePlugin.prototype.iapPlay = function(productId, productPrice, currency, purchaseData, dataSignature, success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "iapPlay", [productId, productPrice, currency, purchaseData, dataSignature]);
 };
 
 SwrvePlugin.prototype.sendEvents = function(success, fail) {
