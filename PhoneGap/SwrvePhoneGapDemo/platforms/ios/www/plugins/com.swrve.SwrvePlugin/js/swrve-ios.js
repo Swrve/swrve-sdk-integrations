@@ -31,6 +31,14 @@ SwrvePlugin.prototype.purchase = function(itemName, currency, quantity, cost, su
   return cordova.exec(success, fail, "SwrvePlugin", "purchase", [itemName, currency, quantity, cost]);
 };
 
+// localCost is a double
+// localCurrency is a string
+// productId is a string
+// quantity is an int
+SwrvePlugin.prototype.unvalidatedIap = function(localCost, localCurrency, productId, quantity, success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "unvalidatedIap", [localCost, localCurrency, productId, quantity]);
+};
+
 SwrvePlugin.prototype.sendEvents = function(success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "sendEvents", []);
 };

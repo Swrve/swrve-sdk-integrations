@@ -1,3 +1,8 @@
+// Capture Javascript errors
+window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    window.plugins.toast.showShortTop(errorMsg + lineNumber + errorObj);
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -60,8 +65,8 @@ var app = {
                 window.plugins.toast.showShortTop("Error: purchase not queued");
             });
         });
-
         if (window.plugins.swrve.android) {
+            // Android unvalidated IAP
             parentElement.querySelector('.swrve-iap').addEventListener('click', function() {
                 window.plugins.swrve.iap(2, "your.item", 2.99, "USD", function() {
                     window.plugins.toast.showShortTop("IAP queued");
@@ -70,7 +75,14 @@ var app = {
                 });
             });
         } else {
-            parentElement.querySelector('.swrve-iap').setAttribute('style','display:none;');
+            // iOS unvalidated IAP
+            parentElement.querySelector('.swrve-iap').addEventListener('click', function() {
+               window.plugins.swrve.unvalidatedIap(99.2, "USD", "iap_item", 2, function() {
+                  window.plugins.toast.showShortTop("Unvalidated IAP queued");
+               }, function () {
+                  window.plugins.toast.showShortTop("Error: IAP not queued");
+               });
+            });
         }
         parentElement.querySelector('.swrve-send-events-button').addEventListener('click', function() {
             window.plugins.swrve.sendEvents(function() {

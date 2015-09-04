@@ -28,6 +28,8 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         runJS("window.plugins.swrve.userUpdate({\"phonegap\":\"TRUE\"}, undefined, undefined);");
         runJS("window.plugins.swrve.currencyGiven(\"Gold\", 20, undefined, undefined);");
         runJS("window.plugins.swrve.purchase(\"sword\", \"Gold\", 2, 15, undefined, undefined);");
+        runJS("window.plugins.swrve.iap(2, \"sword\", 99.5, \"USD\", undefined, undefined);");
+        runJS("window.plugins.swrve.iapPlay(\"iap_item\", 98.5, \"USD\", \"fake_purchase_data\", \"fake_purchase_signature\", undefined, undefined);");
         runJS("window.plugins.swrve.sendEvents(undefined, undefined);");
 
         // Define events that we should find
@@ -71,6 +73,30 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
                         && event.optString("item", "").equals("sword");
             }
         });
+        eventChecks.add(new EventChecker("iap") {
+            @Override
+            public boolean check(JSONObject event) {
+                return event.optString("type", "").equals("iap")
+                        && event.optString("quantity", "").equals("2")
+                        && event.optString("local_currency", "").equals("USD")
+                        && event.optString("cost", "").equals("99.5")
+                        && event.optString("product_id", "").equals("sword")
+                        && event.optString("rewards", "").equals("{}");
+            }
+        });
+        eventChecks.add(new EventChecker("iapPlay") {
+            @Override
+            public boolean check(JSONObject event) {
+                return event.optString("type", "").equals("iap")
+                        && event.optString("quantity", "").equals("1")
+                        && event.optString("local_currency", "").equals("USD")
+                        && event.optString("cost", "").equals("98.5")
+                        && event.optString("product_id", "").equals("iap_item")
+                        && event.optString("receipt", "").equals("fake_purchase_data")
+                        && event.optString("receipt_signature", "").equals("fake_purchase_signature")
+                        && event.optString("rewards", "").equals("{}");
+            }
+        });
         // Find events in the sent batches
         int retries = 180;
         EventChecker failedChecker;
@@ -83,7 +109,6 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         if (failedChecker != null) {
             fail("The following event check failed: " + failedChecker.getName());
         }
-        Thread.sleep(5000);
     }
 
     public void testUserResources() throws Exception {
@@ -144,7 +169,6 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
             }
         } while(retries-- > 0 && (weakDialog == null || weakDialog.get() == null));
         assertNotNull(dialog);
-
 
         boolean clickedButton = false;
         RelativeLayout innerMessage = (RelativeLayout) dialog.getInnerView().getChildAt(0);
