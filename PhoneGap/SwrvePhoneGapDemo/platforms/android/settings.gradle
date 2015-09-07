@@ -1,3 +1,9 @@
 // GENERATED FILE - DO NOT EDIT
 include ":"
 include ":CordovaLib"
+
+
+include ':SwrveCommonSDK'
+project(':SwrveCommonSDK').projectDir = file('/swrve/swrve-sdk/android/public/SwrveCommonSDK')
+include ':SwrveGoogleSDK'
+project(':SwrveGoogleSDK').projectDir = file('/swrve/swrve-sdk/android/public/SwrveGoogleSDK')

@@ -176,9 +176,7 @@ public abstract class SwrvePluginBaseTests extends ActivityInstrumentationTestCa
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        SwrveSDK.createInstance(context, 1, "your_api_key", config);
-        SwrveSDK.setCustomButtonListener(SwrvePlugin.customButtonListener);
-        SwrveSDK.setPushNotificationListener(SwrvePlugin.pushNotificationListener);
+        SwrvePlugin.createInstance(context, 1, "your_api_key", config);
     }
 
     protected void runJS(final String js) {

@@ -3,6 +3,7 @@ cordova.define("com.swrve.SwrvePlugin.SwrvePlugin", function(require, exports, m
 SwrvePlugin.prototype.android = false;
 SwrvePlugin.prototype.ios = true;
 
+// name is a string
 // payload is a JSON object
 SwrvePlugin.prototype.event = function(name, payload, success, fail) {
   if (payload == undefined || !payload || payload.length < 1) {
@@ -51,12 +52,44 @@ SwrvePlugin.prototype.getUserResourcesDiff = function(success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "getUserResourcesDiff", []);
 };
 
+SwrvePlugin.prototype.refreshCampaignsAndResources = function(success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "refreshCampaignsAndResources", []);
+};
+
+SwrvePlugin.prototype.resourcesListenerReady = function() {
+  return cordova.exec(undefined, undefined, "SwrvePlugin", "resourcesListenerReady", []);
+};
+
+SwrvePlugin.prototype.setResourcesListener = function(listener) {
+  window.swrveResourcesUpdatedListener = listener;
+  window.plugins.swrve.resourcesListenerReady();
+};
+
+SwrvePlugin.prototype.setCustomButtonListener = function(listener) {
+  window.swrveCustomButtonListener = listener;
+};
+
+SwrvePlugin.prototype.pushNotificationListenerReady = function() {
+  return cordova.exec(undefined, undefined, "SwrvePlugin", "pushNotificationListenerReady", []);
+};
+
+SwrvePlugin.prototype.setPushNotificationListener = function(listener) {
+  window.swrvePushNotificationListener = listener;
+  window.plugins.swrve.pushNotificationListenerReady();
+};
+
 SwrvePlugin.install = function () {
   if (!window.plugins) {
     window.plugins = {};
   }
 
   window.plugins.swrve = new SwrvePlugin();
+  // Empty callback for new user resources
+  window.swrveResourcesUpdatedListener = function(resources) {};
+  window.swrveProcessResourcesUpdated = function(resourcesJson) {
+    // Decode the base64 encoded string sent by the plugin
+    window.swrveResourcesUpdatedListener(JSON.parse(window.atob(resourcesJson)));
+  };
   // Empty callback, override this to listen to custom IAM buttons
   window.swrveCustomButtonListener = function(action) {};
   // Empty callback, override this to listen to push notifications

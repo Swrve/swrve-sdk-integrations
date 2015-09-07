@@ -232,15 +232,22 @@
         @"window.testResources = resources;"
      @"}, function () {});"];
     
+    [self runJS:
+     @"window.plugins.swrve.setResourcesListener(function(resources) {"
+        @"window.testResourcesListener = resources;"
+     @"});"];
+    
     // Give 30 seconds for the response to be received by the Javascript callbacks
     NSString* userResourcesObtainedJSON = nil;
+    NSString* userResourcesListenerObtainedJSON = nil;
     NSString* userResourcesDiffObtainedJSON = nil;
     
     BOOL resourcesReceived = NO;
     for(int i = 0; i < 30 && !resourcesReceived; i++) {
         userResourcesObtainedJSON = [self runJS:@"JSON.stringify(window.testResources)"];
+        userResourcesListenerObtainedJSON = [self runJS:@"JSON.stringify(window.testResourcesListener)"];
         userResourcesDiffObtainedJSON = [self runJS:@"JSON.stringify(window.testResourcesDiff)"];
-        resourcesReceived = (userResourcesObtainedJSON != nil && ![userResourcesObtainedJSON isEqualToString:@""] && userResourcesDiffObtainedJSON != nil && ![userResourcesDiffObtainedJSON isEqualToString:@""]);
+        resourcesReceived = (userResourcesObtainedJSON != nil && ![userResourcesObtainedJSON isEqualToString:@""] && userResourcesDiffObtainedJSON != nil && ![userResourcesDiffObtainedJSON isEqualToString:@""] && userResourcesListenerObtainedJSON != nil && ![userResourcesListenerObtainedJSON isEqualToString:@""]);
         if (!resourcesReceived) {
             [self waitForSeconds:1];
         }
@@ -251,6 +258,10 @@
     NSDictionary *userResourcesObtained = [NSJSONSerialization JSONObjectWithData:[userResourcesObtainedJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     XCTAssertEqual([[[userResourcesObtained objectForKey:@"house"] objectForKey:@"cost"] integerValue], 999);
 
+    // Check user resources obtained through the listener
+    NSDictionary *userResourcesListenerObtained = [NSJSONSerialization JSONObjectWithData:[userResourcesListenerObtainedJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+    XCTAssertEqual([[[userResourcesListenerObtained objectForKey:@"house"] objectForKey:@"cost"] integerValue], 999);
+    
     // Check user resources diff obtained through the plugin
     NSDictionary *userResourcesDiffObtained = [NSJSONSerialization JSONObjectWithData:[userResourcesDiffObtainedJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     XCTAssertEqual([[[[userResourcesDiffObtained objectForKey:@"new"] objectForKey:@"house"] objectForKey:@"cost"] integerValue], 666);
@@ -263,7 +274,7 @@
     
     // Display IAM to check that the custom button listener works
     // Inject javascript listeners
-    [self runJS:@"window.swrveCustomButtonListener = function(action) { window.testCustomAction = action; };"];
+    [self runJS:@"window.plugins.swrve.setCustomButtonListener(function(action) { window.testCustomAction = action; });"];
 
     UIViewController* viewController = nil;
     int retries = 30;
@@ -297,7 +308,7 @@
     
     // Send fake remote notification to check that the custom push payload listener works
     // Inject javascript listeners
-    [self runJS:@"window.swrvePushNotificationListener = function(payload) { window.testPushPayload = payload; };"];
+    [self runJS:@"window.plugins.swrve.setPushNotificationListener(function(payload) { window.testPushPayload = payload; });"];
     [self waitForSeconds:1];
     // Mock state of the app to be in the background
     UIApplication* backgroundStateApp = mock([UIApplication class]);
