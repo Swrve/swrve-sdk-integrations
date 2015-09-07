@@ -20,14 +20,18 @@ var app = {
         var parentElement = document.getElementById('swrve-panel');
         parentElement.setAttribute('style','display:block;');
 
+        // Set new resources listener
+        window.plugins.swrve.setResourcesListener(function(resources) {
+            window.plugins.toast.showShortTop("Resources updated: " + JSON.stringify(resources));
+        });
         // Set IAM custom button listener
-        window.swrveCustomButtonListener = function(action) { 
+        window.plugins.swrve.setCustomButtonListener(function(action) {
             window.plugins.toast.showShortTop("IAM custom button clicked: " + action);
-        };
+        });
         // Set push payload listener
-        window.swrvePushNotificationListener = function(payload) {
+        window.plugins.swrve.setPushNotificationListener(function(payload) {
             window.plugins.toast.showShortTop("Push payload: " + payload);
-        };
+        });
 
         parentElement.querySelector('.swrve-event-button').addEventListener('click', function() {
             window.plugins.swrve.event("helo.from.phonegap", undefined, function() {

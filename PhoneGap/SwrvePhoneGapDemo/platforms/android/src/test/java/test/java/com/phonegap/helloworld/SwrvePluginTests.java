@@ -113,20 +113,28 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
 
     public void testUserResources() throws Exception {
         runJS("window.plugins.swrve.getUserResources(function(resources) {alert('swrve:10:' + JSON.stringify(resources));}, function () {});");
+        runJS("window.plugins.swrve.setResourcesListener(function(resources) { alert('swrve:40:' + JSON.stringify(resources)); });");
 
         int retries = 60;
         String userResources;
+        String userResourcesListener;
         do {
             userResources = mActivity.getJSReturnValue(10);
-            if (userResources == null) {
+            userResourcesListener = mActivity.getJSReturnValue(40);
+            if (userResources == null || userResourcesListener == null) {
                 Thread.sleep(1000);
             }
-        } while(retries-- > 0 && userResources == null);
+        } while(retries-- > 0 && (userResources == null || userResourcesListener == null));
 
         assertNotNull(userResources);
+        assertNotNull(userResourcesListener);
+
         // Check user resources
         JSONObject userResourcesJSON = new JSONObject(userResources);
         assertEquals("999", userResourcesJSON.getJSONObject("house").getString("cost"));
+
+        JSONObject userResourcesListenerJSON = new JSONObject(userResourcesListener);
+        assertEquals("999", userResourcesListenerJSON.getJSONObject("house").getString("cost"));
     }
 
     public void testUserResourcesDiff() throws Exception {
@@ -149,7 +157,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
     }
 
     public void testCustomButtonListener() throws Exception {
-        runJS("window.swrveCustomButtonListener = function(action) { alert('swrve:30:' + action); };");
+        runJS("window.plugins.swrve.setCustomButtonListener(function(action) { alert('swrve:30:' + action); });");
         runJS("window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);");
 
         ISwrveBase sdk = SwrveSDK.getInstance();
@@ -200,7 +208,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
     }
 
     public void testCustomPushPayloadListener() throws Exception {
-        runJS("window.swrvePushNotificationListener = function(payload) { alert('swrve:40:' + payload); };");
+        runJS("window.plugins.swrve.setPushNotificationListener(function(payload) { alert('swrve:40:' + payload); });");
 
         int retries = 20;
         String payloadJSON;

@@ -1,5 +1,6 @@
 package com.swrve;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,12 +12,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.phonegap.helloworld.Application;
+import com.swrve.sdk.ISwrveResourcesListener;
+import com.swrve.sdk.ISwrveUserResourcesListener;
 import com.swrve.sdk.SwrveSDK;
+import com.swrve.sdk.config.SwrveConfig;
 import com.swrve.sdk.gcm.ISwrvePushNotificationListener;
 import com.swrve.sdk.messaging.ISwrveCustomButtonListener;
 import com.swrve.sdk.runnable.UIThreadSwrveResourcesRunnable;
@@ -33,10 +40,31 @@ public class SwrvePlugin extends CordovaPlugin {
 
     private static SwrvePlugin instance;
 
+    private boolean resourcesListenerReady;
+    private boolean mustCallResourcesListener;
+
+    private boolean pushNotificationListenerReady;
+    private List<String> pushNotificationsQueued;
+
+    public static void createInstance(Context context, int appId, String apiKey) {
+        createInstance(context, appId, apiKey, null);
+    }
+
+    public static void createInstance(Context context, int appId, String apiKey, SwrveConfig config) {
+        if (config == null) {
+            config = new SwrveConfig();
+        }
+        SwrveSDK.createInstance(context, appId, apiKey, config);
+        SwrveSDK.setResourcesListener(SwrvePlugin.resourcesListener);
+        SwrveSDK.setCustomButtonListener(SwrvePlugin.customButtonListener);
+        SwrveSDK.setPushNotificationListener(SwrvePlugin.pushNotificationListener);
+    }
+
     // Used when instantiated via reflection by PluginManager
     public SwrvePlugin() {
         super();
         instance = this;
+        pushNotificationsQueued = new ArrayList<String>();
     }
 
     @Override
@@ -278,6 +306,15 @@ public class SwrvePlugin extends CordovaPlugin {
                 }
             });
             return true;
+        } else if ("refreshCampaignsAndResources".equals(action)) {
+            SwrveSDK.refreshCampaignsAndResources();
+            return true;
+        } else if ("resourcesListenerReady".equals(action)) {
+            setResourcesListenerReady();
+            return true;
+        } else if ("pushNotificationListenerReady".equals(action)) {
+            setPushNotificationListenerReady();
+            return true;
         }
 
         return false;
@@ -307,7 +344,7 @@ public class SwrvePlugin extends CordovaPlugin {
         SwrveSDK.processIntent(intent);
     }
 
-    public void runJS(String js) {
+    private void runJS(String js) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             SystemWebView systemWebView = (SystemWebView)webView.getView();
             systemWebView.evaluateJavascript(js, new ValueCallback<String>() {
@@ -321,6 +358,46 @@ public class SwrvePlugin extends CordovaPlugin {
         }
     }
 
+    private void setResourcesListenerReady() {
+        this.resourcesListenerReady = true;
+        // Send any queued user resources listener calls
+        if (mustCallResourcesListener) {
+            resourcesListenerCall();
+        }
+    }
+
+    public static void resourcesListenerCall() {
+        instance.cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                SwrveSDK.getInstance().getUserResources(new ISwrveUserResourcesListener() {
+                    @Override
+                    public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsString) {
+                        byte[] jsonBytes = new JSONObject(resources).toString().getBytes();
+                        instance.runJS("if (window.swrveProcessResourcesUpdated !== undefined) { window.swrveProcessResourcesUpdated('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
+                    }
+
+                    @Override
+                    public void onUserResourcesError(Exception exception) {
+                        exception.printStackTrace();
+                    }
+                });
+            }
+        });
+    }
+
+    public static ISwrveResourcesListener resourcesListener =  new ISwrveResourcesListener() {
+        @Override
+        public void onResourcesUpdated() {
+            if (instance.resourcesListenerReady) {
+                resourcesListenerCall();
+            } else {
+                // Will call the listener later
+                instance.mustCallResourcesListener = true;
+            }
+        }
+    };
+
     public static ISwrveCustomButtonListener customButtonListener = new ISwrveCustomButtonListener() {
         @Override
         public void onAction(final String action) {
@@ -332,6 +409,29 @@ public class SwrvePlugin extends CordovaPlugin {
             });
         }
     };
+
+    private void setPushNotificationListenerReady() {
+        this.pushNotificationListenerReady = true;
+        // Send queued notification payloads
+        synchronized (pushNotificationsQueued) {
+            if (pushNotificationsQueued.size() > 0) {
+                final List<String> copyOfNotificationQueue = new ArrayList<String>(pushNotificationsQueued);
+                instance.cordova.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(int i = 0; i < copyOfNotificationQueue.size(); i++) {
+                            instance.notifyOfPushPayload(copyOfNotificationQueue.get(i));
+                        }
+                    }
+                });
+                pushNotificationsQueued.clear();
+            }
+        }
+    }
+
+    private void notifyOfPushPayload(String base64Payload) {
+        runJS("if (window.swrveProcessPushNotification !== undefined) { window.swrveProcessPushNotification('" + base64Payload + "'); }");
+    }
 
     public static ISwrvePushNotificationListener pushNotificationListener = new ISwrvePushNotificationListener() {
         @Override
@@ -346,13 +446,20 @@ public class SwrvePlugin extends CordovaPlugin {
                 }
             }
             String jsonString = json.toString();
-            final byte[] jsonBytes = jsonString.getBytes();
-            instance.cordova.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    instance.runJS("if (window.swrveProcessPushNotification !== undefined) { window.swrveProcessPushNotification('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
+            byte[] jsonBytes = jsonString.getBytes();
+            final String base64Encoded = Base64.encodeToString(jsonBytes, Base64.NO_WRAP);
+            if (instance.pushNotificationListenerReady) {
+                instance.cordova.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        instance.notifyOfPushPayload(base64Encoded);
+                    }
+                });
+            } else {
+                synchronized (instance.pushNotificationsQueued) {
+                    instance.pushNotificationsQueued.add(base64Encoded);
                 }
-            });
+            }
         }
     };
 }
