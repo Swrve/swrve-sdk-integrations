@@ -1,0 +1,131 @@
+require 'open3'
+
+$parentDir = File.dirname(__FILE__)
+
+$androidHome = ENV['ANDROID_HOME']
+raise 'Please set the ANDROID_HOME environment variable'.red.bold if $androidHome.nil?
+$adbPath = "#{$androidHome}/platform-tools/adb"
+$emulatorPath = "#{$androidHome}/tools/emulator"
+
+class String
+	def green;          "\033[32m#{self}\033[0m" end
+	def bg_red;         "\033[41m#{self}\033[0m" end
+	def bold;           "\033[1m#{self}\033[22m" end
+end
+
+def announce(title)
+	puts "[####] #{title}".green.bold
+end
+
+def exec(title, cmd)
+	announce(title) unless title.nil?
+	sh cmd do |ok, res|
+ 		raise "[####] #{title} failed with exit code #{res.exitstatus}".bg_red.bold unless ok || title.nil?
+ 		raise "[####] Last command failed with exit code #{res.exitstatus}".bg_red.bold unless ok
+ 	end
+end
+
+def error(title)
+	raise "[####] #{title}".bg_red.bold
+end
+
+def relative(path)
+	$parentDir + "/" + path
+end
+
+def execInDir(title, dir, cmd)
+	exec(title, %Q{(cd #{dir}/; #{cmd})})
+end
+
+def killEmulator
+	# Test if there is an emulator on this port
+	%x{ #{$adbPath} -s emulator-5556 emu kill 2>/dev/null }
+end
+
+def waitForBoot(port)
+	# If an emulator is not connected to within this time, we give up
+	emulatorBootTimeout = 5*60
+	# ADB restart every so often. It drops occasionally during emulator booting
+	adbRestartDelay = 70
+	# Need to provide general timeout
+	nowTs = Time.now
+	endTs = nowTs + emulatorBootTimeout
+	# ADB restart timeout
+	adbRestartTs = nowTs + adbRestartDelay
+
+	signal1 = nil
+	signal2 = nil
+	signal3 = 0
+
+	while signal1 != '1' && signal2 != 'stopped' && signal3.to_i <= 0 do
+		# This one doesn't work on 2.1
+		#`getprop sys.boot_completed`
+
+		# This one typically finishes a bit too early
+		signal1 = %x{ #{$adbPath} -s emulator-#{port} shell getprop dev.bootcomplete 2>/dev/null }
+
+		# Wait for the boot animation to complete
+		signal2 = %x{ #{$adbPath} -s emulator-#{port} shell getprop init.svc.bootanim 2>/dev/null }
+
+		# Wait on the package manager
+		# Warnings in 4.4.2 mean package isn't in the first line
+		# Use grep
+		signal3 = %x{ #{$adbPath} -s emulator-#{port} shell pm path android 2>/dev/null| grep package | wc -l }
+
+		# Biggest problem is that adb needs reset sometimes
+		# and we have no direct way of knowing when.
+		# It could be the reason we are waiting.
+		nowTs = Time.now
+		if nowTs > adbRestartTs then
+			# Been N seconds since we last restarted ADB
+			puts "Restarting ABD in case it has lost the emulator connection"
+			%x{ #{$adbPath} kill-server && #{$adbPath} start-server }
+			adbRestartTs = nowTs + adbRestartDelay
+		end
+		# Add dots for progress
+		print "."
+	end
+
+	return true
+end
+
+def startEmulator(emulator, port)
+	# Start backgrounded
+	exec("Starting emulator #{emulator} on port #{port}", "#{$emulatorPath} -avd '#{emulator}' -port #{port} &")
+
+	# Boot test
+	puts "Waiting for emulator #{emulator} on port #{port} to start".green.bold
+	if waitForBoot(port) then
+		return true
+	end
+
+	error("Emulator #{emulator} on port #{port} failed to boot.")
+end
+
+task :default => :build
+
+task :build do
+	execInDir('Updating to latest plugin source', $parentDir, 'sh plugin_dev_sync.sh')
+	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile ios')
+	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile android')
+end
+
+task :testIOSInSimulator, [:simulator] do |t, args|
+	# Example: "OS=8.3,name='iPad Air'"
+	simulator = args[:simulator]
+	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild test -scheme 'Hello World' -destination #{simulator}")
+end
+
+task :testAndroidInEmulator, [:emulator] do |t, args|
+	# Example: "Nexus"
+	emulator = args[:emulator]
+	emulatorPort = 5556
+
+	killEmulator
+
+	startEmulator(emulator, emulatorPort)
+	execInDir("Testing PhoneGap Android wrapper on #{emulator}", relative('SwrvePhoneGapDemo/platforms/android'), "./gradlew connectedCheck")
+	sleep(5)
+
+	killEmulator
+end
