@@ -38,6 +38,7 @@ import org.apache.cordova.CordovaWebView;
 
 public class SwrvePlugin extends CordovaPlugin {
 
+    public static String VERSION = "1.0.0";
     private static SwrvePlugin instance;
 
     private boolean resourcesListenerReady;
@@ -72,6 +73,10 @@ public class SwrvePlugin extends CordovaPlugin {
         super.initialize(cordova, webView);
         // Activity started
         SwrveSDK.onCreate(cordova.getActivity());
+        // Sent the wrapper
+        Map<String, String> userUpdateWrapperVersion = new HashMap<String, String>();
+        userUpdateWrapperVersion.put("swrve.wrapper_version", VERSION);
+        SwrveSDK.userUpdate(userUpdateWrapperVersion);
     }
 
     private HashMap<String, String> getMapFromJSON(JSONObject json) throws JSONException {

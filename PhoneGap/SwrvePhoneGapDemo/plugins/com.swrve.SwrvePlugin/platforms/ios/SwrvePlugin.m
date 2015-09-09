@@ -4,6 +4,8 @@
 #import <Cordova/CDV.h>
 #import <SwrveSDK/Swrve.h>
 
+#define SWRVE_WRAPPER_VERSION "1.0.0"
+
 CDVViewController* globalViewController;
 
 BOOL resourcesListenerReady;
@@ -47,6 +49,9 @@ NSMutableArray* pushNotificationsQueued;
     [Swrve sharedInstance].talk.customButtonCallback = ^(NSString* action) {
         [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('%@'); }", action]];
     };
+
+    // Send the wrapper version at init    
+    [[Swrve sharedInstance] userUpdate:[[NSDictionary alloc] initWithObjectsAndKeys:@SWRVE_WRAPPER_VERSION, @"swrve.wrapper_version", nil]];
 }
 
 + (void) application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo
