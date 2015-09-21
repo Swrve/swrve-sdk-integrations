@@ -42,7 +42,7 @@
 		</data>
 		<key>Headers/Swrve.h</key>
 		<data>
-		UnUyJHl63j2gDxh350lGqa0zlI4=
+		iMAaMKHGbpIMwFlx2wfD5EFPV7s=
 		</data>
 		<key>Headers/SwrveBaseCampaign.h</key>
 		<data>
@@ -102,7 +102,7 @@
 		</data>
 		<key>Headers/SwrveConversationItemViewController.h</key>
 		<data>
-		oRshbjfG0/43BRkMGADgtK6auDI=
+		G1BBFqMWW4fnZHj070XWmurbl9U=
 		</data>
 		<key>Headers/SwrveConversationKit-Prefix.pch</key>
 		<data>
@@ -123,10 +123,6 @@
 		<key>Headers/SwrveConversationUIButton.h</key>
 		<data>
 		o8B1Xf0854unmcwY3NkkRJa50Hk=
-		</data>
-		<key>Headers/SwrveConversations.h</key>
-		<data>
-		RzpmynHornkvMZS0LQQz4kSjfJQ=
 		</data>
 		<key>Headers/SwrveConversationsNavigationController.h</key>
 		<data>
@@ -190,7 +186,7 @@
 		</data>
 		<key>Headers/SwrveSignatureProtectedFile.h</key>
 		<data>
-		1GUJfaU8HLz3rxQr4O1xO73vkPc=
+		hrWbPPL7hUA7ccwr5ehqq9EH0Q4=
 		</data>
 		<key>Headers/SwrveSwizzleHelper.h</key>
 		<data>
@@ -210,7 +206,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		solnifsrrv2Piu4shHq64AQYAv0=
+		qqT0p4Fq/8AVsYUr4mgbtQ2g2TY=
 		</data>
 		<key>LICENSE</key>
 		<data>
@@ -218,51 +214,51 @@
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		b4SX2CwoeBI2/n6yCmu1NJX3PcA=
+		1Htm9oRqDxF9tRD6xfyU+R4qk3c=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/objects.nib</key>
 		<data>
-		0gqEbUhmGrL5HPb/TknmxEtuvUw=
+		Eg+wA+WUDGp5DA02MPp8jN2CYIo=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/runtime.nib</key>
 		<data>
-		6c7Jk8EESefv0rzq2NEzuZVHWbM=
+		UviSYrrvCbS4Ec/Qg/jgAoGEJNo=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		VepOvLTP1sT3wHE3QiKP81r2Ay4=
+		yPMa+DJXZvT9IsCsMxHbzSpciNA=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/objects.nib</key>
 		<data>
-		7Ew2ldVtKml6tZ5ximKwRdbE1Xs=
+		4bBCXy+03IuZsEnSLvg24pnd0hM=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/runtime.nib</key>
 		<data>
-		MQVXK6Te9h8HTykrnSewgJ0oWvQ=
+		anafMRs4pM2kNwMHZx+Vj0rasPA=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		786tbwIk+qDc8gbnh1ygsuylvIY=
+		v3le8YE4N15dEHs7rlxJMuckN/o=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/objects.nib</key>
 		<data>
-		w2ZK9ioqKp/Wi8JaX7zULlxFeaM=
+		4e3Luf/7LGC9tlrrIvqnSROg89o=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/runtime.nib</key>
 		<data>
-		0vqx8nBd0XXAyZzucSSbMeMjjf8=
+		IEQb67rZHS3+eCC331YBH2sa0o0=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		jQuINz2xAEZosFkYIqT9An1nX/k=
+		Xpixp9tVlI5M9QpRkxz9sjhznIo=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/objects.nib</key>
 		<data>
-		yA4TU+VYR1yTFpV0xK2505Yj8Xg=
+		zA33porv7ti35FiW9X1OFYtsM28=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/runtime.nib</key>
 		<data>
-		akpjnlcS/a1ONP89VjXBGrCvB7E=
+		6VwRQfdPY6OTRuLCDBwYoGezPNY=
 		</data>
 		<key>SwrveConversation~ipad.storyboardc/Info-8.0+.plist</key>
 		<data>
@@ -504,7 +500,7 @@
 		</data>
 		<key>Headers/Swrve.h</key>
 		<data>
-		UnUyJHl63j2gDxh350lGqa0zlI4=
+		iMAaMKHGbpIMwFlx2wfD5EFPV7s=
 		</data>
 		<key>Headers/SwrveBaseCampaign.h</key>
 		<data>
@@ -564,7 +560,7 @@
 		</data>
 		<key>Headers/SwrveConversationItemViewController.h</key>
 		<data>
-		oRshbjfG0/43BRkMGADgtK6auDI=
+		G1BBFqMWW4fnZHj070XWmurbl9U=
 		</data>
 		<key>Headers/SwrveConversationKit-Prefix.pch</key>
 		<data>
@@ -585,10 +581,6 @@
 		<key>Headers/SwrveConversationUIButton.h</key>
 		<data>
 		o8B1Xf0854unmcwY3NkkRJa50Hk=
-		</data>
-		<key>Headers/SwrveConversations.h</key>
-		<data>
-		RzpmynHornkvMZS0LQQz4kSjfJQ=
 		</data>
 		<key>Headers/SwrveConversationsNavigationController.h</key>
 		<data>
@@ -652,7 +644,7 @@
 		</data>
 		<key>Headers/SwrveSignatureProtectedFile.h</key>
 		<data>
-		1GUJfaU8HLz3rxQr4O1xO73vkPc=
+		hrWbPPL7hUA7ccwr5ehqq9EH0Q4=
 		</data>
 		<key>Headers/SwrveSwizzleHelper.h</key>
 		<data>
@@ -676,51 +668,51 @@
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		b4SX2CwoeBI2/n6yCmu1NJX3PcA=
+		1Htm9oRqDxF9tRD6xfyU+R4qk3c=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/objects.nib</key>
 		<data>
-		0gqEbUhmGrL5HPb/TknmxEtuvUw=
+		Eg+wA+WUDGp5DA02MPp8jN2CYIo=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/runtime.nib</key>
 		<data>
-		6c7Jk8EESefv0rzq2NEzuZVHWbM=
+		UviSYrrvCbS4Ec/Qg/jgAoGEJNo=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		VepOvLTP1sT3wHE3QiKP81r2Ay4=
+		yPMa+DJXZvT9IsCsMxHbzSpciNA=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/objects.nib</key>
 		<data>
-		7Ew2ldVtKml6tZ5ximKwRdbE1Xs=
+		4bBCXy+03IuZsEnSLvg24pnd0hM=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/runtime.nib</key>
 		<data>
-		MQVXK6Te9h8HTykrnSewgJ0oWvQ=
+		anafMRs4pM2kNwMHZx+Vj0rasPA=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		786tbwIk+qDc8gbnh1ygsuylvIY=
+		v3le8YE4N15dEHs7rlxJMuckN/o=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/objects.nib</key>
 		<data>
-		w2ZK9ioqKp/Wi8JaX7zULlxFeaM=
+		4e3Luf/7LGC9tlrrIvqnSROg89o=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/runtime.nib</key>
 		<data>
-		0vqx8nBd0XXAyZzucSSbMeMjjf8=
+		IEQb67rZHS3+eCC331YBH2sa0o0=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		jQuINz2xAEZosFkYIqT9An1nX/k=
+		Xpixp9tVlI5M9QpRkxz9sjhznIo=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/objects.nib</key>
 		<data>
-		yA4TU+VYR1yTFpV0xK2505Yj8Xg=
+		zA33porv7ti35FiW9X1OFYtsM28=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/runtime.nib</key>
 		<data>
-		akpjnlcS/a1ONP89VjXBGrCvB7E=
+		6VwRQfdPY6OTRuLCDBwYoGezPNY=
 		</data>
 		<key>SwrveConversation~ipad.storyboardc/Info-8.0+.plist</key>
 		<data>
