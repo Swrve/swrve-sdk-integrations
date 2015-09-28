@@ -3,8 +3,9 @@ Swrve SDK Adobe Mobile Services Integration
 
 How to use
 ----------
-1. Add the sources of the SwrveADBMobile folder into your project
-2. Initialise Swrve using the class SwrveADBMobile in your AppDelegate before any calls to ADBMobile
+1. Get the Adobe Mobile Services SDK from here: https://github.com/Adobe-Marketing-Cloud/mobile-services/releases
+2. Add the sources of the SwrveADBMobile folder into your project
+3. Initialise Swrve using the class SwrveADBMobile in your AppDelegate before any calls to ADBMobile
 
 Contributing
 ------------

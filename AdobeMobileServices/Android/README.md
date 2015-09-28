@@ -3,9 +3,10 @@ Swrve SDK Adobe Mobile Services Integration
 
 How to use
 ----------
-1. Add the class SwrveAnalytics to your project
-2. Update your Application onCreate method to use the SwrveAnalytics class
-3. Replace the calls to Analytics with SwrveAnalytics where possible (trackState, trackAction)
+1. Get the Adobe Mobile Services SDK from here: https://github.com/Adobe-Marketing-Cloud/mobile-services/releases
+2. Add the class SwrveAnalytics to your project
+3. Update your Application onCreate method to use the SwrveAnalytics class
+4. Replace the calls to Analytics with SwrveAnalytics where possible (trackState, trackAction)
 
 Contributing
 ------------
