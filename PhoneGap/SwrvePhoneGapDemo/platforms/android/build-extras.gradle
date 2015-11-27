@@ -34,3 +34,7 @@ dependencies {
     testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'com.nanohttpd:nanohttpd:2.1.0'
 }
+
+ext.cdvBuildToolsVersion = '23.0.1'
+ext.cdvCompileSdkVersion = 23
+    

@@ -1,6 +1,6 @@
 // Capture Javascript errors
 window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-    window.plugins.toast.showShortTop(errorMsg + " in " + url + ":" + lineNumber + "-" + column + " " + errorObj);
+    window.plugins.toast.showShortTop(errorMsg + lineNumber + errorObj);
 }
 
 var app = {
