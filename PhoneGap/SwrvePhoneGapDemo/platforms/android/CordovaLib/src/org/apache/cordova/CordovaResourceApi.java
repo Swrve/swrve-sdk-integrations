@@ -28,8 +28,6 @@ import android.os.Looper;
 import android.util.Base64;
 import android.webkit.MimeTypeMap;
 
-import org.apache.http.util.EncodingUtils;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -427,7 +425,13 @@ public class CordovaResourceApi {
             }
         }
         String dataPartAsString = uriAsString.substring(commaPos + 1);
-        byte[] data = base64 ? Base64.decode(dataPartAsString, Base64.DEFAULT) : EncodingUtils.getBytes(dataPartAsString, "UTF-8");
+        byte[] dataBytes = null;
+        try {
+            dataBytes = dataPartAsString.getBytes("UTF-8");
+        } catch(Exception exp) {
+            dataBytes = dataPartAsString.getBytes();
+        }
+        byte[] data = base64 ? Base64.decode(dataPartAsString, Base64.DEFAULT) : dataBytes;
         InputStream inputStream = new ByteArrayInputStream(data);
         return new OpenForReadResult(uri, inputStream, contentType, data.length, null);
     }
