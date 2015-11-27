@@ -1,0 +1,5 @@
+mobile-services/
+Android/SwrveAdobeMobileServicesDemo/app/libs/*
+iOS/SwrveAdobeMobileServicesDemo/ADBMobile.h
+iOS/SwrveAdobeMobileServicesDemo/Adobe*
+iOS/SwrveAdobeMobileServicesDemo/*.a
