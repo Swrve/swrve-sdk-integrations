@@ -4,7 +4,7 @@
 #import <Cordova/CDV.h>
 #import <SwrveSDK/Swrve.h>
 
-#define SWRVE_WRAPPER_VERSION "1.0.0"
+#define SWRVE_WRAPPER_VERSION "1.0.1"
 
 CDVViewController* globalViewController;
 
@@ -231,7 +231,9 @@ NSMutableArray* pushNotificationsQueued;
         NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSString *base64Json = [jsonData cdv_base64EncodedString];
-        [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if (window.swrveProcessResourcesUpdated !== undefined) { swrveProcessResourcesUpdated('%@'); }", base64Json]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if (window.swrveProcessResourcesUpdated !== undefined) { swrveProcessResourcesUpdated('%@'); }", base64Json]];
+        });
     }
 }
 

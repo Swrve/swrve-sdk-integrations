@@ -249,7 +249,7 @@
         userResourcesDiffObtainedJSON = [self runJS:@"JSON.stringify(window.testResourcesDiff)"];
         resourcesReceived = (userResourcesObtainedJSON != nil && ![userResourcesObtainedJSON isEqualToString:@""] && userResourcesDiffObtainedJSON != nil && ![userResourcesDiffObtainedJSON isEqualToString:@""] && userResourcesListenerObtainedJSON != nil && ![userResourcesListenerObtainedJSON isEqualToString:@""]);
         if (!resourcesReceived) {
-            [self waitForSeconds:1];
+            [self waitForSeconds:10];
         }
     }
     XCTAssertTrue(resourcesReceived);
@@ -308,6 +308,7 @@
     
     // Send fake remote notification to check that the custom push payload listener works
     // Inject javascript listeners
+    [self runJS:@"window.testPushPayload = {};"];
     [self runJS:@"window.plugins.swrve.setPushNotificationListener(function(payload) { window.testPushPayload = payload; });"];
     [self waitForSeconds:1];
     // Mock state of the app to be in the background
