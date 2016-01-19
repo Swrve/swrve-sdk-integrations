@@ -4,10 +4,12 @@
 #import "SwrveResourceManager.h"
 #import "SwrveSignatureProtectedFile.h"
 
+@class SwrveLocationManager;
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu"
 
-#ifdef DEBUG
+#ifndef SWRVE_DISABLE_LOGS
 #define DebugLog( s, ... ) NSLog(s, ##__VA_ARGS__)
 #else
 #define DebugLog( s, ... )
@@ -16,13 +18,19 @@
 #pragma clang diagnostic pop
 
 /*! The release version of this SDK. */
-#define SWRVE_SDK_VERSION "4.0.3"
+#define SWRVE_SDK_VERSION "4.1"
 
 /*! Result codes for Swrve methods. */
 enum
 {
     SWRVE_SUCCESS = 0,  /*!< Method executed successfully. */
     SWRVE_FAILURE = -1  /*!< Method did not execute successfully. */
+};
+
+/*! Swrve stack names. */
+enum SwrveStack {
+    SWRVE_STACK_US,
+    SWRVE_STACK_EU
 };
 
 /*! Defines the block signature for receiving resources after calling
@@ -95,8 +103,19 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 /*! Advanced configuration for the Swrve SDK. */
 @interface SwrveConfig : NSObject
 
+/*! The userID is used by Swrve to identify unique users. It must be unique for all users
+ * of your app. If not specified the SDK will assign a random UUID to this device. */
+@property (nonatomic, retain) NSString * userId;
+
 /*! The supported orientations of the app. */
 @property (nonatomic) SwrveInterfaceOrientation orientation;
+
+/*! By default Swrve will choose the status bar appearance
+ * when presenting any view controllers.  
+ * You can disable this functionality by setting
+ * prefersIAMStatusBarHidden to false.
+ */
+@property (nonatomic) BOOL prefersIAMStatusBarHidden;
 
 /*! By default Swrve will read the application version from the current
  * application bundle. This is used to allow you to test and target users with a
@@ -209,6 +228,16 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 /*! Store signature to verify content of eventCacheFile. */
 @property (nonatomic, retain) NSString * eventCacheSignatureFile;
 
+/*! The location campaign cache stores data that has not yet been sent to Swrve.
+ * If you plan to change this please contact the team at Swrve who will be happy to help you out.
+ * This path should be located in app/Libraries/Caches/, as this is where Apple
+ * recommend that persistent data should be stored. http://bit.ly/nCe9Zy
+ */
+@property (nonatomic, retain) NSString * locationCampaignCacheFile;
+
+/*! Store signature to verify content of locationCampaignCacheFile. */
+@property (nonatomic, retain) NSString * locationCampaignCacheSignatureFile;
+
 /*! The user resources cache stores the result of calls to Swrve getUserResources
  * so that the results can be used when the device is offline.
  * If you plan to change this please contact the team at Swrve who will be happy to help you out.
@@ -250,8 +279,9 @@ typedef void (^SwrveResourcesUpdatedListener) ();
  */
 @property (nonatomic, retain) SwrveReceiptProvider* receiptProvider;
 
-/*! Used for testing. Please do not use this property. */
-@property (nonatomic) BOOL testBuffersActivated;
+/*! The currently selected stack.
+ */
+@property (nonatomic) enum SwrveStack selectedStack;
 
 @end
 
@@ -259,7 +289,9 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @interface ImmutableSwrveConfig : NSObject
 
 - (id)initWithSwrveConfig:(SwrveConfig*)config;
+@property (nonatomic, readonly) NSString * userId;
 @property (nonatomic, readonly) SwrveInterfaceOrientation orientation;
+@property (nonatomic, readonly) BOOL prefersIAMStatusBarHidden;
 @property (nonatomic, readonly) int httpTimeoutSeconds;
 @property (nonatomic, readonly) NSString * eventsServer;
 @property (nonatomic, readonly) BOOL useHttpsForEventServer;
@@ -268,6 +300,8 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @property (nonatomic, readonly) NSString * language;
 @property (nonatomic, readonly) NSString * eventCacheFile;
 @property (nonatomic, readonly) NSString * eventCacheSignatureFile;
+@property (nonatomic, readonly) NSString * locationCampaignCacheFile;
+@property (nonatomic, readonly) NSString * locationCampaignCacheSignatureFile;
 @property (nonatomic, readonly) NSString * userResourcesCacheFile;
 @property (nonatomic, readonly) NSString * userResourcesCacheSignatureFile;
 @property (nonatomic, readonly) NSString * userResourcesDiffCacheFile;
@@ -288,7 +322,7 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @property (nonatomic, readonly) BOOL autoCollectDeviceToken;
 @property (nonatomic, readonly) NSSet* pushCategories;
 @property (nonatomic, readonly) long autoShowMessagesMaxDelay;
-@property (nonatomic, readonly) BOOL testBuffersActivated;
+@property (nonatomic, readonly) enum SwrveStack selectedStack;
 
 @end
 
@@ -319,17 +353,6 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 +(Swrve*) sharedInstanceWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey;
 
 /*! Creates and initializes the shared Swrve singleton.
- * The userID is used by Swrve to identify unique users. It must be unique for all users
- * of your app. The default user ID is a random UUID.
- *
- * \param swrveAppID The App ID for your app supplied by Swrve.
- * \param swrveAPIKey The secret token for your app supplied by Swrve.
- * \param swrveUserID The unique user id for your application.
- * \returns An initialized Swrve object.
- */
-+(Swrve*) sharedInstanceWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID;
-
-/*! Creates and initializes the shared Swrve singleton.
  *
  * Takes a SwrveConfig object that can be used to change default settings.
  *
@@ -342,17 +365,31 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 
 /*! Creates and initializes the shared Swrve singleton.
  *
+ * The default user ID is a random UUID. The userID is cached in the
+ * default settings of the app and recalled the next time you initialize the
+ * app. This means the ID for the user will stay consistent for as long as the
+ * user has your app installed on the device.
+ *
+ * \param swrveAppID The App ID for your app supplied by Swrve.
+ * \param swrveAPIKey The secret token for your app supplied by Swrve.
+ * \param launchOptions The Application's launchOptions from didFinishLaunchingWithOptions.
+ * \returns An initialized Swrve object.
+ */
++(Swrve*) sharedInstanceWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey launchOptions:(NSDictionary*)launchOptions;
+
+
+/*! Creates and initializes the shared Swrve singleton.
+ *
  * Takes a SwrveConfig object that can be used to change default settings.
- * The userID is used by Swrve to identify unique users. It must be unique for all users
- * of your app. The default user ID is a random UUID.
  *
  * \param swrveAppID The App ID for your app supplied by Swrve.
  * \param swrveAPIKey The secret token for your app supplied by Swrve.
  * \param swrveConfig The swrve configuration object used to override default settings.
- * \param swrveUserID The unique user id for your application.
+ * \param launchOptions The Application's launchOptions from didFinishLaunchingWithOptions.
  * \returns An initialized Swrve object.
  */
-+(Swrve*) sharedInstanceWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID config:(SwrveConfig*)swrveConfig;
++(Swrve*) sharedInstanceWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey config:(SwrveConfig*)swrveConfig launchOptions:(NSDictionary*)launchOptions;
+
 
 #pragma mark -
 #pragma mark Initialization
@@ -372,18 +409,6 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 
 /*! Initializes a Swrve object that has already been allocated using [Swrve alloc].
  *
- * The userID is used by Swrve to identify unique users. It must be unique for all users
- * of your app. The default user ID is a random UUID.
- *
- * \param swrveAppID The App ID for your app supplied by Swrve.
- * \param swrveAPIKey The secret token for your app supplied by Swrve.
- * \param swrveUserID The unique user id for your application.
- * \returns An initialized Swrve object.
- */
--(id) initWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID;
-
-/*! Initializes a Swrve object that has already been allocated using [Swrve alloc].
- *
  * Takes a SwrveConfig object that can be used to change default settings.
  * The userID is used by Swrve to identify unique users. It must be unique for all users
  * of your app. The default user ID is a random UUID.
@@ -397,17 +422,31 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 
 /*! Initializes a Swrve object that has already been allocated using [Swrve alloc].
  *
+ * The default user ID is a random UUID. The userID is cached in the
+ * default settings of the app and recalled the next time you initialize the
+ * app. This means the ID for the user will stay consistent for as long as the
+ * user has your app installed on the device.
+ *
+ * \param swrveAppID The App ID for your app supplied by Swrve.
+ * \param swrveAPIKey The secret token for your app supplied by Swrve.
+ * \param launchOptions The Application's launchOptions from didFinishLaunchingWithOptions.
+ * \returns An initialized Swrve object.
+ */
+-(id) initWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey launchOptions:(NSDictionary*)launchOptions;
+
+/*! Initializes a Swrve object that has already been allocated using [Swrve alloc].
+ *
  * Takes a SwrveConfig object that can be used to change default settings.
  * The userID is used by Swrve to identify unique users. It must be unique for all users
  * of your app. The default user ID is a random UUID.
  *
  * \param swrveAppID The App ID for your app supplied by Swrve.
  * \param swrveAPIKey The secret token for your app supplied by Swrve.
- * \param swrveUserID The unique user id for your application.
  * \param swrveConfig The swrve configuration object used to override default settings.
+ * \param launchOptions The Application's launchOptions from didFinishLaunchingWithOptions.
  * \returns An initialized Swrve object.
  */
--(id) initWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID config:(SwrveConfig*)swrveConfig;
+-(id) initWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey config:(SwrveConfig*)swrveConfig launchOptions:(NSDictionary*)launchOptions;
 
 #pragma mark -
 #pragma mark Events
@@ -612,6 +651,7 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @property (atomic, readonly)         NSString * userID;                       /*!< User ID used to initialize this Swrve object. */
 @property (atomic, readonly)         NSDictionary * deviceInfo;               /*!< Information about the current device. */
 @property (atomic, readonly)         SwrveMessageController * talk;           /*!< In-app message component. */
+@property (atomic, strong)           SwrveLocationManager * locationManager;  /*!< Can be queried for up-to-date location campaign values. */
 @property (atomic, readonly)         SwrveResourceManager * resourceManager;  /*!< Can be queried for up-to-date resource attribute values. */
 @property (atomic, readonly)         NSString* deviceToken;                   /*!< Push notification device token. */
 
