@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import "SwrveConversation.h"
 #import "SwrveConversationAtom.h"
 
 @interface SwrveConversationPane : NSObject 
@@ -10,6 +9,6 @@
 @property (readonly, atomic, strong) NSString *title;
 @property (readonly, atomic, strong) NSDictionary *pageStyle;
 
--(id) initWithDictionary:(NSDictionary *)dict;
--(SwrveConversationAtom *) contentForTag:(NSString*)tag;
+- (id) initWithDictionary:(NSDictionary *)dict;
+- (NSMutableArray <SwrveConversationAtom *> *) contentForTag:(NSString*)tag;
 @end

@@ -124,8 +124,12 @@ task :testAndroidInEmulator, [:emulator] do |t, args|
 	killEmulator
 
 	startEmulator(emulator, emulatorPort)
-	execInDir("Testing PhoneGap Android wrapper on #{emulator}", relative('SwrvePhoneGapDemo/platforms/android'), "./gradlew connectedCheck")
+	Rake::Task["testAndroidConnectedDevice"].execute
 	sleep(5)
 
 	killEmulator
+end
+
+task :testAndroidConnectedDevice do
+	execInDir("Testing PhoneGap Android wrapper", relative('SwrvePhoneGapDemo/platforms/android'), "./gradlew connectedCheck")
 end

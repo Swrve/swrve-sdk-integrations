@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "SwrveSetup.h"
 
-@class SwrveConversation;
+@class SwrveBaseConversation;
 
 // Content types
 #define kSwrveContentTypeHTML @"html-fragment"
@@ -12,6 +12,7 @@
 #define kSwrveInputMultiValue @"multi-value-input"
 // Control types
 #define kSwrveControlTypeButton @"button"
+#define kSwrveControlStarRating @"star-rating"
 
 // Notifications
 #define kSwrveNotificationViewReady @"SwrveNotificationViewReady"

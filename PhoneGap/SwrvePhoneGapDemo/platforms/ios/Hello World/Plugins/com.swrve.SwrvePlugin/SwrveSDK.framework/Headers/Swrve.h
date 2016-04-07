@@ -2,30 +2,21 @@
 #import "SwrveInterfaceOrientation.h"
 #import "SwrveReceiptProvider.h"
 #import "SwrveResourceManager.h"
-#import "SwrveSignatureProtectedFile.h"
 
-@class SwrveLocationManager;
+#if COCOAPODS
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
+#import <SwrveSDKCommon/SwrveSignatureProtectedFile.h>
+#import <SwrveSDKCommon/SwrveCommon.h>
 
-#ifndef SWRVE_DISABLE_LOGS
-#define DebugLog( s, ... ) NSLog(s, ##__VA_ARGS__)
 #else
-#define DebugLog( s, ... )
+
+#import "SwrveSignatureProtectedFile.h"
+#import "SwrveCommon.h"
+
 #endif
 
-#pragma clang diagnostic pop
-
 /*! The release version of this SDK. */
-#define SWRVE_SDK_VERSION "4.1"
-
-/*! Result codes for Swrve methods. */
-enum
-{
-    SWRVE_SUCCESS = 0,  /*!< Method executed successfully. */
-    SWRVE_FAILURE = -1  /*!< Method did not execute successfully. */
-};
+#define SWRVE_SDK_VERSION "4.3"
 
 /*! Swrve stack names. */
 enum SwrveStack {
@@ -327,7 +318,7 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @end
 
 /*! Swrve SDK main class. */
-@interface Swrve : NSObject<SwrveSignatureErrorListener>
+@interface Swrve : NSObject<SwrveCommonDelegate, SwrveSignatureErrorListener>
 
 #pragma mark -
 #pragma mark Singleton
@@ -390,6 +381,33 @@ typedef void (^SwrveResourcesUpdatedListener) ();
  */
 +(Swrve*) sharedInstanceWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey config:(SwrveConfig*)swrveConfig launchOptions:(NSDictionary*)launchOptions;
 
+#pragma mark -
+#pragma mark Deprecated singleton methods
+
+/*! Creates and initializes the shared Swrve singleton.
+ * The userID is used by Swrve to identify unique users. It must be unique for all users
+ * of your app. The default user ID is a random UUID.
+ *
+ * \param swrveAppID The App ID for your app supplied by Swrve.
+ * \param swrveAPIKey The secret token for your app supplied by Swrve.
+ * \param swrveUserID The unique user id for your application.
+ * \returns An initialized Swrve object.
+ */
++(Swrve*) sharedInstanceWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID __deprecated_msg("Use the new userId property in SwrveConfig instead.");
+
+/*! Creates and initializes the shared Swrve singleton.
+ *
+ * Takes a SwrveConfig object that can be used to change default settings.
+ * The userID is used by Swrve to identify unique users. It must be unique for all users
+ * of your app. The default user ID is a random UUID.
+ *
+ * \param swrveAppID The App ID for your app supplied by Swrve.
+ * \param swrveAPIKey The secret token for your app supplied by Swrve.
+ * \param swrveConfig The swrve configuration object used to override default settings.
+ * \param swrveUserID The unique user id for your application.
+ * \returns An initialized Swrve object.
+ */
++(Swrve*) sharedInstanceWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID config:(SwrveConfig*)swrveConfig  __deprecated_msg("Use the new userId property in SwrveConfig instead.");
 
 #pragma mark -
 #pragma mark Initialization
@@ -447,6 +465,36 @@ typedef void (^SwrveResourcesUpdatedListener) ();
  * \returns An initialized Swrve object.
  */
 -(id) initWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey config:(SwrveConfig*)swrveConfig launchOptions:(NSDictionary*)launchOptions;
+
+
+#pragma mark -
+#pragma mark Deprecated initialization
+
+/*! Initializes a Swrve object that has already been allocated using [Swrve alloc].
+ *
+ * The userID is used by Swrve to identify unique users. It must be unique for all users
+ * of your app. The default user ID is a random UUID.
+ *
+ * \param swrveAppID The App ID for your app supplied by Swrve.
+ * \param swrveAPIKey The secret token for your app supplied by Swrve.
+ * \param swrveUserID The unique user id for your application.
+ * \returns An initialized Swrve object.
+ */
+-(id) initWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID __deprecated_msg("Use the new userId property in SwrveConfig instead.");
+
+/*! Initializes a Swrve object that has already been allocated using [Swrve alloc].
+ *
+ * Takes a SwrveConfig object that can be used to change default settings.
+ * The userID is used by Swrve to identify unique users. It must be unique for all users
+ * of your app. The default user ID is a random UUID.
+ *
+ * \param swrveAppID The App ID for your app supplied by Swrve.
+ * \param swrveAPIKey The secret token for your app supplied by Swrve.
+ * \param swrveUserID The unique user id for your application.
+ * \param swrveConfig The swrve configuration object used to override default settings.
+ * \returns An initialized Swrve object.
+ */
+-(id) initWithAppID:(int)swrveAppID apiKey:(NSString*)swrveAPIKey userID:(NSString*)swrveUserID config:(SwrveConfig*)swrveConfig __deprecated_msg("Use the new userId property in SwrveConfig instead.");
 
 #pragma mark -
 #pragma mark Events
@@ -640,7 +688,11 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 
 /*! Used internally to detect if the app is in the background.
  */
--(BOOL) appInBackground;
+-(BOOL) appInBackground __deprecated;
+
+/*! Used internally to read location cache.
+ */
+- (SwrveSignatureProtectedFile *)getLocationCampaignFile;
 
 #pragma mark -
 #pragma mark Properties
@@ -651,7 +703,6 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @property (atomic, readonly)         NSString * userID;                       /*!< User ID used to initialize this Swrve object. */
 @property (atomic, readonly)         NSDictionary * deviceInfo;               /*!< Information about the current device. */
 @property (atomic, readonly)         SwrveMessageController * talk;           /*!< In-app message component. */
-@property (atomic, strong)           SwrveLocationManager * locationManager;  /*!< Can be queried for up-to-date location campaign values. */
 @property (atomic, readonly)         SwrveResourceManager * resourceManager;  /*!< Can be queried for up-to-date resource attribute values. */
 @property (atomic, readonly)         NSString* deviceToken;                   /*!< Push notification device token. */
 
