@@ -21,14 +21,23 @@
         <meta-data android:name="SWRVE_PUSH_ICON" android:resource="@drawable/icon" />
         <meta-data android:name="SWRVE_PUSH_ACTIVITY" android:value=".MainActivity" />
         <meta-data android:name="SWRVE_PUSH_TITLE" android:value="Your app title" />
-        <receiver android:name="com.swrve.sdk.gcm.SwrveGcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+        <receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
                 <category android:name="com.phonegap.helloworld" />
             </intent-filter>
         </receiver>
-        <service android:name="com.swrve.sdk.gcm.SwrveGcmIntentService" />
+        <service android:name="com.swrve.sdk.gcm.SwrveGcmIntentService">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service android:name="com.swrve.sdk.gcm.SwrveGcmInstanceIDListenerService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
     </application>
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="22" />
     <uses-permission android:name="android.permission.INTERNET" />
