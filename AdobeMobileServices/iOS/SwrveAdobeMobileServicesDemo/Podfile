@@ -1,1 +1,3 @@
-pod 'SwrveSDK'
+target 'SwrveAdobeMobileServicesDemo' do
+  pod 'SwrveSDK'
+end
