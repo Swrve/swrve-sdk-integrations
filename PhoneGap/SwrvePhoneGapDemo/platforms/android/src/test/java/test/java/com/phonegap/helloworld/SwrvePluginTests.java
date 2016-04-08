@@ -115,7 +115,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         runJS("window.plugins.swrve.getUserResources(function(resources) {alert('swrve:10:' + JSON.stringify(resources));}, function () {});");
         runJS("window.plugins.swrve.setResourcesListener(function(resources) { alert('swrve:40:' + JSON.stringify(resources)); });");
 
-        int retries = 60;
+        int retries = 180;
         String userResources;
         String userResourcesListener;
         do {
@@ -140,7 +140,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
     public void testUserResourcesDiff() throws Exception {
         runJS("window.plugins.swrve.getUserResourcesDiff(function(resourcesDiff) {alert('swrve:20:' + JSON.stringify(resourcesDiff));}, function () {});");
 
-        int retries = 60;
+        int retries = 180;
         String userResourcesDiff;
         do {
             userResourcesDiff = mActivity.getJSReturnValue(20);
@@ -166,7 +166,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
 
         WeakReference<SwrveDialog> weakDialog;
         SwrveDialog dialog = null;
-        int retries = 60;
+        int retries = 180;
         do {
             runJS("window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);");
             weakDialog = (WeakReference<SwrveDialog>) dialogField.get(sdk);
@@ -196,7 +196,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         assertTrue(clickedButton);
 
         // Obtain the action from the button
-        retries = 60;
+        retries = 180;
         String customAction;
         do {
             customAction = mActivity.getJSReturnValue(30);
