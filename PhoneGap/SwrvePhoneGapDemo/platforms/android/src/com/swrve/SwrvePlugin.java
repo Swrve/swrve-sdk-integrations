@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.phonegap.helloworld.Application;
 import com.swrve.sdk.ISwrveResourcesListener;
 import com.swrve.sdk.ISwrveUserResourcesListener;
 import com.swrve.sdk.SwrveSDK;
