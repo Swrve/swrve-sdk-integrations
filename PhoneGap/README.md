@@ -8,7 +8,7 @@ This PhoneGap plugin will enable your app to use all of these features on Androi
 
 Getting started
 ---------------
-Have a look at the quick integration guide at http://docs.swrve.com/developer-documentation/37926233/
+Have a look at the quick integration guide at http://docs.swrve.com/developer-documentation/integration/phonegap/
 
 Testing
 -------
