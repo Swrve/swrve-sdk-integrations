@@ -16,7 +16,7 @@
 #endif
 
 /*! The release version of this SDK. */
-#define SWRVE_SDK_VERSION "4.3"
+#define SWRVE_SDK_VERSION "4.4.2"
 
 /*! Swrve stack names. */
 enum SwrveStack {
@@ -102,7 +102,7 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @property (nonatomic) SwrveInterfaceOrientation orientation;
 
 /*! By default Swrve will choose the status bar appearance
- * when presenting any view controllers.  
+ * when presenting any view controllers.
  * You can disable this functionality by setting
  * prefersIAMStatusBarHidden to false.
  */
@@ -163,6 +163,7 @@ typedef void (^SwrveResourcesUpdatedListener) ();
  */
 @property (nonatomic) BOOL autoSaveEventsOnResign;
 
+#if !defined(SWRVE_NO_PUSH)
 /*! Controls if push notifications are enabled. */
 @property (nonatomic) BOOL pushEnabled;
 
@@ -177,9 +178,10 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 /*! Set of iOS8+ interactive push notification categories (UIMutableUserNotificationCategory).
  * Initialize this set only if running on an iOS8+ device with the interactive actions that
  * your app supports for push notifications. Will be used when registering for
- * push notification permissions with UIUserNotificationSettings. 
+ * push notification permissions with UIUserNotificationSettings.
  */
 @property (nonatomic, copy) NSSet* pushCategories;
+#endif //!defined(SWRVE_NO_PUSH)
 
 /*! Maximum delay for in-app messages to appear after initialization. */
 @property (nonatomic) long autoShowMessagesMaxDelay;
@@ -253,10 +255,18 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 
 /*! The install-time cache caches the time that the user first installed the app.
  * If you plan to change this please contact the team at Swrve who will be happy to help you out.
- * This path should be located in app/Libraries/Caches/, as this is where Apple
- * recommend that persistent data should be stored. http://bit.ly/nCe9Zy
+ * This path should be located in the Documents folder.
  */
 @property (nonatomic, retain) NSString * installTimeCacheFile;
+
+/*! The install-time cache caches the time that the user first installed the app.
+ * If you plan to change this please contact the team at Swrve who will be happy to help you out.
+ * This path should be located in app/Libraries/Caches/, as this is where Apple
+ * recommend that persistent data should be stored. http://bit.ly/nCe9Zy.
+ *
+ * This contains the pre iOS SDK 4.5 location of the install time for migration purposes.
+ */
+@property (nonatomic, retain) NSString * installTimeCacheSecondaryFile;
 
 /*! Maximum number of simultaneous asset downloads for Swrve in-app messages.
  */
@@ -298,6 +308,7 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @property (nonatomic, readonly) NSString * userResourcesDiffCacheFile;
 @property (nonatomic, readonly) NSString * userResourcesDiffCacheSignatureFile;
 @property (nonatomic, readonly) NSString * installTimeCacheFile;
+@property (nonatomic, readonly) NSString * installTimeCacheSecondaryFile;
 @property (nonatomic, readonly) NSString * appVersion;
 @property (nonatomic, readonly) SwrveReceiptProvider* receiptProvider;
 @property (nonatomic, readonly) int maxConcurrentDownloads;
@@ -308,10 +319,12 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 @property (nonatomic, readonly) SwrveResourcesUpdatedListener resourcesUpdatedCallback;
 @property (nonatomic, readonly) BOOL autoSendEventsOnResume;
 @property (nonatomic, readonly) BOOL autoSaveEventsOnResign;
+#if !defined(SWRVE_NO_PUSH)
 @property (nonatomic, readonly) BOOL pushEnabled;
 @property (nonatomic, readonly) NSSet* pushNotificationEvents;
 @property (nonatomic, readonly) BOOL autoCollectDeviceToken;
 @property (nonatomic, readonly) NSSet* pushCategories;
+#endif //!defined(SWRVE_NO_PUSH)
 @property (nonatomic, readonly) long autoShowMessagesMaxDelay;
 @property (nonatomic, readonly) enum SwrveStack selectedStack;
 
@@ -527,7 +540,7 @@ typedef void (^SwrveResourcesUpdatedListener) ();
 -(int) iap:(SKPaymentTransaction*) transaction product:(SKProduct*) product;
 
 /*!
- * Call this when the user has bought something using real currency.  
+ * Call this when the user has bought something using real currency.
  * Include the virtual item and currency given to the user in rewards.
  *
  * See the REST API docs for the IAP event for a detailed description of the

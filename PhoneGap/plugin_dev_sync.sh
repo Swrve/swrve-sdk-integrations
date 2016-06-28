@@ -21,7 +21,7 @@ echo "});" >> $DEMOANDROID/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-and
 rm $DEMOANDROID/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js.original
 
 # iOS platform
-cp -R $PLUGIN/platforms/ios/ $DEMOIOS/Hello\ World/Plugins/com.swrve.SwrvePlugin/
+cp -R $PLUGIN/platforms/ios/ $DEMOIOS/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/
 cp $PLUGIN/js/swrve-ios.js $DEMOIOS/www/plugins/com.swrve.SwrvePlugin/js/swrve-ios.js.original
 # Add JS plugin wrappings
 sed '1i\

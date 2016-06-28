@@ -111,7 +111,7 @@ enum
     UInt64 install_time;
     NSDate *lastSessionDate;
     NSString* lastProcessedPushId;
-    
+
 
     SwrveEventQueuedCallback event_queued_callback;
 
@@ -146,7 +146,7 @@ enum
 - (void) sendCrashlyticsMetadata;
 - (BOOL) isValidJson:(NSData*) json;
 - (void) initResources;
-- (UInt64) getInstallTime:(NSString*)fileName;
+- (UInt64) getInstallTime:(NSString*)fileName withSecondaryFile:(NSString*)secondaryFileName;
 - (void) sendLogfile;
 - (NSOutputStream*) createLogfile:(int)mode;
 - (UInt64) getTime;
@@ -195,7 +195,7 @@ enum
 @property (atomic) NSURL* batchURL;
 @property (atomic) NSURL* campaignsAndResourcesURL;
 
-@property (atomic) NSString* locationVersion;
+@property (atomic) int locationSegmentVersion;
 
 @end
 
@@ -276,6 +276,7 @@ enum
 @synthesize userResourcesDiffCacheFile;
 @synthesize userResourcesDiffCacheSignatureFile;
 @synthesize installTimeCacheFile;
+@synthesize installTimeCacheSecondaryFile;
 @synthesize appVersion;
 @synthesize receiptProvider;
 @synthesize maxConcurrentDownloads;
@@ -286,10 +287,12 @@ enum
 @synthesize resourcesUpdatedCallback;
 @synthesize autoSendEventsOnResume;
 @synthesize autoSaveEventsOnResign;
+#if !defined(SWRVE_NO_PUSH)
 @synthesize pushEnabled;
 @synthesize pushNotificationEvents;
 @synthesize autoCollectDeviceToken;
 @synthesize pushCategories;
+#endif //!defined(SWRVE_NO_PUSH)
 @synthesize autoShowMessagesMaxDelay;
 @synthesize selectedStack;
 
@@ -319,13 +322,17 @@ enum
 
         self.useHttpsForEventServer = YES;
         self.useHttpsForContentServer = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0");
-        self.installTimeCacheFile = [caches stringByAppendingPathComponent: @"swrve_install.txt"];
+        NSString* documents = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        self.installTimeCacheFile = [documents stringByAppendingPathComponent: @"swrve_install.txt"];
+        self.installTimeCacheSecondaryFile = [caches stringByAppendingPathComponent: @"swrve_install.txt"];
         self.autoSendEventsOnResume = YES;
         self.autoSaveEventsOnResign = YES;
         self.talkEnabled = YES;
+#if !defined(SWRVE_NO_PUSH)
         self.pushEnabled = NO;
         self.pushNotificationEvents = [NSSet setWithObject:@"Swrve.session.start"];
         self.autoCollectDeviceToken = YES;
+#endif //!defined(SWRVE_NO_PUSH)
         self.autoShowMessagesMaxDelay = 5000;
         self.receiptProvider = [[SwrveReceiptProvider alloc] init];
         self.resourcesUpdatedCallback = ^() {
@@ -358,6 +365,7 @@ enum
 @synthesize userResourcesDiffCacheFile;
 @synthesize userResourcesDiffCacheSignatureFile;
 @synthesize installTimeCacheFile;
+@synthesize installTimeCacheSecondaryFile;
 @synthesize appVersion;
 @synthesize receiptProvider;
 @synthesize maxConcurrentDownloads;
@@ -368,10 +376,12 @@ enum
 @synthesize resourcesUpdatedCallback;
 @synthesize autoSendEventsOnResume;
 @synthesize autoSaveEventsOnResign;
+#if !defined(SWRVE_NO_PUSH)
 @synthesize pushEnabled;
 @synthesize pushNotificationEvents;
 @synthesize autoCollectDeviceToken;
 @synthesize pushCategories;
+#endif //!defined(SWRVE_NO_PUSH)
 @synthesize autoShowMessagesMaxDelay;
 @synthesize selectedStack;
 
@@ -396,6 +406,7 @@ enum
         userResourcesDiffCacheFile = config.userResourcesDiffCacheFile;
         userResourcesDiffCacheSignatureFile = config.userResourcesDiffCacheSignatureFile;
         installTimeCacheFile = config.installTimeCacheFile;
+        installTimeCacheSecondaryFile = config.installTimeCacheSecondaryFile;
         appVersion = config.appVersion;
         receiptProvider = config.receiptProvider;
         maxConcurrentDownloads = config.maxConcurrentDownloads;
@@ -406,10 +417,12 @@ enum
         resourcesUpdatedCallback = config.resourcesUpdatedCallback;
         autoSendEventsOnResume = config.autoSendEventsOnResume;
         autoSaveEventsOnResign = config.autoSaveEventsOnResign;
+#if !defined(SWRVE_NO_PUSH)
         pushEnabled = config.pushEnabled;
         pushNotificationEvents = config.pushNotificationEvents;
         autoCollectDeviceToken = config.autoCollectDeviceToken;
         pushCategories = config.pushCategories;
+#endif //!defined(SWRVE_NO_PUSH)
         autoShowMessagesMaxDelay = config.autoShowMessagesMaxDelay;
         selectedStack = config.selectedStack;
     }
@@ -484,7 +497,9 @@ enum
 
 static Swrve * _swrveSharedInstance = nil;
 static dispatch_once_t sharedInstanceToken = 0;
+#if !defined(SWRVE_NO_PUSH)
 static bool didSwizzle = false;
+#endif //!defined(SWRVE_NO_PUSH)
 
 @synthesize config;
 @synthesize appID;
@@ -515,7 +530,7 @@ static bool didSwizzle = false;
 @synthesize eventsWereSent;
 @synthesize batchURL;
 @synthesize campaignsAndResourcesURL;
-@synthesize locationVersion;
+@synthesize locationSegmentVersion;
 
 + (void) resetSwrveSharedInstance
 {
@@ -672,13 +687,13 @@ static bool didSwizzle = false;
         blockStore = [[NSMutableDictionary alloc] init];
         blockStoreId = 0;
 
-        locationVersion = @"0"; // init to zero
+        locationSegmentVersion = 0; // init to zero
 
         config = [[ImmutableSwrveConfig alloc] initWithSwrveConfig:swrveConfig];
         [self initBuffer];
         deviceInfo = [NSMutableDictionary dictionary];
 
-        install_time = [self getInstallTime:swrveConfig.installTimeCacheFile];
+        install_time = [self getInstallTime:swrveConfig.installTimeCacheFile withSecondaryFile:swrveConfig.installTimeCacheSecondaryFile];
         lastSessionDate = [self getNow];
 
         NSURL* base_events_url = [NSURL URLWithString:swrveConfig.eventsServer];
@@ -700,6 +715,7 @@ static bool didSwizzle = false;
         [self.userUpdates setValue:@"user" forKey:@"type"];
         [self.userUpdates setValue:[[NSMutableDictionary alloc]init] forKey:@"attributes"];
 
+#if !defined(SWRVE_NO_PUSH)
         if(swrveConfig.autoCollectDeviceToken && _swrveSharedInstance == self && !didSwizzle){
             Class appDelegateClass = [[UIApplication sharedApplication].delegate class];
 
@@ -711,29 +727,29 @@ static bool didSwizzle = false;
             didRegisterForRemoteNotificationsWithDeviceTokenImpl = (didRegisterForRemoteNotificationsWithDeviceTokenImplSignature)[SwrveSwizzleHelper swizzleMethod:didRegisterSelector inClass:appDelegateClass withImplementationIn:self];
             didFailToRegisterForRemoteNotificationsWithErrorImpl = (didFailToRegisterForRemoteNotificationsWithErrorImplSignature)[SwrveSwizzleHelper swizzleMethod:didFailSelector inClass:appDelegateClass withImplementationIn:self];
             didReceiveRemoteNotificationImpl = (didReceiveRemoteNotificationImplSignature)[SwrveSwizzleHelper swizzleMethod:didReceiveSelector inClass:appDelegateClass withImplementationIn:self];
-            
+
             didSwizzle = true;
         } else {
             didRegisterForRemoteNotificationsWithDeviceTokenImpl = NULL;
             didFailToRegisterForRemoteNotificationsWithErrorImpl = NULL;
             didReceiveRemoteNotificationImpl = NULL;
         }
-        
+
+        [self registerForNotifications];
+#endif //!defined(SWRVE_NO_PUSH)
+        [self updateDeviceInfo];
+
         if (swrveConfig.talkEnabled) {
-            talk = [[SwrveMessageController alloc]initWithSwrve:self];
+            talk = [[SwrveMessageController alloc] initWithSwrve:self];
             [self disableAutoShowAfterDelay];
         }
-        [self registerForNotifications];
-        
+
         [self queueSessionStart];
         [self queueDeviceProperties];
 
         // If this is the first time this user has been seen send install analytics
         if(didSetUserId) {
             [self eventInternal:@"Swrve.first_session" payload:nil triggerCallback:true];
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"yyyyMMdd"];
-            [self userUpdate:@{ @"swrve.install_date" : [dateFormatter stringFromDate:[self getNow]] } ];
         }
 
         [self setCampaignsAndResourcesInitialized:NO];
@@ -749,7 +765,8 @@ static bool didSwizzle = false;
         }
 
         [self startCampaignsAndResourcesTimer];
-        
+
+#if !defined(SWRVE_NO_PUSH)
         // Check if the launch options of the app has any push notification in it
         if (launchOptions != nil) {
             NSDictionary * remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -757,6 +774,9 @@ static bool didSwizzle = false;
                 [self.talk pushNotificationReceived:remoteNotification];
             }
         }
+#else
+#pragma unused(launchOptions)
+#endif //!defined(SWRVE_NO_PUSH)
     }
 
     [self sendQueuedEvents];
@@ -764,6 +784,7 @@ static bool didSwizzle = false;
     return self;
 }
 
+#if !defined(SWRVE_NO_PUSH)
 - (void)_deswizzlePushMethods
 {
     if(_swrveSharedInstance == self && didSwizzle) {
@@ -776,7 +797,7 @@ static bool didSwizzle = false;
         SEL didFail = @selector(application:didFailToRegisterForRemoteNotificationsWithError:);
         [SwrveSwizzleHelper deswizzleMethod:didFail inClass:appDelegateClass originalImplementation:(IMP)didFailToRegisterForRemoteNotificationsWithErrorImpl];
         didFailToRegisterForRemoteNotificationsWithErrorImpl = NULL;
-        
+
         SEL didReceive = @selector(application:didReceiveRemoteNotification:);
         [SwrveSwizzleHelper deswizzleMethod:didReceive inClass:appDelegateClass originalImplementation:(IMP)didReceiveRemoteNotificationImpl];
         didReceiveRemoteNotificationImpl = NULL;
@@ -826,13 +847,15 @@ static bool didSwizzle = false;
         if (swrveInstance.talk != nil) {
             [swrveInstance.talk pushNotificationReceived:userInfo];
         }
-        
+
         if( swrveInstance->didReceiveRemoteNotificationImpl != NULL ) {
             id target = [UIApplication sharedApplication].delegate;
             swrveInstance->didReceiveRemoteNotificationImpl(target, @selector(application:didReceiveRemoteNotification:), application, userInfo);
         }
     }
 }
+
+#endif //!defined(SWRVE_NO_PUSH)
 
 -(void) queueSessionStart
 {
@@ -1010,7 +1033,7 @@ static bool didSwizzle = false;
     if ([self.config autoDownloadCampaignsAndResources]) {
         [self checkForCampaignAndResourcesUpdates:nil];
     }
-    
+
     return SWRVE_SUCCESS;
 }
 
@@ -1082,7 +1105,7 @@ static bool didSwizzle = false;
         [queryString appendFormat:@"&etag=%@", etagValue];
     }
 
-    
+
     NSURL* url = [NSURL URLWithString:queryString relativeToURL:[self campaignsAndResourcesURL]];
     DebugLog(@"Refreshing campaigns from URL %@", url);
     [self sendHttpGETRequest:url completionHandler:^(NSURLResponse* response, NSData* data, NSError* error) {
@@ -1401,7 +1424,7 @@ static bool didSwizzle = false;
         ignoreFirstDidBecomeActive = NO;
         return;
     }
-    
+
     NSDate* now = [self getNow];
     NSTimeInterval secondsPassed = [now timeIntervalSinceDate:lastSessionDate];
     if (secondsPassed >= config.newSessionInterval) {
@@ -1414,7 +1437,7 @@ static bool didSwizzle = false;
             [self disableAutoShowAfterDelay];
         }
     }
-    
+
     [self queueDeviceProperties];
     if (self.config.autoSendEventsOnResume) {
         [self sendQueuedEvents];
@@ -1449,7 +1472,7 @@ static bool didSwizzle = false;
     } else {
         [self sendQueuedEvents];
     }
-    
+
     if(self.config.talkEnabled) {
         [self.talk saveCampaignsState];
     }
@@ -1492,7 +1515,7 @@ static bool didSwizzle = false;
     if (!self.config.autoDownloadCampaignsAndResources) {
         return;
     }
-    
+
     @synchronized(self.campaignsAndResourcesTimer) {
         [self stopCampaignsAndResourcesTimer];
         [self setCampaignsAndResourcesTimer:[NSTimer scheduledTimerWithTimeInterval:1
@@ -1558,11 +1581,11 @@ static bool didSwizzle = false;
             DebugLog(@"Unknown Swrve notification ID class for _p attribute", nil);
             return;
         }
-        
+
         // Only process this push if we haven't seen it before
         if (lastProcessedPushId == nil || ![pushId isEqualToString:lastProcessedPushId]) {
             lastProcessedPushId = pushId;
-            
+
             // Process deeplink _sd (and old _d)
             id pushDeeplinkRaw = [userInfo objectForKey:@"_sd"];
             if (pushDeeplinkRaw == nil || ![pushDeeplinkRaw isKindOfClass:[NSString class]]) {
@@ -1623,11 +1646,11 @@ static NSString* httpScheme(bool useHttps)
     if (nil == newConfig.eventsServer) {
         newConfig.eventsServer = [NSString stringWithFormat:@"%@://%ld.%@api.swrve.com", httpScheme(newConfig.useHttpsForEventServer), self.appID, prefix];
     }
-    
+
     if (nil == newConfig.contentServer) {
         newConfig.contentServer = [NSString stringWithFormat:@"%@://%ld.%@content.swrve.com", httpScheme(newConfig.useHttpsForContentServer), self.appID, prefix];
     }
-    
+
     // Validate other values
     NSCAssert(newConfig.httpTimeoutSeconds > 0, @"httpTimeoutSeconds must be greater than zero or requests will fail immediately.", nil);
 }
@@ -1675,6 +1698,14 @@ static NSString* httpScheme(bool useHttps)
             }
         }
     }
+}
+
+-(NSString*) swrveSDKVersion {
+    return @SWRVE_SDK_VERSION;
+}
+
+-(NSString*) appVersion {
+    return self.config.appVersion;
 }
 
 - (float) _estimate_dpi
@@ -1732,7 +1763,7 @@ static NSString* httpScheme(bool useHttps)
 - (NSDictionary*) getDeviceProperties
 {
     NSMutableDictionary* deviceProperties = [[NSMutableDictionary alloc] init];
-    
+
     UIDevice* device = [UIDevice currentDevice];
     CGRect screen_bounds = [self getDeviceScreenBounds];
     NSNumber* device_width = [NSNumber numberWithFloat: (float)screen_bounds.size.width];
@@ -1742,6 +1773,12 @@ static NSString* httpScheme(bool useHttps)
     [deviceProperties setValue:[device systemName]    forKey:@"swrve.os"];
     [deviceProperties setValue:[device systemVersion] forKey:@"swrve.os_version"];
     [deviceProperties setValue:dpi                    forKey:@"swrve.device_dpi"];
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self->install_time];
+    [deviceProperties setValue:[dateFormatter stringFromDate:date] forKey:@"swrve.install_date"];
+
     [deviceProperties setValue:[NSNumber numberWithInteger:CONVERSATION_VERSION] forKey:@"swrve.conversation_version"];
 
     // Carrier info
@@ -1757,7 +1794,7 @@ static NSString* httpScheme(bool useHttps)
         [deviceProperties setValue:[carrier carrierName]     forKey:@"swrve.sim_operator.name"];
         [deviceProperties setValue:[carrier isoCountryCode]  forKey:@"swrve.sim_operator.iso_country_code"];
     }
-    
+
     // Get current state of permissions
     NSDictionary* permissionStatus = [SwrvePermissions currentStatusWithSDK:self];
     [deviceProperties addEntriesFromDictionary:permissionStatus];
@@ -1783,7 +1820,7 @@ static NSString* httpScheme(bool useHttps)
     if (self.deviceToken) {
         [deviceProperties setValue:self.deviceToken forKey:@"swrve.ios_token"];
     }
-    
+
     // Optional identifiers
 #if defined(SWRVE_LOG_IDFA)
     if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled])
@@ -1796,7 +1833,7 @@ static NSString* httpScheme(bool useHttps)
     NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     [deviceProperties setValue:idfv               forKey:@"swrve.IDFV"];
 #endif //defined(SWRVE_LOG_IDFV)
-    
+
     return deviceProperties;
 }
 
@@ -1830,18 +1867,18 @@ static NSString* httpScheme(bool useHttps)
         [formattedDeviceData appendFormat:@"  %24s: %@\n", [key UTF8String], [deviceProperties objectForKey:key]];
     }
     DebugLog(@"Swrve config:\n%@", formattedDeviceData);
-
     [self updateDeviceInfo];
     [self userUpdate:deviceInfo];
 }
 
 // Get the time that the application was first installed.
-// This value is stored in a file. If this file is not available, then we assume
-// that the application was installed now, and save the current time to the file.
-- (UInt64) getInstallTimeHelper:(NSString*)fileName
+// This value is stored in a file. If this file is not available in any of the files (new and legacy),
+// then we assume that the application was installed now, and save the current time to the file.
+- (UInt64) getInstallTime:(NSString*)fileName withSecondaryFile:(NSString*)secondaryFileName
 {
     unsigned long long seconds = 0;
 
+    // Primary install file (defaults to documents path)
     NSError* error = NULL;
     NSString* file_contents = [[NSString alloc] initWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:&error];
 
@@ -1849,6 +1886,22 @@ static NSString* httpScheme(bool useHttps)
         seconds = (unsigned long long)[file_contents longLongValue];
     } else {
         DebugLog(@"could not read file: %@", fileName);
+    }
+
+    // Migration from Cache folder to Documents to prevent the file from being deleted
+    // Secondary install file (defaults to cache path, legacy from < iOS SDK 4.5)
+    if (seconds <= 0) {
+        error = NULL;
+        file_contents = [[NSString alloc] initWithContentsOfFile:secondaryFileName encoding:NSUTF8StringEncoding error:&error];
+        if (!error && file_contents) {
+            seconds = (unsigned long long)[file_contents longLongValue];
+            if (seconds > 0) {
+                // Write to new path
+                [file_contents writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            }
+        } else {
+            DebugLog(@"could not read file: %@", fileName);
+        }
     }
 
     // If we loaded a non-zero value we're done.
@@ -1862,17 +1915,6 @@ static NSString* httpScheme(bool useHttps)
     NSString* currentTime = [NSString stringWithFormat:@"%llu", time/(UInt64)1000L];
     [currentTime writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
     return (time / 1000 * 1000);
-}
-
-- (UInt64) getInstallTime:(NSString*)fileName
-{
-    UInt64 result = [self getInstallTimeHelper:fileName];
-
-    NSDate* install_date = [NSDate dateWithTimeIntervalSince1970:(result/1000)];
-    #pragma unused(install_date)
-    DebugLog(@"Install Time: %@", install_date);
-
-    return result;
 }
 
 /*

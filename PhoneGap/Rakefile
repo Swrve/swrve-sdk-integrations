@@ -106,6 +106,7 @@ task :default => :build
 
 task :build do
 	execInDir('Updating to latest plugin source', $parentDir, 'sh plugin_dev_sync.sh')
+	execInDir('Preparing', relative('SwrvePhoneGapDemo'), 'phonegap prepare')
 	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile ios')
 	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile android')
 end

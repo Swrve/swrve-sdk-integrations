@@ -1,10 +1,8 @@
 #import "SwrvePlugin.h"
-#import "AppDelegate.h"
-
 #import <Cordova/CDV.h>
 #import <SwrveSDK/Swrve.h>
 
-#define SWRVE_WRAPPER_VERSION "1.0.1"
+#define SWRVE_WRAPPER_VERSION "1.0.2"
 
 CDVViewController* globalViewController;
 
@@ -28,7 +26,7 @@ NSMutableArray* pushNotificationsQueued;
         config = [[SwrveConfig alloc] init];
         config.pushEnabled = YES;
     }
-    
+
     // Set a resource callback
     config.resourcesUpdatedCallback = ^() {
         if (resourcesListenerReady) {
@@ -47,11 +45,33 @@ NSMutableArray* pushNotificationsQueued;
     }
     // Notify the Swrve JS plugin of the IAM custom button click
     [Swrve sharedInstance].talk.customButtonCallback = ^(NSString* action) {
-        [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('%@'); }", action]];
+        [SwrvePlugin evaluateString:[NSString stringWithFormat:@"if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('%@'); }", action] onWebView:globalViewController.webView];
     };
 
-    // Send the wrapper version at init    
+    // Send the wrapper version at init
     [[Swrve sharedInstance] userUpdate:[[NSDictionary alloc] initWithObjectsAndKeys:@SWRVE_WRAPPER_VERSION, @"swrve.wrapper_version", nil]];
+}
+
++ (void) evaluateString:(NSString*)jsString onWebView:(UIView*)webView
+{
+    if ([webView respondsToSelector:@selector(stringByEvaluatingJavaScriptFromString:)]) {
+        [webView performSelectorOnMainThread:@selector(stringByEvaluatingJavaScriptFromString:) withObject:jsString waitUntilDone:NO];
+    } else {
+        [webView performSelectorOnMainThread:@selector(evaluateJavaScript:completionHandler:) withObject:jsString waitUntilDone:NO];
+    }
+}
+
++ (NSString*)base64Encode:(NSData*)data
+{
+    NSString* currentVersion = [[UIDevice currentDevice] systemVersion];
+    if ([currentVersion compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
+        return [data base64EncodedStringWithOptions:0];
+    }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    return [data base64Encoding];
+#pragma clang diagnostic pop
 }
 
 + (void) application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -64,7 +84,7 @@ NSMutableArray* pushNotificationsQueued;
 
 + (void)notifySwrvePluginOfRemoteNotification:(NSString*)base64Json
 {
-    [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if (window.swrveProcessPushNotification !== undefined) { window.swrveProcessPushNotification('%@'); }", base64Json]];
+    [SwrvePlugin evaluateString:[NSString stringWithFormat:@"if (window.swrveProcessPushNotification !== undefined) { window.swrveProcessPushNotification('%@'); }", base64Json] onWebView:globalViewController.webView];
 }
 
 + (void)processRemoteNotification:(NSDictionary* )userInfo
@@ -79,7 +99,7 @@ NSMutableArray* pushNotificationsQueued;
     } else {
         NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *base64Json = [jsonData cdv_base64EncodedString];
+        NSString *base64Json = [SwrvePlugin base64Encode:jsonData];
         if (pushNotificationListenerReady) {
             [SwrvePlugin notifySwrvePluginOfRemoteNotification:base64Json];
         } else {
@@ -94,7 +114,7 @@ NSMutableArray* pushNotificationsQueued;
 {
     CDVPluginResult* pluginResult = nil;
     NSString* eventName = [command.arguments objectAtIndex:0];
-    
+
     if (eventName != nil) {
         if ([command.arguments count] == 2) {
             NSDictionary* payload = [command.arguments objectAtIndex:1];
@@ -113,7 +133,7 @@ NSMutableArray* pushNotificationsQueued;
 {
     CDVPluginResult* pluginResult = nil;
     NSDictionary* attributes = [command.arguments objectAtIndex:0];
-    
+
     if (attributes != nil) {
         [[Swrve sharedInstance] userUpdate:attributes];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -129,7 +149,7 @@ NSMutableArray* pushNotificationsQueued;
     if ([command.arguments count] == 2) {
         NSString* currencyName = [command.arguments objectAtIndex:0];
         NSNumber* amount = [command.arguments objectAtIndex:1];
-        
+
         [[Swrve sharedInstance] currencyGiven:currencyName givenAmount:[amount doubleValue]];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
@@ -146,7 +166,7 @@ NSMutableArray* pushNotificationsQueued;
         NSString* currencyName = [command.arguments objectAtIndex:1];
         NSNumber* quantity = [command.arguments objectAtIndex:2];
         NSNumber* cost = [command.arguments objectAtIndex:3];
-        
+
         [[Swrve sharedInstance] purchaseItem:itemName currency:currencyName cost:[cost intValue] quantity:[quantity intValue]];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
@@ -163,7 +183,7 @@ NSMutableArray* pushNotificationsQueued;
         NSString* localCurrency = [command.arguments objectAtIndex:1];
         NSString* productId = [command.arguments objectAtIndex:2];
         NSNumber* quantity = [command.arguments objectAtIndex:3];
-        
+
         [[Swrve sharedInstance] unvalidatedIap:nil localCost:[localCost doubleValue] localCurrency:localCurrency productId:productId productIdQuantity:[quantity intValue]];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
@@ -176,11 +196,11 @@ NSMutableArray* pushNotificationsQueued;
 {
     @try {
         [[Swrve sharedInstance] sendQueuedEvents];
-        
+
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"OK"];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
-    
+
     @catch ( NSException *e ) {
         [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
@@ -230,9 +250,9 @@ NSMutableArray* pushNotificationsQueued;
     } else {
         NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *base64Json = [jsonData cdv_base64EncodedString];
+        NSString *base64Json = [SwrvePlugin base64Encode:jsonData];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [globalViewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if (window.swrveProcessResourcesUpdated !== undefined) { swrveProcessResourcesUpdated('%@'); }", base64Json]];
+            [SwrvePlugin evaluateString:[NSString stringWithFormat:@"if (window.swrveProcessResourcesUpdated !== undefined) { swrveProcessResourcesUpdated('%@'); }", base64Json] onWebView:globalViewController.webView];
         });
     }
 }
