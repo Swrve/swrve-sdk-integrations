@@ -156,6 +156,8 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         assertEquals("550", userResourcesDiffJSON.getJSONObject("old").getJSONObject("house").getString("cost"));
     }
 
+    /*
+    DISABLED FOR NOW
     public void testCustomButtonListener() throws Exception {
         runJS("window.plugins.swrve.setCustomButtonListener(function(action) { alert('swrve:30:' + action); });");
         runJS("window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);");
@@ -205,7 +207,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
             }
         } while(retries-- > 0 && customAction == null);
         assertEquals("custom_action_from_server", customAction);
-    }
+    }*/
 
     public void testCustomPushPayloadListener() throws Exception {
         runJS("window.plugins.swrve.setPushNotificationListener(function(payload) { alert('swrve:40:' + payload); });");
