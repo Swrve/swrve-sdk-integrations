@@ -1,0 +1,1027 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
+		1B50F3C91D228B4B00A904C4 /* 8721fd4e657980a5e12d498e73aed6e6a565dfca in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3661D228B4A00A904C4 /* 8721fd4e657980a5e12d498e73aed6e6a565dfca */; };
+		1B50F3CA1D228B4B00A904C4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3681D228B4A00A904C4 /* .gitignore */; };
+		1B50F3CB1D228B4B00A904C4 /* .hgignore in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3691D228B4A00A904C4 /* .hgignore */; };
+		1B50F3CC1D228B4B00A904C4 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F36D1D228B4A00A904C4 /* DDData.m */; };
+		1B50F3CD1D228B4B00A904C4 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F36F1D228B4A00A904C4 /* DDNumber.m */; };
+		1B50F3CE1D228B4B00A904C4 /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3711D228B4A00A904C4 /* DDRange.m */; };
+		1B50F3CF1D228B4B00A904C4 /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3731D228B4A00A904C4 /* HTTPAuthenticationRequest.m */; };
+		1B50F3D01D228B4B00A904C4 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3751D228B4A00A904C4 /* HTTPConnection.m */; };
+		1B50F3D11D228B4B00A904C4 /* HTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3781D228B4A00A904C4 /* HTTPMessage.m */; };
+		1B50F3D21D228B4B00A904C4 /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F37B1D228B4A00A904C4 /* HTTPServer.m */; };
+		1B50F3D31D228B4B00A904C4 /* MultipartFormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F37E1D228B4A00A904C4 /* MultipartFormDataParser.m */; };
+		1B50F3D41D228B4B00A904C4 /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3801D228B4A00A904C4 /* MultipartMessageHeader.m */; };
+		1B50F3D51D228B4B00A904C4 /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3821D228B4A00A904C4 /* MultipartMessageHeaderField.m */; };
+		1B50F3D61D228B4B00A904C4 /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3851D228B4A00A904C4 /* HTTPAsyncFileResponse.m */; };
+		1B50F3D71D228B4B00A904C4 /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3871D228B4A00A904C4 /* HTTPDataResponse.m */; };
+		1B50F3D81D228B4B00A904C4 /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3891D228B4A00A904C4 /* HTTPDynamicFileResponse.m */; };
+		1B50F3D91D228B4B00A904C4 /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F38B1D228B4A00A904C4 /* HTTPFileResponse.m */; };
+		1B50F3DA1D228B4B00A904C4 /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F38D1D228B4A00A904C4 /* HTTPRedirectResponse.m */; };
+		1B50F3DB1D228B4B00A904C4 /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F38F1D228B4A00A904C4 /* WebSocket.m */; };
+		1B50F3DC1D228B4B00A904C4 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3901D228B4A00A904C4 /* LICENSE.txt */; };
+		1B50F3DD1D228B4B00A904C4 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3911D228B4A00A904C4 /* README.markdown */; };
+		1B50F3DE1D228B4B00A904C4 /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3951D228B4A00A904C4 /* Documentation.html */; };
+		1B50F3DF1D228B4B00A904C4 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3971D228B4A00A904C4 /* GCDAsyncSocket.m */; };
+		1B50F3E01D228B4B00A904C4 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3991D228B4A00A904C4 /* GCDAsyncUdpSocket.m */; };
+		1B50F3E11D228B4B00A904C4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F39A1D228B4A00A904C4 /* Info.plist */; };
+		1B50F3E21D228B4B00A904C4 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F39D1D228B4A00A904C4 /* AsyncSocket.m */; };
+		1B50F3E31D228B4B00A904C4 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F39F1D228B4A00A904C4 /* AsyncUdpSocket.m */; };
+		1B50F3E41D228B4B00A904C4 /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3A01D228B4B00A904C4 /* Documentation.html */; };
+		1B50F3E51D228B4B00A904C4 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3A41D228B4B00A904C4 /* DDAbstractDatabaseLogger.m */; };
+		1B50F3E61D228B4B00A904C4 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3A61D228B4B00A904C4 /* DDASLLogger.m */; };
+		1B50F3E71D228B4B00A904C4 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3A81D228B4B00A904C4 /* DDFileLogger.m */; };
+		1B50F3E81D228B4B00A904C4 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3AB1D228B4B00A904C4 /* DDLog.m */; };
+		1B50F3E91D228B4B00A904C4 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3AD1D228B4B00A904C4 /* DDTTYLogger.m */; };
+		1B50F3EA1D228B4B00A904C4 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3B01D228B4B00A904C4 /* DDContextFilterLogFormatter.m */; };
+		1B50F3EB1D228B4B00A904C4 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3B21D228B4B00A904C4 /* DDDispatchQueueLogFormatter.m */; };
+		1B50F3EC1D228B4B00A904C4 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3B41D228B4B00A904C4 /* DDMultiFormatter.m */; };
+		1B50F3ED1D228B4B00A904C4 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3B51D228B4B00A904C4 /* README.txt */; };
+		1B50F3EE1D228B4B00A904C4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3B61D228B4B00A904C4 /* Info.plist */; };
+		1B50F3EF1D228B4B00A904C4 /* CHANGES.md in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3B81D228B4B00A904C4 /* CHANGES.md */; };
+		1B50F3F01D228B4B00A904C4 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3B91D228B4B00A904C4 /* LICENSE.txt */; };
+		1B50F3F11D228B4B00A904C4 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B50F3BA1D228B4B00A904C4 /* OCHamcrestIOS.framework */; };
+		1B50F3F21D228B4B00A904C4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3BB1D228B4B00A904C4 /* README.md */; };
+		1B50F3F31D228B4B00A904C4 /* CHANGES.md in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3BD1D228B4B00A904C4 /* CHANGES.md */; };
+		1B50F3F41D228B4B00A904C4 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3BE1D228B4B00A904C4 /* LICENSE.txt */; };
+		1B50F3F51D228B4B00A904C4 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B50F3BF1D228B4B00A904C4 /* OCMockitoIOS.framework */; };
+		1B50F3F61D228B4B00A904C4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3C01D228B4B00A904C4 /* README.md */; };
+		1B50F3F71D228B4B00A904C4 /* PhoneGapWrapper_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3C11D228B4B00A904C4 /* PhoneGapWrapper_Tests.m */; };
+		1B50F3F81D228B4B00A904C4 /* test_campaigns_and_resources.json in Resources */ = {isa = PBXBuildFile; fileRef = 1B50F3C21D228B4B00A904C4 /* test_campaigns_and_resources.json */; };
+		1B50F3FA1D228B4B00A904C4 /* TestHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3C61D228B4B00A904C4 /* TestHTTPConnection.m */; };
+		1B50F3FB1D228B4B00A904C4 /* TestHTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3C81D228B4B00A904C4 /* TestHTTPResponse.m */; };
+		1B50F3FC1D228E1E00A904C4 /* SwrveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242DDB4383F84D5C9CC621AD /* SwrveSDK.framework */; };
+		1B50F3FD1D22925000A904C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
+		1B50F3FE1D22925300A904C4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
+		1B50F3FF1D22925C00A904C4 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
+		1B50F4041D22928100A904C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1B50F4051D22928D00A904C4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E7A833C45764F67965484EB /* QuartzCore.framework */; };
+		1B50F40A1D22C3EE00A904C4 /* SwrvePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF8C919CB9441CEBCF18F10 /* SwrvePlugin.m */; };
+		1B50F40B1D22C45D00A904C4 /* TestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F3C41D228B4B00A904C4 /* TestAppDelegate.m */; };
+		1BC94F481D213FA600540AF6 /* SwrveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242DDB4383F84D5C9CC621AD /* SwrveSDK.framework */; };
+		1BC94F491D213FA600540AF6 /* SwrveSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 242DDB4383F84D5C9CC621AD /* SwrveSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		2F42643C4A93467CB6D46A5C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E7A833C45764F67965484EB /* QuartzCore.framework */; };
+		301BF552109A68D80062928A /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
+		302D95F114D2391D003F00A1 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
+		302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
+		3047A5121AB8059700498E2A /* build-debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A50F1AB8059700498E2A /* build-debug.xcconfig */; };
+		3047A5131AB8059700498E2A /* build-release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5101AB8059700498E2A /* build-release.xcconfig */; };
+		3047A5141AB8059700498E2A /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5111AB8059700498E2A /* build.xcconfig */; };
+		39F17203AE6442D6BAC38686 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D01C179534B7DA6929607 /* Toast.m */; };
+		A65A0172A6B14101AACC00B1 /* SwrvePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EF8C919CB9441CEBCF18F10 /* SwrvePlugin.m */; };
+		BF1F59F90B484D64B2B54099 /* SwrveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242DDB4383F84D5C9CC621AD /* SwrveSDK.framework */; };
+		CF6DE76CF5CD4E488DCF6DCE /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 97AFC6AF35F44A92A89EEE95 /* CDVLogger.m */; };
+		D79A155FD84B497C9A955817 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA51662A5024505B3D00860 /* Toast+UIView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1B50F35F1D228A5800A904C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D6058900D05DD3D006BFB54;
+			remoteInfo = SwrvePhoneGapDemo;
+		};
+		301BF534109A57CC0062928A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = CordovaLib;
+		};
+		301BF550109A68C00062928A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = CordovaLib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1BC94F4A1D213FA600540AF6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1BC94F491D213FA600540AF6 /* SwrveSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0207DA571B56EA530066E2B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SwrvePhoneGapDemo/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		1B50F35A1D228A5800A904C4 /* SwrvePhoneGapDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwrvePhoneGapDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B50F35E1D228A5800A904C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B50F3661D228B4A00A904C4 /* 8721fd4e657980a5e12d498e73aed6e6a565dfca */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8721fd4e657980a5e12d498e73aed6e6a565dfca; sourceTree = "<group>"; };
+		1B50F3681D228B4A00A904C4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1B50F3691D228B4A00A904C4 /* .hgignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .hgignore; sourceTree = "<group>"; };
+		1B50F36C1D228B4A00A904C4 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
+		1B50F36D1D228B4A00A904C4 /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
+		1B50F36E1D228B4A00A904C4 /* DDNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
+		1B50F36F1D228B4A00A904C4 /* DDNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNumber.m; sourceTree = "<group>"; };
+		1B50F3701D228B4A00A904C4 /* DDRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRange.h; sourceTree = "<group>"; };
+		1B50F3711D228B4A00A904C4 /* DDRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRange.m; sourceTree = "<group>"; };
+		1B50F3721D228B4A00A904C4 /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAuthenticationRequest.h; sourceTree = "<group>"; };
+		1B50F3731D228B4A00A904C4 /* HTTPAuthenticationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAuthenticationRequest.m; sourceTree = "<group>"; };
+		1B50F3741D228B4A00A904C4 /* HTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPConnection.h; sourceTree = "<group>"; };
+		1B50F3751D228B4A00A904C4 /* HTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPConnection.m; sourceTree = "<group>"; };
+		1B50F3761D228B4A00A904C4 /* HTTPLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLogging.h; sourceTree = "<group>"; };
+		1B50F3771D228B4A00A904C4 /* HTTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPMessage.h; sourceTree = "<group>"; };
+		1B50F3781D228B4A00A904C4 /* HTTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMessage.m; sourceTree = "<group>"; };
+		1B50F3791D228B4A00A904C4 /* HTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPResponse.h; sourceTree = "<group>"; };
+		1B50F37A1D228B4A00A904C4 /* HTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPServer.h; sourceTree = "<group>"; };
+		1B50F37B1D228B4A00A904C4 /* HTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPServer.m; sourceTree = "<group>"; };
+		1B50F37D1D228B4A00A904C4 /* MultipartFormDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartFormDataParser.h; sourceTree = "<group>"; };
+		1B50F37E1D228B4A00A904C4 /* MultipartFormDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartFormDataParser.m; sourceTree = "<group>"; };
+		1B50F37F1D228B4A00A904C4 /* MultipartMessageHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeader.h; sourceTree = "<group>"; };
+		1B50F3801D228B4A00A904C4 /* MultipartMessageHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeader.m; sourceTree = "<group>"; };
+		1B50F3811D228B4A00A904C4 /* MultipartMessageHeaderField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartMessageHeaderField.h; sourceTree = "<group>"; };
+		1B50F3821D228B4A00A904C4 /* MultipartMessageHeaderField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartMessageHeaderField.m; sourceTree = "<group>"; };
+		1B50F3841D228B4A00A904C4 /* HTTPAsyncFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncFileResponse.h; sourceTree = "<group>"; };
+		1B50F3851D228B4A00A904C4 /* HTTPAsyncFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncFileResponse.m; sourceTree = "<group>"; };
+		1B50F3861D228B4A00A904C4 /* HTTPDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPDataResponse.h; sourceTree = "<group>"; };
+		1B50F3871D228B4A00A904C4 /* HTTPDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPDataResponse.m; sourceTree = "<group>"; };
+		1B50F3881D228B4A00A904C4 /* HTTPDynamicFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPDynamicFileResponse.h; sourceTree = "<group>"; };
+		1B50F3891D228B4A00A904C4 /* HTTPDynamicFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPDynamicFileResponse.m; sourceTree = "<group>"; };
+		1B50F38A1D228B4A00A904C4 /* HTTPFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPFileResponse.h; sourceTree = "<group>"; };
+		1B50F38B1D228B4A00A904C4 /* HTTPFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPFileResponse.m; sourceTree = "<group>"; };
+		1B50F38C1D228B4A00A904C4 /* HTTPRedirectResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRedirectResponse.h; sourceTree = "<group>"; };
+		1B50F38D1D228B4A00A904C4 /* HTTPRedirectResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRedirectResponse.m; sourceTree = "<group>"; };
+		1B50F38E1D228B4A00A904C4 /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
+		1B50F38F1D228B4A00A904C4 /* WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocket.m; sourceTree = "<group>"; };
+		1B50F3901D228B4A00A904C4 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		1B50F3911D228B4A00A904C4 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		1B50F3931D228B4A00A904C4 /* CocoaAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaAsyncSocket.h; sourceTree = "<group>"; };
+		1B50F3951D228B4A00A904C4 /* Documentation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Documentation.html; sourceTree = "<group>"; };
+		1B50F3961D228B4A00A904C4 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		1B50F3971D228B4A00A904C4 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		1B50F3981D228B4A00A904C4 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		1B50F3991D228B4A00A904C4 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		1B50F39A1D228B4A00A904C4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B50F39C1D228B4A00A904C4 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		1B50F39D1D228B4A00A904C4 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		1B50F39E1D228B4A00A904C4 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
+		1B50F39F1D228B4A00A904C4 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		1B50F3A01D228B4B00A904C4 /* Documentation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Documentation.html; sourceTree = "<group>"; };
+		1B50F3A31D228B4B00A904C4 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		1B50F3A41D228B4B00A904C4 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		1B50F3A51D228B4B00A904C4 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		1B50F3A61D228B4B00A904C4 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		1B50F3A71D228B4B00A904C4 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		1B50F3A81D228B4B00A904C4 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		1B50F3A91D228B4B00A904C4 /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
+		1B50F3AA1D228B4B00A904C4 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		1B50F3AB1D228B4B00A904C4 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		1B50F3AC1D228B4B00A904C4 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		1B50F3AD1D228B4B00A904C4 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		1B50F3AF1D228B4B00A904C4 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		1B50F3B01D228B4B00A904C4 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		1B50F3B11D228B4B00A904C4 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		1B50F3B21D228B4B00A904C4 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		1B50F3B31D228B4B00A904C4 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
+		1B50F3B41D228B4B00A904C4 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
+		1B50F3B51D228B4B00A904C4 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		1B50F3B61D228B4B00A904C4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B50F3B81D228B4B00A904C4 /* CHANGES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGES.md; sourceTree = "<group>"; };
+		1B50F3B91D228B4B00A904C4 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		1B50F3BA1D228B4B00A904C4 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
+		1B50F3BB1D228B4B00A904C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1B50F3BD1D228B4B00A904C4 /* CHANGES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGES.md; sourceTree = "<group>"; };
+		1B50F3BE1D228B4B00A904C4 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		1B50F3BF1D228B4B00A904C4 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMockitoIOS.framework; sourceTree = "<group>"; };
+		1B50F3C01D228B4B00A904C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1B50F3C11D228B4B00A904C4 /* PhoneGapWrapper_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneGapWrapper_Tests.m; sourceTree = "<group>"; };
+		1B50F3C21D228B4B00A904C4 /* test_campaigns_and_resources.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_campaigns_and_resources.json; sourceTree = "<group>"; };
+		1B50F3C31D228B4B00A904C4 /* TestAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAppDelegate.h; sourceTree = "<group>"; };
+		1B50F3C41D228B4B00A904C4 /* TestAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAppDelegate.m; sourceTree = "<group>"; };
+		1B50F3C51D228B4B00A904C4 /* TestHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHTTPConnection.h; sourceTree = "<group>"; };
+		1B50F3C61D228B4B00A904C4 /* TestHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHTTPConnection.m; sourceTree = "<group>"; };
+		1B50F3C71D228B4B00A904C4 /* TestHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHTTPResponse.h; sourceTree = "<group>"; };
+		1B50F3C81D228B4B00A904C4 /* TestHTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHTTPResponse.m; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* SwrvePhoneGapDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwrvePhoneGapDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E7A833C45764F67965484EB /* QuartzCore.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1EF8C919CB9441CEBCF18F10 /* SwrvePlugin.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = SwrvePlugin.m; path = com.swrve.SwrvePlugin/SwrvePlugin.m; sourceTree = "<group>"; };
+		20AB08B03A1E465F8C950DFD /* Toast+UIView.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "Toast+UIView.h"; path = "cordova-plugin-x-toast/Toast+UIView.h"; sourceTree = "<group>"; };
+		242DDB4383F84D5C9CC621AD /* SwrveSDK.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SwrveSDK.framework; path = SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/SwrveSDK.framework; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2FA51662A5024505B3D00860 /* Toast+UIView.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "Toast+UIView.m"; path = "cordova-plugin-x-toast/Toast+UIView.m"; sourceTree = "<group>"; };
+		301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
+		301BF56E109A69640062928A /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = SOURCE_ROOT; };
+		302D95EE14D2391D003F00A1 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		302D95EF14D2391D003F00A1 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		302D95F014D2391D003F00A1 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		3047A50F1AB8059700498E2A /* build-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "build-debug.xcconfig"; path = "cordova/build-debug.xcconfig"; sourceTree = SOURCE_ROOT; };
+		3047A5101AB8059700498E2A /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "build-release.xcconfig"; path = "cordova/build-release.xcconfig"; sourceTree = SOURCE_ROOT; };
+		3047A5111AB8059700498E2A /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = build.xcconfig; path = cordova/build.xcconfig; sourceTree = SOURCE_ROOT; };
+		32CA4F630368D1EE00C91783 /* SwrvePhoneGapDemo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwrvePhoneGapDemo-Prefix.pch"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* SwrvePhoneGapDemo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SwrvePhoneGapDemo-Info.plist"; path = "SwrvePhoneGapDemo/SwrvePhoneGapDemo-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
+		8E01DB9A39C841628166B6B9 /* Toast.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = Toast.h; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; };
+		90CC121F5D1D48EF87C3B5C6 /* CDVLogger.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLogger.h; path = "cordova-plugin-console/CDVLogger.h"; sourceTree = "<group>"; };
+		97AFC6AF35F44A92A89EEE95 /* CDVLogger.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLogger.m; path = "cordova-plugin-console/CDVLogger.m"; sourceTree = "<group>"; };
+		9951818D0C0949D195FB325E /* SwrvePlugin.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = SwrvePlugin.h; path = com.swrve.SwrvePlugin/SwrvePlugin.h; sourceTree = "<group>"; };
+		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
+		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
+		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F44D01C179534B7DA6929607 /* Toast.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = Toast.m; path = "cordova-plugin-x-toast/Toast.m"; sourceTree = "<group>"; };
+		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = SwrvePhoneGapDemo/config.xml; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B50F3571D228A5800A904C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B50F4051D22928D00A904C4 /* QuartzCore.framework in Frameworks */,
+				1B50F3F11D228B4B00A904C4 /* OCHamcrestIOS.framework in Frameworks */,
+				1B50F3FC1D228E1E00A904C4 /* SwrveSDK.framework in Frameworks */,
+				1B50F3F51D228B4B00A904C4 /* OCMockitoIOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
+				1BC94F481D213FA600540AF6 /* SwrveSDK.framework in Frameworks */,
+				BF1F59F90B484D64B2B54099 /* SwrveSDK.framework in Frameworks */,
+				2F42643C4A93467CB6D46A5C /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				302D95EE14D2391D003F00A1 /* MainViewController.h */,
+				302D95EF14D2391D003F00A1 /* MainViewController.m */,
+				302D95F014D2391D003F00A1 /* MainViewController.xib */,
+				1D3623240D0F684500981E51 /* AppDelegate.h */,
+				1D3623250D0F684500981E51 /* AppDelegate.m */,
+			);
+			name = Classes;
+			path = SwrvePhoneGapDemo/Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* SwrvePhoneGapDemo.app */,
+				1B50F35A1D228A5800A904C4 /* SwrvePhoneGapDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1B50F35B1D228A5800A904C4 /* SwrvePhoneGapDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F35E1D228A5800A904C4 /* Info.plist */,
+			);
+			path = SwrvePhoneGapDemoTests;
+			sourceTree = "<group>";
+		};
+		1B50F3651D228B4A00A904C4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3661D228B4A00A904C4 /* 8721fd4e657980a5e12d498e73aed6e6a565dfca */,
+				1B50F3671D228B4A00A904C4 /* CocoaHTTPServer-2.3 2 */,
+				1B50F3B61D228B4B00A904C4 /* Info.plist */,
+				1B50F3B71D228B4B00A904C4 /* OCHamcrest-4.0.1 */,
+				1B50F3BC1D228B4B00A904C4 /* OCMockito-1.4.0 */,
+				1B50F3C11D228B4B00A904C4 /* PhoneGapWrapper_Tests.m */,
+				1B50F3C21D228B4B00A904C4 /* test_campaigns_and_resources.json */,
+				1B50F3C31D228B4B00A904C4 /* TestAppDelegate.h */,
+				1B50F3C41D228B4B00A904C4 /* TestAppDelegate.m */,
+				1B50F3C51D228B4B00A904C4 /* TestHTTPConnection.h */,
+				1B50F3C61D228B4B00A904C4 /* TestHTTPConnection.m */,
+				1B50F3C71D228B4B00A904C4 /* TestHTTPResponse.h */,
+				1B50F3C81D228B4B00A904C4 /* TestHTTPResponse.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		1B50F3671D228B4A00A904C4 /* CocoaHTTPServer-2.3 2 */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3681D228B4A00A904C4 /* .gitignore */,
+				1B50F3691D228B4A00A904C4 /* .hgignore */,
+				1B50F36A1D228B4A00A904C4 /* Core */,
+				1B50F3901D228B4A00A904C4 /* LICENSE.txt */,
+				1B50F3911D228B4A00A904C4 /* README.markdown */,
+				1B50F3921D228B4A00A904C4 /* Vendor */,
+			);
+			path = "CocoaHTTPServer-2.3 2";
+			sourceTree = "<group>";
+		};
+		1B50F36A1D228B4A00A904C4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F36B1D228B4A00A904C4 /* Categories */,
+				1B50F3721D228B4A00A904C4 /* HTTPAuthenticationRequest.h */,
+				1B50F3731D228B4A00A904C4 /* HTTPAuthenticationRequest.m */,
+				1B50F3741D228B4A00A904C4 /* HTTPConnection.h */,
+				1B50F3751D228B4A00A904C4 /* HTTPConnection.m */,
+				1B50F3761D228B4A00A904C4 /* HTTPLogging.h */,
+				1B50F3771D228B4A00A904C4 /* HTTPMessage.h */,
+				1B50F3781D228B4A00A904C4 /* HTTPMessage.m */,
+				1B50F3791D228B4A00A904C4 /* HTTPResponse.h */,
+				1B50F37A1D228B4A00A904C4 /* HTTPServer.h */,
+				1B50F37B1D228B4A00A904C4 /* HTTPServer.m */,
+				1B50F37C1D228B4A00A904C4 /* Mime */,
+				1B50F3831D228B4A00A904C4 /* Responses */,
+				1B50F38E1D228B4A00A904C4 /* WebSocket.h */,
+				1B50F38F1D228B4A00A904C4 /* WebSocket.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1B50F36B1D228B4A00A904C4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F36C1D228B4A00A904C4 /* DDData.h */,
+				1B50F36D1D228B4A00A904C4 /* DDData.m */,
+				1B50F36E1D228B4A00A904C4 /* DDNumber.h */,
+				1B50F36F1D228B4A00A904C4 /* DDNumber.m */,
+				1B50F3701D228B4A00A904C4 /* DDRange.h */,
+				1B50F3711D228B4A00A904C4 /* DDRange.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		1B50F37C1D228B4A00A904C4 /* Mime */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F37D1D228B4A00A904C4 /* MultipartFormDataParser.h */,
+				1B50F37E1D228B4A00A904C4 /* MultipartFormDataParser.m */,
+				1B50F37F1D228B4A00A904C4 /* MultipartMessageHeader.h */,
+				1B50F3801D228B4A00A904C4 /* MultipartMessageHeader.m */,
+				1B50F3811D228B4A00A904C4 /* MultipartMessageHeaderField.h */,
+				1B50F3821D228B4A00A904C4 /* MultipartMessageHeaderField.m */,
+			);
+			path = Mime;
+			sourceTree = "<group>";
+		};
+		1B50F3831D228B4A00A904C4 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3841D228B4A00A904C4 /* HTTPAsyncFileResponse.h */,
+				1B50F3851D228B4A00A904C4 /* HTTPAsyncFileResponse.m */,
+				1B50F3861D228B4A00A904C4 /* HTTPDataResponse.h */,
+				1B50F3871D228B4A00A904C4 /* HTTPDataResponse.m */,
+				1B50F3881D228B4A00A904C4 /* HTTPDynamicFileResponse.h */,
+				1B50F3891D228B4A00A904C4 /* HTTPDynamicFileResponse.m */,
+				1B50F38A1D228B4A00A904C4 /* HTTPFileResponse.h */,
+				1B50F38B1D228B4A00A904C4 /* HTTPFileResponse.m */,
+				1B50F38C1D228B4A00A904C4 /* HTTPRedirectResponse.h */,
+				1B50F38D1D228B4A00A904C4 /* HTTPRedirectResponse.m */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		1B50F3921D228B4A00A904C4 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3931D228B4A00A904C4 /* CocoaAsyncSocket.h */,
+				1B50F3941D228B4A00A904C4 /* GCD */,
+				1B50F39A1D228B4A00A904C4 /* Info.plist */,
+				1B50F39B1D228B4A00A904C4 /* RunLoop */,
+				1B50F3A11D228B4B00A904C4 /* Vendor */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		1B50F3941D228B4A00A904C4 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3951D228B4A00A904C4 /* Documentation.html */,
+				1B50F3961D228B4A00A904C4 /* GCDAsyncSocket.h */,
+				1B50F3971D228B4A00A904C4 /* GCDAsyncSocket.m */,
+				1B50F3981D228B4A00A904C4 /* GCDAsyncUdpSocket.h */,
+				1B50F3991D228B4A00A904C4 /* GCDAsyncUdpSocket.m */,
+			);
+			path = GCD;
+			sourceTree = "<group>";
+		};
+		1B50F39B1D228B4A00A904C4 /* RunLoop */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F39C1D228B4A00A904C4 /* AsyncSocket.h */,
+				1B50F39D1D228B4A00A904C4 /* AsyncSocket.m */,
+				1B50F39E1D228B4A00A904C4 /* AsyncUdpSocket.h */,
+				1B50F39F1D228B4A00A904C4 /* AsyncUdpSocket.m */,
+				1B50F3A01D228B4B00A904C4 /* Documentation.html */,
+			);
+			path = RunLoop;
+			sourceTree = "<group>";
+		};
+		1B50F3A11D228B4B00A904C4 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3A21D228B4B00A904C4 /* CocoaLumberjack */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		1B50F3A21D228B4B00A904C4 /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3A31D228B4B00A904C4 /* DDAbstractDatabaseLogger.h */,
+				1B50F3A41D228B4B00A904C4 /* DDAbstractDatabaseLogger.m */,
+				1B50F3A51D228B4B00A904C4 /* DDASLLogger.h */,
+				1B50F3A61D228B4B00A904C4 /* DDASLLogger.m */,
+				1B50F3A71D228B4B00A904C4 /* DDFileLogger.h */,
+				1B50F3A81D228B4B00A904C4 /* DDFileLogger.m */,
+				1B50F3A91D228B4B00A904C4 /* DDLog+LOGV.h */,
+				1B50F3AA1D228B4B00A904C4 /* DDLog.h */,
+				1B50F3AB1D228B4B00A904C4 /* DDLog.m */,
+				1B50F3AC1D228B4B00A904C4 /* DDTTYLogger.h */,
+				1B50F3AD1D228B4B00A904C4 /* DDTTYLogger.m */,
+				1B50F3AE1D228B4B00A904C4 /* Extensions */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		1B50F3AE1D228B4B00A904C4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3AF1D228B4B00A904C4 /* DDContextFilterLogFormatter.h */,
+				1B50F3B01D228B4B00A904C4 /* DDContextFilterLogFormatter.m */,
+				1B50F3B11D228B4B00A904C4 /* DDDispatchQueueLogFormatter.h */,
+				1B50F3B21D228B4B00A904C4 /* DDDispatchQueueLogFormatter.m */,
+				1B50F3B31D228B4B00A904C4 /* DDMultiFormatter.h */,
+				1B50F3B41D228B4B00A904C4 /* DDMultiFormatter.m */,
+				1B50F3B51D228B4B00A904C4 /* README.txt */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1B50F3B71D228B4B00A904C4 /* OCHamcrest-4.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3B81D228B4B00A904C4 /* CHANGES.md */,
+				1B50F3B91D228B4B00A904C4 /* LICENSE.txt */,
+				1B50F3BA1D228B4B00A904C4 /* OCHamcrestIOS.framework */,
+				1B50F3BB1D228B4B00A904C4 /* README.md */,
+			);
+			path = "OCHamcrest-4.0.1";
+			sourceTree = "<group>";
+		};
+		1B50F3BC1D228B4B00A904C4 /* OCMockito-1.4.0 */ = {
+			isa = PBXGroup;
+			children = (
+				1B50F3BD1D228B4B00A904C4 /* CHANGES.md */,
+				1B50F3BE1D228B4B00A904C4 /* LICENSE.txt */,
+				1B50F3BF1D228B4B00A904C4 /* OCMockitoIOS.framework */,
+				1B50F3C01D228B4B00A904C4 /* README.md */,
+			);
+			path = "OCMockito-1.4.0";
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				EB87FDF41871DAF40020F90C /* config.xml */,
+				EB87FDF31871DA8E0020F90C /* www */,
+				EB87FDF11871DA420020F90C /* Staging */,
+				301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				307C750510C5A3420062BCA9 /* Plugins */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				1B50F35B1D228A5800A904C4 /* SwrvePhoneGapDemoTests */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				1B50F3651D228B4A00A904C4 /* Tests */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* SwrvePhoneGapDemo-Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+				ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */,
+			);
+			name = "Other Sources";
+			path = SwrvePhoneGapDemo;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0207DA571B56EA530066E2B4 /* Images.xcassets */,
+				3047A50E1AB8057F00498E2A /* config */,
+				8D1107310486CEB800E47090 /* SwrvePhoneGapDemo-Info.plist */,
+			);
+			name = Resources;
+			path = SwrvePhoneGapDemo/Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				242DDB4383F84D5C9CC621AD /* SwrveSDK.framework */,
+				1E7A833C45764F67965484EB /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		301BF52E109A57CC0062928A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				301BF535109A57CC0062928A /* libCordova.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3047A50E1AB8057F00498E2A /* config */ = {
+			isa = PBXGroup;
+			children = (
+				3047A50F1AB8059700498E2A /* build-debug.xcconfig */,
+				3047A5101AB8059700498E2A /* build-release.xcconfig */,
+				3047A5111AB8059700498E2A /* build.xcconfig */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
+		307C750510C5A3420062BCA9 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				1EF8C919CB9441CEBCF18F10 /* SwrvePlugin.m */,
+				9951818D0C0949D195FB325E /* SwrvePlugin.h */,
+				2FA51662A5024505B3D00860 /* Toast+UIView.m */,
+				F44D01C179534B7DA6929607 /* Toast.m */,
+				20AB08B03A1E465F8C950DFD /* Toast+UIView.h */,
+				8E01DB9A39C841628166B6B9 /* Toast.h */,
+				97AFC6AF35F44A92A89EEE95 /* CDVLogger.m */,
+				90CC121F5D1D48EF87C3B5C6 /* CDVLogger.h */,
+			);
+			name = Plugins;
+			path = SwrvePhoneGapDemo/Plugins;
+			sourceTree = SOURCE_ROOT;
+		};
+		EB87FDF11871DA420020F90C /* Staging */ = {
+			isa = PBXGroup;
+			children = (
+				F840E1F0165FE0F500CFE078 /* config.xml */,
+				301BF56E109A69640062928A /* www */,
+			);
+			name = Staging;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1B50F3591D228A5800A904C4 /* SwrvePhoneGapDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B50F3631D228A5800A904C4 /* Build configuration list for PBXNativeTarget "SwrvePhoneGapDemoTests" */;
+			buildPhases = (
+				1B50F3561D228A5800A904C4 /* Sources */,
+				1B50F3571D228A5800A904C4 /* Frameworks */,
+				1B50F3581D228A5800A904C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B50F3601D228A5800A904C4 /* PBXTargetDependency */,
+			);
+			name = SwrvePhoneGapDemoTests;
+			productName = SwrvePhoneGapDemoTests;
+			productReference = 1B50F35A1D228A5800A904C4 /* SwrvePhoneGapDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1D6058900D05DD3D006BFB54 /* SwrvePhoneGapDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "SwrvePhoneGapDemo" */;
+			buildPhases = (
+				304B58A110DAC018002A0835 /* Copy www directory */,
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				1BC94F4A1D213FA600540AF6 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				301BF551109A68C00062928A /* PBXTargetDependency */,
+			);
+			name = SwrvePhoneGapDemo;
+			productName = SwrvePhoneGapDemo;
+			productReference = 1D6058910D05DD3D006BFB54 /* SwrvePhoneGapDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 510;
+				TargetAttributes = {
+					1B50F3591D228A5800A904C4 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 1D6058900D05DD3D006BFB54;
+					};
+				};
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SwrvePhoneGapDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 301BF52E109A57CC0062928A /* Products */;
+					ProjectRef = 301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* SwrvePhoneGapDemo */,
+				1B50F3591D228A5800A904C4 /* SwrvePhoneGapDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		301BF535109A57CC0062928A /* libCordova.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCordova.a;
+			remoteRef = 301BF534109A57CC0062928A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1B50F3581D228A5800A904C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B50F3F41D228B4B00A904C4 /* LICENSE.txt in Resources */,
+				1B50F3FF1D22925C00A904C4 /* MainViewController.xib in Resources */,
+				1B50F3F81D228B4B00A904C4 /* test_campaigns_and_resources.json in Resources */,
+				1B50F3DC1D228B4B00A904C4 /* LICENSE.txt in Resources */,
+				1B50F3CA1D228B4B00A904C4 /* .gitignore in Resources */,
+				1B50F3EE1D228B4B00A904C4 /* Info.plist in Resources */,
+				1B50F3E11D228B4B00A904C4 /* Info.plist in Resources */,
+				1B50F3C91D228B4B00A904C4 /* 8721fd4e657980a5e12d498e73aed6e6a565dfca in Resources */,
+				1B50F3DE1D228B4B00A904C4 /* Documentation.html in Resources */,
+				1B50F3E41D228B4B00A904C4 /* Documentation.html in Resources */,
+				1B50F3ED1D228B4B00A904C4 /* README.txt in Resources */,
+				1B50F3F01D228B4B00A904C4 /* LICENSE.txt in Resources */,
+				1B50F3CB1D228B4B00A904C4 /* .hgignore in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
+				3047A5131AB8059700498E2A /* build-release.xcconfig in Resources */,
+				3047A5141AB8059700498E2A /* build.xcconfig in Resources */,
+				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
+				3047A5121AB8059700498E2A /* build-debug.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		304B58A110DAC018002A0835 /* Copy www directory */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy www directory";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "NODEJS_PATH=/usr/local/bin; NVM_NODE_PATH=~/.nvm/versions/node/`nvm version 2>/dev/null`/bin; N_NODE_PATH=`find /usr/local/n/versions/node/* -maxdepth 0 -type d 2>/dev/null | tail -1`/bin; XCODE_NODE_PATH=`xcode-select --print-path`/usr/share/xcs/Node/bin; PATH=$NODEJS_PATH:$NVM_NODE_PATH:$N_NODE_PATH:$XCODE_NODE_PATH:$PATH && node cordova/lib/copy-www-build-step.js";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1B50F3561D228A5800A904C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B50F3EC1D228B4B00A904C4 /* DDMultiFormatter.m in Sources */,
+				1B50F3CF1D228B4B00A904C4 /* HTTPAuthenticationRequest.m in Sources */,
+				1B50F3D01D228B4B00A904C4 /* HTTPConnection.m in Sources */,
+				1B50F3FE1D22925300A904C4 /* MainViewController.m in Sources */,
+				1B50F40A1D22C3EE00A904C4 /* SwrvePlugin.m in Sources */,
+				1B50F3DA1D228B4B00A904C4 /* HTTPRedirectResponse.m in Sources */,
+				1B50F3EB1D228B4B00A904C4 /* DDDispatchQueueLogFormatter.m in Sources */,
+				1B50F3CE1D228B4B00A904C4 /* DDRange.m in Sources */,
+				1B50F3CC1D228B4B00A904C4 /* DDData.m in Sources */,
+				1B50F3E21D228B4B00A904C4 /* AsyncSocket.m in Sources */,
+				1B50F3E51D228B4B00A904C4 /* DDAbstractDatabaseLogger.m in Sources */,
+				1B50F3E61D228B4B00A904C4 /* DDASLLogger.m in Sources */,
+				1B50F3EA1D228B4B00A904C4 /* DDContextFilterLogFormatter.m in Sources */,
+				1B50F3D51D228B4B00A904C4 /* MultipartMessageHeaderField.m in Sources */,
+				1B50F3F71D228B4B00A904C4 /* PhoneGapWrapper_Tests.m in Sources */,
+				1B50F3D41D228B4B00A904C4 /* MultipartMessageHeader.m in Sources */,
+				1B50F3DB1D228B4B00A904C4 /* WebSocket.m in Sources */,
+				1B50F3E91D228B4B00A904C4 /* DDTTYLogger.m in Sources */,
+				1B50F3EF1D228B4B00A904C4 /* CHANGES.md in Sources */,
+				1B50F3CD1D228B4B00A904C4 /* DDNumber.m in Sources */,
+				1B50F3FD1D22925000A904C4 /* AppDelegate.m in Sources */,
+				1B50F4041D22928100A904C4 /* main.m in Sources */,
+				1B50F3FB1D228B4B00A904C4 /* TestHTTPResponse.m in Sources */,
+				1B50F3D31D228B4B00A904C4 /* MultipartFormDataParser.m in Sources */,
+				1B50F3D21D228B4B00A904C4 /* HTTPServer.m in Sources */,
+				1B50F3D71D228B4B00A904C4 /* HTTPDataResponse.m in Sources */,
+				1B50F3D11D228B4B00A904C4 /* HTTPMessage.m in Sources */,
+				1B50F3F21D228B4B00A904C4 /* README.md in Sources */,
+				1B50F3F31D228B4B00A904C4 /* CHANGES.md in Sources */,
+				1B50F3DD1D228B4B00A904C4 /* README.markdown in Sources */,
+				1B50F3D81D228B4B00A904C4 /* HTTPDynamicFileResponse.m in Sources */,
+				1B50F3E71D228B4B00A904C4 /* DDFileLogger.m in Sources */,
+				1B50F3E81D228B4B00A904C4 /* DDLog.m in Sources */,
+				1B50F3F61D228B4B00A904C4 /* README.md in Sources */,
+				1B50F3E01D228B4B00A904C4 /* GCDAsyncUdpSocket.m in Sources */,
+				1B50F3FA1D228B4B00A904C4 /* TestHTTPConnection.m in Sources */,
+				1B50F3D91D228B4B00A904C4 /* HTTPFileResponse.m in Sources */,
+				1B50F3E31D228B4B00A904C4 /* AsyncUdpSocket.m in Sources */,
+				1B50F3DF1D228B4B00A904C4 /* GCDAsyncSocket.m in Sources */,
+				1B50F3D61D228B4B00A904C4 /* HTTPAsyncFileResponse.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B50F40B1D22C45D00A904C4 /* TestAppDelegate.m in Sources */,
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
+				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
+				A65A0172A6B14101AACC00B1 /* SwrvePlugin.m in Sources */,
+				D79A155FD84B497C9A955817 /* Toast+UIView.m in Sources */,
+				39F17203AE6442D6BAC38686 /* Toast.m in Sources */,
+				CF6DE76CF5CD4E488DCF6DCE /* CDVLogger.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1B50F3601D228A5800A904C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D6058900D05DD3D006BFB54 /* SwrvePhoneGapDemo */;
+			targetProxy = 1B50F35F1D228A5800A904C4 /* PBXContainerItemProxy */;
+		};
+		301BF551109A68C00062928A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CordovaLib;
+			targetProxy = 301BF550109A68C00062928A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1B50F3611D228A5800A904C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Tests/OCHamcrest-4.0.1",
+					"$(PROJECT_DIR)/Tests/OCMockito-1.4.0",
+					"$(PROJECT_DIR)/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = SwrvePhoneGapDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swrve.SwrvePhoneGapDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwrvePhoneGapDemo.app/SwrvePhoneGapDemo";
+			};
+			name = Debug;
+		};
+		1B50F3621D228A5800A904C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Tests/OCHamcrest-4.0.1",
+					"$(PROJECT_DIR)/Tests/OCMockito-1.4.0",
+					"$(PROJECT_DIR)/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = SwrvePhoneGapDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swrve.SwrvePhoneGapDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwrvePhoneGapDemo.app/SwrvePhoneGapDemo";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3047A50F1AB8059700498E2A /* build-debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin,
+					"$(PROJECT_DIR)/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SwrvePhoneGapDemo/SwrvePhoneGapDemo-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = "SwrvePhoneGapDemo/SwrvePhoneGapDemo-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				PRODUCT_NAME = SwrvePhoneGapDemo;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3047A5101AB8059700498E2A /* build-release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin,
+					"$(PROJECT_DIR)/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SwrvePhoneGapDemo/SwrvePhoneGapDemo-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = "SwrvePhoneGapDemo/SwrvePhoneGapDemo-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = SwrvePhoneGapDemo;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3047A5111AB8059700498E2A /* build.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3047A5111AB8059700498E2A /* build.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B50F3631D228A5800A904C4 /* Build configuration list for PBXNativeTarget "SwrvePhoneGapDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B50F3611D228A5800A904C4 /* Debug */,
+				1B50F3621D228A5800A904C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "SwrvePhoneGapDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SwrvePhoneGapDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

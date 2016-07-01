@@ -7,18 +7,26 @@
         "is_top_level": true,
         "variables": {}
     },
-    "nl.x-services.plugins.toast": {
-        "source": {
-            "type": "registry",
-            "id": "nl.x-services.plugins.toast"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "com.swrve.SwrvePlugin": {
         "source": {
             "type": "local",
             "path": "../SwrvePlugin"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-x-toast": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-x-toast"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-console": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-console"
         },
         "is_top_level": true,
         "variables": {}

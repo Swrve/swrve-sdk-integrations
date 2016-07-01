@@ -106,6 +106,7 @@ task :default => :build
 
 task :build do
 	execInDir('Updating to latest plugin source', $parentDir, 'sh plugin_dev_sync.sh')
+	execInDir('Preparing', relative('SwrvePhoneGapDemo'), 'phonegap prepare')
 	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile ios')
 	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile android')
 end
@@ -113,7 +114,7 @@ end
 task :testIOSInSimulator, [:simulator] do |t, args|
 	# Example: "OS=8.3,name='iPad Air'"
 	simulator = args[:simulator]
-	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild test -scheme 'Hello World' -destination #{simulator}")
+	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild test -scheme 'SwrvePhoneGapDemo' -destination #{simulator}")
 end
 
 task :testAndroidInEmulator, [:emulator] do |t, args|

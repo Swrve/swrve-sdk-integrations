@@ -14,11 +14,11 @@
 		</data>
 		<key>Conversation/SwrveConversationCampaign.h</key>
 		<data>
-		tXYTa4o4xE3z0E4nkeoV8uSr85I=
+		9C2nJcZXLkP39r/EjpSRcXC7PVc=
 		</data>
 		<key>Conversation/SwrveConversationCampaign.m</key>
 		<data>
-		l9re6nIsmy5mQ0+MQ9F1r1xw3/I=
+		WqR/YsCTlgs/CA5bC2aotRaRWqc=
 		</data>
 		<key>Headers/ISHPermissionCategory.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Headers/Swrve.h</key>
 		<data>
-		mN8UBTe4GyRLBY/e5kPC+SH3oZs=
+		hVHpgReceXUcxvPLwj8vbZ5Y5ME=
 		</data>
 		<key>Headers/SwrveBaseCampaign.h</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Headers/SwrveBaseConversation.h</key>
 		<data>
-		h1g1vRN7Ai+qNH5tFP9Ni3YlUcE=
+		vaLw1VpKeu4VcVPx4Ukusgx8SeE=
 		</data>
 		<key>Headers/SwrveButton.h</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Headers/SwrveCampaign.h</key>
 		<data>
-		tcnOBLJjjUPeM2nJlRWLmb7DmSg=
+		plWB25W70txYLUEdlFHX+wN0qs0=
 		</data>
 		<key>Headers/SwrveCampaignStatus.h</key>
 		<data>
@@ -134,7 +134,7 @@
 		</data>
 		<key>Headers/SwrveConversationCampaign.h</key>
 		<data>
-		tXYTa4o4xE3z0E4nkeoV8uSr85I=
+		9C2nJcZXLkP39r/EjpSRcXC7PVc=
 		</data>
 		<key>Headers/SwrveConversationContainerViewController.h</key>
 		<data>
@@ -198,7 +198,7 @@
 		</data>
 		<key>Headers/SwrveMessageController.h</key>
 		<data>
-		45MEWw18wM70gLKvqbNB/i63oxY=
+		cPoIw2dUi7GahZnx0/8nb4PMnFI=
 		</data>
 		<key>Headers/SwrveMessageEventHandler.h</key>
 		<data>
@@ -214,11 +214,11 @@
 		</data>
 		<key>Headers/SwrvePermissions.h</key>
 		<data>
-		wlMr6G5tDrN51uZKfLd+fKdbHiQ=
+		3MOctOV8l0l6+rlNkOrtK9gugIw=
 		</data>
 		<key>Headers/SwrvePrivateBaseCampaign.h</key>
 		<data>
-		XHJlR62B0bB8ZLwrqcVn1Ym8Evc=
+		/g0de5e6xZV1m7WA/tjuiJCfkbI=
 		</data>
 		<key>Headers/SwrveReceiptProvider.h</key>
 		<data>
@@ -254,7 +254,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Yfyg0wukA8VDye5K1HsCCNSEufs=
+		RzEXw8k5Ip61Gpw/4RkdPAUvCHs=
 		</data>
 		<key>LICENSE</key>
 		<data>
@@ -270,7 +270,7 @@
 		</data>
 		<key>Permissions/ISHPermissionRequest+All.m</key>
 		<data>
-		Ii2hrALmw8A49mZ9pxlSaNWEFn0=
+		vZa+chk3CCSBTCl6mEacFviZp/c=
 		</data>
 		<key>Permissions/ISHPermissionRequest+Private.h</key>
 		<data>
@@ -330,55 +330,51 @@
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		3jKcjvHR3BboEHST349Y4fNiN9A=
+		fReFFGgKsnY3nYpXsr1obl13OOY=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/objects.nib</key>
 		<data>
-		tioY4MDaynDGRzCd0IX/wCxasy4=
+		Iw5/iw1kWD8TgAZ2qbyC1tRzh9g=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/runtime.nib</key>
 		<data>
-		uj1JCfsu8Jrk0rmt4AeIP3uwqyA=
+		ni3ViGuhDtIIS7TID9WdvsP1uDI=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		kYp3oTgj7TQQwvVxEUItK8vtkbk=
+		IdjAprtB0ivz12Qz8ef/NRZ5y8E=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/objects.nib</key>
 		<data>
-		AEm/oxHfnBqruJT6xfmHkwWOS/0=
+		rgzrDFQ4AywM+t++R18+maH/TFg=
 		</data>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/runtime.nib</key>
 		<data>
-		1DSrsCrYnEY7ga0MNYLCjiusAnM=
+		ckz9pIdvBZ6tr32SM8d4rxaUxy4=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/objects-8.0+.nib</key>
 		<data>
-		Wut5VRjqYOx0mTvrf0MTeocMGP4=
+		bTVkaMq2RIYW1zoBpOf09ter0aw=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/objects.nib</key>
 		<data>
-		Pxn82JdZKw7aQdhxj23obvS2O+I=
+		LrrE0/naEMDh3KflghZLg0r1WTM=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/runtime.nib</key>
 		<data>
-		/C6rMzsmIsg1V0IslhBJgnMdzDQ=
+		aZ0rXwxe/nlC8pILyEJsqA3WDPI=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/objects-8.0+.nib</key>
 		<data>
-		enlHEFnG28+SNw3cy3BrlW8ObX4=
+		rQ81oTss2m2bENJAUIU3gF3JXYs=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/objects.nib</key>
 		<data>
-		bGKzZHGGHPt5jHw7yb9NmEIB7Qk=
+		iGHZyjtlM+KgXHtR1H/nH9Q+Dgw=
 		</data>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/runtime.nib</key>
 		<data>
-		9iTQMPO9o5qlyy3AO+lOLj/o0h4=
-		</data>
-		<key>SwrveConversationSDK.podspec</key>
-		<data>
-		p96+ebnU8VLlUV8rNSLa1hDCip8=
+		rKfKvrxN/ryZbe+j5SeWDPdQQq8=
 		</data>
 		<key>SwrveConversationSDK/Conversation/Categories/UINavigationController+KeyboardResponderFix.h</key>
 		<data>
@@ -398,11 +394,11 @@
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveBaseConversation.h</key>
 		<data>
-		h1g1vRN7Ai+qNH5tFP9Ni3YlUcE=
+		vaLw1VpKeu4VcVPx4Ukusgx8SeE=
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveBaseConversation.m</key>
 		<data>
-		ty6Fbq/kq+2rieRQA1zz+s912Vc=
+		jc7iD5UkyXOqEOg3hh+2KZCGqJs=
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveContentHTML.h</key>
 		<data>
@@ -450,7 +446,7 @@
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveContentStarRatingView.m</key>
 		<data>
-		RJOpiwXmLHojPJP4gS3j8X05T50=
+		aakG/JSDoz6Sj3T1q1I/o+DgO6s=
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveContentVideo.h</key>
 		<data>
@@ -466,7 +462,7 @@
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveConversationAtom.m</key>
 		<data>
-		wP/jGE8qM14pTKMinvnj6A8HRQQ=
+		h4cWGHRONfQBGjtD5gLtMber//A=
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveConversationAtomFactory.h</key>
 		<data>
@@ -550,7 +546,7 @@
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveConversationsNavigationController.m</key>
 		<data>
-		5cUB7CRX2XKYqluyQEuaetcdmuc=
+		yJzBgOMZtQKHDm6ymppmcGsO1+s=
 		</data>
 		<key>SwrveConversationSDK/Conversation/SwrveInputItem.h</key>
 		<data>
@@ -720,10 +716,6 @@
 		<data>
 		uxa2hH17Uf1pvXYNs40Io9WSPFg=
 		</data>
-		<key>SwrveConversationSDK/SwrveConversationSDK.podspec</key>
-		<data>
-		p96+ebnU8VLlUV8rNSLa1hDCip8=
-		</data>
 		<key>SwrveConversationSDK/SwrveSDKCommon/Common/SwrveCommon.h</key>
 		<data>
 		hrtbfhwTBuR15UWn1THo2kCH72o=
@@ -814,7 +806,7 @@
 		</data>
 		<key>Talk/SwrveBaseCampaign.m</key>
 		<data>
-		4sl/WJwCGPFqYiSYwP7b2aDevFk=
+		iScBCeipYXiqW8unOfNmJsRYHsA=
 		</data>
 		<key>Talk/SwrveButton.h</key>
 		<data>
@@ -826,11 +818,11 @@
 		</data>
 		<key>Talk/SwrveCampaign.h</key>
 		<data>
-		tcnOBLJjjUPeM2nJlRWLmb7DmSg=
+		plWB25W70txYLUEdlFHX+wN0qs0=
 		</data>
 		<key>Talk/SwrveCampaign.m</key>
 		<data>
-		hGRL40Glnh99W+ssqyZPuLjfx4Y=
+		8WW5D/58cuJJMFeoJi/Le50c+Uo=
 		</data>
 		<key>Talk/SwrveCampaignStatus.h</key>
 		<data>
@@ -858,11 +850,11 @@
 		</data>
 		<key>Talk/SwrveMessageController.h</key>
 		<data>
-		45MEWw18wM70gLKvqbNB/i63oxY=
+		cPoIw2dUi7GahZnx0/8nb4PMnFI=
 		</data>
 		<key>Talk/SwrveMessageController.m</key>
 		<data>
-		DpEH87k7Ct//QQpbhrxh4lI333c=
+		b7kAVSUiCdm4tj9n6kshMOOaTsw=
 		</data>
 		<key>Talk/SwrveMessageFormat.h</key>
 		<data>
@@ -882,15 +874,15 @@
 		</data>
 		<key>Talk/SwrvePermissions.h</key>
 		<data>
-		wlMr6G5tDrN51uZKfLd+fKdbHiQ=
+		3MOctOV8l0l6+rlNkOrtK9gugIw=
 		</data>
 		<key>Talk/SwrvePermissions.m</key>
 		<data>
-		5DGBRwIDmqNOkuVKmAbjX2u51jk=
+		vIigGBK1oTn0+nGx+yILd3y5HiY=
 		</data>
 		<key>Talk/SwrvePrivateBaseCampaign.h</key>
 		<data>
-		XHJlR62B0bB8ZLwrqcVn1Ym8Evc=
+		/g0de5e6xZV1m7WA/tjuiJCfkbI=
 		</data>
 		<key>Talk/SwrveTalkQA.h</key>
 		<data>
@@ -900,13 +892,29 @@
 		<data>
 		TB16Ik5SHaNel8EUoKRbT+enFdk=
 		</data>
+		<key>Talk/SwrveTrigger.h</key>
+		<data>
+		dIEY9KYOfkZkFMjCCARTRZVNAGw=
+		</data>
+		<key>Talk/SwrveTrigger.m</key>
+		<data>
+		yQkBT5iQUETH9PTFY0WEQD2kqZI=
+		</data>
+		<key>Talk/SwrveTriggerCondition.h</key>
+		<data>
+		EMntYH4DBfoi/K0Vy/+GS+oAqgY=
+		</data>
+		<key>Talk/SwrveTriggerCondition.m</key>
+		<data>
+		1pDfhZidtT6h1qbVb4pcr4k8ieM=
+		</data>
 		<key>Track/Swrve.h</key>
 		<data>
-		mN8UBTe4GyRLBY/e5kPC+SH3oZs=
+		hVHpgReceXUcxvPLwj8vbZ5Y5ME=
 		</data>
 		<key>Track/Swrve.m</key>
 		<data>
-		gud8Bzpy/0/G3EB5eo414ANTQ9I=
+		yPs68Xyb/9pO0RFIKr36EQMqry8=
 		</data>
 		<key>Track/SwrveInternalAccess.h</key>
 		<data>
@@ -1101,22 +1109,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tXYTa4o4xE3z0E4nkeoV8uSr85I=
+			9C2nJcZXLkP39r/EjpSRcXC7PVc=
 			</data>
 			<key>hash2</key>
 			<data>
-			Z0IeQVmbWJp42wcB3BKrl8UBt14TsKiGV7EvizQ4MRg=
+			+WYVl1arIQWGxar0Qqby9+eu90CZMxpz+CQY7PmOn54=
 			</data>
 		</dict>
 		<key>Conversation/SwrveConversationCampaign.m</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			l9re6nIsmy5mQ0+MQ9F1r1xw3/I=
+			WqR/YsCTlgs/CA5bC2aotRaRWqc=
 			</data>
 			<key>hash2</key>
 			<data>
-			ABkOR/7jb5NxFMJrRG7b/UG5DlcejZCwXQWSo/5krGc=
+			uzeEWzrv+z/zlfq5U1umKXXjP/suyWSDyh5nfP0FtTI=
 			</data>
 		</dict>
 		<key>Headers/ISHPermissionCategory.h</key>
@@ -1222,11 +1230,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mN8UBTe4GyRLBY/e5kPC+SH3oZs=
+			hVHpgReceXUcxvPLwj8vbZ5Y5ME=
 			</data>
 			<key>hash2</key>
 			<data>
-			D5h+svw99GMFrK7m0nSEGhZvT51QFy4rAkB9KOVLzbQ=
+			X7aTSLvc7Gfi8RaBdR7NV/u06DKeh7xdtN0UKJyzkeY=
 			</data>
 		</dict>
 		<key>Headers/SwrveBaseCampaign.h</key>
@@ -1244,11 +1252,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			h1g1vRN7Ai+qNH5tFP9Ni3YlUcE=
+			vaLw1VpKeu4VcVPx4Ukusgx8SeE=
 			</data>
 			<key>hash2</key>
 			<data>
-			iMQ0m/ZwmL+GURYD6dWff1FBldkKXuPRb+d2481QdJM=
+			9i86n5ou10oOZdsdqbx+0XXwHG4/NHAgtnGfKVrUZWw=
 			</data>
 		</dict>
 		<key>Headers/SwrveButton.h</key>
@@ -1266,11 +1274,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tcnOBLJjjUPeM2nJlRWLmb7DmSg=
+			plWB25W70txYLUEdlFHX+wN0qs0=
 			</data>
 			<key>hash2</key>
 			<data>
-			XTX8m1HzxmZlz2Yv/O5AqFRRmP2G9eOs12o5HChKU7g=
+			r5SueCWWFTA0ULEQKJyaHmfBIAv8QrV0fR4efeIbLxQ=
 			</data>
 		</dict>
 		<key>Headers/SwrveCampaignStatus.h</key>
@@ -1431,11 +1439,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tXYTa4o4xE3z0E4nkeoV8uSr85I=
+			9C2nJcZXLkP39r/EjpSRcXC7PVc=
 			</data>
 			<key>hash2</key>
 			<data>
-			Z0IeQVmbWJp42wcB3BKrl8UBt14TsKiGV7EvizQ4MRg=
+			+WYVl1arIQWGxar0Qqby9+eu90CZMxpz+CQY7PmOn54=
 			</data>
 		</dict>
 		<key>Headers/SwrveConversationContainerViewController.h</key>
@@ -1607,11 +1615,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			45MEWw18wM70gLKvqbNB/i63oxY=
+			cPoIw2dUi7GahZnx0/8nb4PMnFI=
 			</data>
 			<key>hash2</key>
 			<data>
-			IQ00n0xJF5PEem21ELJSCWkr09HGIyuGgCsQoGAh/jY=
+			oV+ly5+9xfa0TCRpAUtQ4JwCNn0OoI9k3qOcjh1TS4I=
 			</data>
 		</dict>
 		<key>Headers/SwrveMessageEventHandler.h</key>
@@ -1651,22 +1659,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			wlMr6G5tDrN51uZKfLd+fKdbHiQ=
+			3MOctOV8l0l6+rlNkOrtK9gugIw=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZB9scwzt7mtYfyzHiBi+eOvdnQRPPHDleTuC2fuEThc=
+			NeERons1l2ttqXrPWo0jHwUPoM5c7UCaoxZHMLxLlGI=
 			</data>
 		</dict>
 		<key>Headers/SwrvePrivateBaseCampaign.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XHJlR62B0bB8ZLwrqcVn1Ym8Evc=
+			/g0de5e6xZV1m7WA/tjuiJCfkbI=
 			</data>
 			<key>hash2</key>
 			<data>
-			GPovLISXB1ElT4ohLpWhXyFT4YwwFYj356Qcf1vTix8=
+			U78bsoXc+UTuDg5Iy3n3O+5BJeSq4D89RvK2jfGFG0I=
 			</data>
 		</dict>
 		<key>Headers/SwrveReceiptProvider.h</key>
@@ -1794,11 +1802,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Ii2hrALmw8A49mZ9pxlSaNWEFn0=
+			vZa+chk3CCSBTCl6mEacFviZp/c=
 			</data>
 			<key>hash2</key>
 			<data>
-			57lADfwYvs3qEs8fy67Nl3tixzJ3OGcI+6jRcQooP8w=
+			wPDujBzsQ+7F6mGCprpniSxJScav87Xitqq1zUZSpBk=
 			</data>
 		</dict>
 		<key>Permissions/ISHPermissionRequest+Private.h</key>
@@ -1959,143 +1967,132 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			3jKcjvHR3BboEHST349Y4fNiN9A=
+			fReFFGgKsnY3nYpXsr1obl13OOY=
 			</data>
 			<key>hash2</key>
 			<data>
-			sO+oTB6v78mQ3cbb/tAszrOnrEel5eoQOxldcc5xX/w=
+			D8UY/VUhVzuRjWUFk9xeqbbKQBkJaPot40RBDAmDljE=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/objects.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tioY4MDaynDGRzCd0IX/wCxasy4=
+			Iw5/iw1kWD8TgAZ2qbyC1tRzh9g=
 			</data>
 			<key>hash2</key>
 			<data>
-			9US+dhDIv1qzIzorim5OdjPMRVFUgzMrSHlVzsMR8r8=
+			6dYowfSzbP4XxrSNwBOu3aBh57XI2aElwWJuSDgOKyo=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			uj1JCfsu8Jrk0rmt4AeIP3uwqyA=
+			ni3ViGuhDtIIS7TID9WdvsP1uDI=
 			</data>
 			<key>hash2</key>
 			<data>
-			7nrV7utJKvOwTfkz5URkPUQbnZATkwu1RrXQXpbE9+A=
+			7+CnxDzk3nZ/5CS1xxYCTsIdATkw5dbWm6nqD5qO5iw=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			kYp3oTgj7TQQwvVxEUItK8vtkbk=
+			IdjAprtB0ivz12Qz8ef/NRZ5y8E=
 			</data>
 			<key>hash2</key>
 			<data>
-			JWeXoEQ1fguwme4vnvgduKXOszpNzpmPyQFMr1TN5oM=
+			3Gst9iAxGWODMGjzchLimIcr2RBc4VM0LF8GhPLbIXc=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/objects.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			AEm/oxHfnBqruJT6xfmHkwWOS/0=
+			rgzrDFQ4AywM+t++R18+maH/TFg=
 			</data>
 			<key>hash2</key>
 			<data>
-			4SUdK32Sm8FBpbUIkOWlKwLS4jMI2okfj7vc6HX/4sk=
+			rJI+HMXl451B90A/5WHo23ItSuRZW306FdnzTNNf/Q4=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/JUa-n0-f9x-view-cuB-Sw-8Bl~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1DSrsCrYnEY7ga0MNYLCjiusAnM=
+			ckz9pIdvBZ6tr32SM8d4rxaUxy4=
 			</data>
 			<key>hash2</key>
 			<data>
-			YpMFmZFYgCEzS/FpIaizsxH15pBExt2yx/LH59NNqdc=
+			7ifWoU1MAjs92icM8k/LCrDoS/mSvxAM6P9i09kZg1E=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Wut5VRjqYOx0mTvrf0MTeocMGP4=
+			bTVkaMq2RIYW1zoBpOf09ter0aw=
 			</data>
 			<key>hash2</key>
 			<data>
-			VXIA2oPLuJEIfVLGcn8q6XGqSAc3ozeR0/Vi4anKDoA=
+			e5EaQ9AuQMbhg91lJrYM9FXGjYlAHToi9Ecp/v6JG7U=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/objects.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Pxn82JdZKw7aQdhxj23obvS2O+I=
+			LrrE0/naEMDh3KflghZLg0r1WTM=
 			</data>
 			<key>hash2</key>
 			<data>
-			7DnEbYjIIBIwObBJ07/tJRj4WO1TARMepKjFZkDPj5U=
+			963lRE+b7/Wv5fhGOsykxwL0qES3jdNacPYO4Smvw3Q=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~ipad.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/C6rMzsmIsg1V0IslhBJgnMdzDQ=
+			aZ0rXwxe/nlC8pILyEJsqA3WDPI=
 			</data>
 			<key>hash2</key>
 			<data>
-			wBROnFc/n9feM7s2meeuiPx3v8pAMkl1HoeDgBrOVaw=
+			6n+sgU6woMuhqrv679cxLKX1kUA3iu4JH9ObQ2+If5I=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/objects-8.0+.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			enlHEFnG28+SNw3cy3BrlW8ObX4=
+			rQ81oTss2m2bENJAUIU3gF3JXYs=
 			</data>
 			<key>hash2</key>
 			<data>
-			nVEu1eiPnf4RCxZ2DebHB5D/r9eeVZPQyvCSMV18ZM0=
+			JoDSGZ+JF++Sc8wxYb01hH+E78JiFeN/2SZoYONYw4I=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/objects.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bGKzZHGGHPt5jHw7yb9NmEIB7Qk=
+			iGHZyjtlM+KgXHtR1H/nH9Q+Dgw=
 			</data>
 			<key>hash2</key>
 			<data>
-			+BckqE6mG5g4P4etZ+S+K1vp1msfahZI8dicIy1gmLE=
+			YWwNVi6ldYZ7lo6KUrT53E+5BKTGM6Rqv5JiuZrr2Gw=
 			</data>
 		</dict>
 		<key>SwrveConversation.storyboardc/SwrveConversationItemViewController~iphone.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9iTQMPO9o5qlyy3AO+lOLj/o0h4=
+			rKfKvrxN/ryZbe+j5SeWDPdQQq8=
 			</data>
 			<key>hash2</key>
 			<data>
-			gZFSUk9bTMEs3TjaOu7n8I/r7HW6iMygfYnyrnebTFw=
-			</data>
-		</dict>
-		<key>SwrveConversationSDK.podspec</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			p96+ebnU8VLlUV8rNSLa1hDCip8=
-			</data>
-			<key>hash2</key>
-			<data>
-			ZB28vyZFWYQoOe9BjvTQpXrymn737AB2k2eBuwpf4Zw=
+			4NoeKHcwWDsxMU5Yq1u65fDz69VhUvYDvvlFXwwfYG0=
 			</data>
 		</dict>
 		<key>SwrveConversationSDK/Conversation/Categories/UINavigationController+KeyboardResponderFix.h</key>
@@ -2146,22 +2143,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			h1g1vRN7Ai+qNH5tFP9Ni3YlUcE=
+			vaLw1VpKeu4VcVPx4Ukusgx8SeE=
 			</data>
 			<key>hash2</key>
 			<data>
-			iMQ0m/ZwmL+GURYD6dWff1FBldkKXuPRb+d2481QdJM=
+			9i86n5ou10oOZdsdqbx+0XXwHG4/NHAgtnGfKVrUZWw=
 			</data>
 		</dict>
 		<key>SwrveConversationSDK/Conversation/SwrveBaseConversation.m</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ty6Fbq/kq+2rieRQA1zz+s912Vc=
+			jc7iD5UkyXOqEOg3hh+2KZCGqJs=
 			</data>
 			<key>hash2</key>
 			<data>
-			sr1Mksr35x8OsheIOd4F1WZcvXgaga0W2PdpzPsC2h4=
+			2baxyP6YqtJXvt0eKPi7Hf1NG1iH/wDlrtsBTdxPq+w=
 			</data>
 		</dict>
 		<key>SwrveConversationSDK/Conversation/SwrveContentHTML.h</key>
@@ -2289,11 +2286,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RJOpiwXmLHojPJP4gS3j8X05T50=
+			aakG/JSDoz6Sj3T1q1I/o+DgO6s=
 			</data>
 			<key>hash2</key>
 			<data>
-			WIi+FTIM9bq1Z2VbkPXbaHv5T1Ey8INlttyI6TvXt6U=
+			4+VOqUE5zj5ih9Hrvou5Fh7nOTXTOyYMp4N2kchjKHc=
 			</data>
 		</dict>
 		<key>SwrveConversationSDK/Conversation/SwrveContentVideo.h</key>
@@ -2333,11 +2330,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			wP/jGE8qM14pTKMinvnj6A8HRQQ=
+			h4cWGHRONfQBGjtD5gLtMber//A=
 			</data>
 			<key>hash2</key>
 			<data>
-			P7ndipz46qYOhiz6uo9GB8kvhLJnJsfeIrl5Xh5Un9U=
+			q9s9z+RFKn4AZViIzZCweWZLWUkbL09362L08BrimX0=
 			</data>
 		</dict>
 		<key>SwrveConversationSDK/Conversation/SwrveConversationAtomFactory.h</key>
@@ -2564,11 +2561,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			5cUB7CRX2XKYqluyQEuaetcdmuc=
+			yJzBgOMZtQKHDm6ymppmcGsO1+s=
 			</data>
 			<key>hash2</key>
 			<data>
-			8eLifCht4kz21HnQKznLmo+za3iLTGF83Kb5kaA3Elo=
+			xBGDfntZx9ufzhYgoWXFJ/vfMWDQv+19pvHT7zWG8EM=
 			</data>
 		</dict>
 		<key>SwrveConversationSDK/Conversation/SwrveInputItem.h</key>
@@ -3033,17 +3030,6 @@
 			w2gAjZRRgFdHc8WAZPl5VpbOJwMzScuX8ZMfJ/oQGCA=
 			</data>
 		</dict>
-		<key>SwrveConversationSDK/SwrveConversationSDK.podspec</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			p96+ebnU8VLlUV8rNSLa1hDCip8=
-			</data>
-			<key>hash2</key>
-			<data>
-			ZB28vyZFWYQoOe9BjvTQpXrymn737AB2k2eBuwpf4Zw=
-			</data>
-		</dict>
 		<key>SwrveConversationSDK/SwrveSDKCommon/Common/SwrveCommon.h</key>
 		<dict>
 			<key>hash</key>
@@ -3290,11 +3276,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4sl/WJwCGPFqYiSYwP7b2aDevFk=
+			iScBCeipYXiqW8unOfNmJsRYHsA=
 			</data>
 			<key>hash2</key>
 			<data>
-			K7ti7oC39gjP07DCETnuZ993uYDQjyGkkdzuQzyoatc=
+			spt8htiUzCdwYcmGsM6Bep2NazEBLSYro3bopM4kkvg=
 			</data>
 		</dict>
 		<key>Talk/SwrveButton.h</key>
@@ -3323,22 +3309,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tcnOBLJjjUPeM2nJlRWLmb7DmSg=
+			plWB25W70txYLUEdlFHX+wN0qs0=
 			</data>
 			<key>hash2</key>
 			<data>
-			XTX8m1HzxmZlz2Yv/O5AqFRRmP2G9eOs12o5HChKU7g=
+			r5SueCWWFTA0ULEQKJyaHmfBIAv8QrV0fR4efeIbLxQ=
 			</data>
 		</dict>
 		<key>Talk/SwrveCampaign.m</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hGRL40Glnh99W+ssqyZPuLjfx4Y=
+			8WW5D/58cuJJMFeoJi/Le50c+Uo=
 			</data>
 			<key>hash2</key>
 			<data>
-			fszta/K0ACJT9nkc9vtJRorOiuVS/TlJMeDusl6yswk=
+			Z+Mt9ZgH3vlxBeFOL9HPEzxrhFPBFct5NkuLEpfAp9s=
 			</data>
 		</dict>
 		<key>Talk/SwrveCampaignStatus.h</key>
@@ -3411,22 +3397,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			45MEWw18wM70gLKvqbNB/i63oxY=
+			cPoIw2dUi7GahZnx0/8nb4PMnFI=
 			</data>
 			<key>hash2</key>
 			<data>
-			IQ00n0xJF5PEem21ELJSCWkr09HGIyuGgCsQoGAh/jY=
+			oV+ly5+9xfa0TCRpAUtQ4JwCNn0OoI9k3qOcjh1TS4I=
 			</data>
 		</dict>
 		<key>Talk/SwrveMessageController.m</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			DpEH87k7Ct//QQpbhrxh4lI333c=
+			b7kAVSUiCdm4tj9n6kshMOOaTsw=
 			</data>
 			<key>hash2</key>
 			<data>
-			lIvQ+cU7tUJmj8hXbPlSyxwEkEva0P+e788pOk+hIqU=
+			JN2/mleQFb40t0a3PRelFjZYetaneIyoWPPfGyJfmdw=
 			</data>
 		</dict>
 		<key>Talk/SwrveMessageFormat.h</key>
@@ -3477,33 +3463,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			wlMr6G5tDrN51uZKfLd+fKdbHiQ=
+			3MOctOV8l0l6+rlNkOrtK9gugIw=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZB9scwzt7mtYfyzHiBi+eOvdnQRPPHDleTuC2fuEThc=
+			NeERons1l2ttqXrPWo0jHwUPoM5c7UCaoxZHMLxLlGI=
 			</data>
 		</dict>
 		<key>Talk/SwrvePermissions.m</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5DGBRwIDmqNOkuVKmAbjX2u51jk=
+			vIigGBK1oTn0+nGx+yILd3y5HiY=
 			</data>
 			<key>hash2</key>
 			<data>
-			yjGUBheDDRPj+LA0WveNlq+3MzuQjg8t36WTs8LS3hw=
+			1WoxTg39da1qobFVOYFX7DhbFgH0uSBDEz/TcWIAakg=
 			</data>
 		</dict>
 		<key>Talk/SwrvePrivateBaseCampaign.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XHJlR62B0bB8ZLwrqcVn1Ym8Evc=
+			/g0de5e6xZV1m7WA/tjuiJCfkbI=
 			</data>
 			<key>hash2</key>
 			<data>
-			GPovLISXB1ElT4ohLpWhXyFT4YwwFYj356Qcf1vTix8=
+			U78bsoXc+UTuDg5Iy3n3O+5BJeSq4D89RvK2jfGFG0I=
 			</data>
 		</dict>
 		<key>Talk/SwrveTalkQA.h</key>
@@ -3528,26 +3514,70 @@
 			qyKzGs/s+z6Y3T54+TLc8QZsBheJWVu/wszLR8Ix+YY=
 			</data>
 		</dict>
+		<key>Talk/SwrveTrigger.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dIEY9KYOfkZkFMjCCARTRZVNAGw=
+			</data>
+			<key>hash2</key>
+			<data>
+			P5pJJb+Fd9hyFK7+y01KOKIsLOx6gZnAmlSiPVekObg=
+			</data>
+		</dict>
+		<key>Talk/SwrveTrigger.m</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			yQkBT5iQUETH9PTFY0WEQD2kqZI=
+			</data>
+			<key>hash2</key>
+			<data>
+			6nv6GNA8VbkXtm5tLP4o86bHZII+lSLV6mSqZk5RFLk=
+			</data>
+		</dict>
+		<key>Talk/SwrveTriggerCondition.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			EMntYH4DBfoi/K0Vy/+GS+oAqgY=
+			</data>
+			<key>hash2</key>
+			<data>
+			SjkqKThsDfBdBTyhCeIXVghNKqX31BKRw2E9k1kWGLA=
+			</data>
+		</dict>
+		<key>Talk/SwrveTriggerCondition.m</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1pDfhZidtT6h1qbVb4pcr4k8ieM=
+			</data>
+			<key>hash2</key>
+			<data>
+			fZ0I/xQmOnNvRpTme6W1uPDwhPL8w875NpJPXOAYAO0=
+			</data>
+		</dict>
 		<key>Track/Swrve.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			mN8UBTe4GyRLBY/e5kPC+SH3oZs=
+			hVHpgReceXUcxvPLwj8vbZ5Y5ME=
 			</data>
 			<key>hash2</key>
 			<data>
-			D5h+svw99GMFrK7m0nSEGhZvT51QFy4rAkB9KOVLzbQ=
+			X7aTSLvc7Gfi8RaBdR7NV/u06DKeh7xdtN0UKJyzkeY=
 			</data>
 		</dict>
 		<key>Track/Swrve.m</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			gud8Bzpy/0/G3EB5eo414ANTQ9I=
+			yPs68Xyb/9pO0RFIKr36EQMqry8=
 			</data>
 			<key>hash2</key>
 			<data>
-			VzM+Kq8d/3Tm/EfaFOvHO+eGXAlb9OAcK8W+42DqFaE=
+			2uBkkeikYbptuhk3MVPpHr3JVWsb6PqDSbUtVWRClRc=
 			</data>
 		</dict>
 		<key>Track/SwrveInternalAccess.h</key>

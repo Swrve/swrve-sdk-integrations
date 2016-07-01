@@ -12,10 +12,10 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Optional: Google GCM configuration
         SwrveConfig config = new SwrveConfig();
-        //config.setSenderId("your_id");
+        // Optional: Google GCM configuration
+        config.setSenderId("your_id");
         // Initialise the Swrve SDK with your configuration
-        SwrvePlugin.createInstance(this, 1, "your_api_key", config);
+        SwrvePlugin.createInstance(this, 1, "api_key", config);
     }
 }
