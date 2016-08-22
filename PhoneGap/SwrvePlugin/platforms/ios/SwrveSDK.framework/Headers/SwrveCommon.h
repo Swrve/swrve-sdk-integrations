@@ -11,6 +11,15 @@
 - (void) sendQueuedEvents;
 - (void) queueEvent:(NSString*)eventType data:(NSMutableDictionary*)eventData triggerCallback:(bool)triggerCallback;
 
+-(NSString*) swrveSDKVersion;
+-(NSString*) appVersion;
+-(NSSet*) pushCategories;
+
+@property(atomic, readonly) long appID;
+@property(atomic, readonly) NSString *userID;
+@property(atomic, readonly) NSDictionary *deviceInfo;
+@property (atomic, readonly) NSString* deviceToken;
+
 @end
 
 @interface SwrveCommon : NSObject

@@ -49,7 +49,7 @@
 {
     SwrveConfig* config = [[SwrveConfig alloc] init];
     config.pushEnabled = true;
-    [SwrvePlugin initWithAppID:1 apiKey:@"api_key" config:config viewController:self.viewController launchOptions:launchOptions];
+    [SwrvePlugin initWithAppID:1030 apiKey:@"SwrveDevApple" config:config viewController:self.viewController launchOptions:launchOptions];
 }
 
 #ifndef DISABLE_PUSH_NOTIFICATIONS

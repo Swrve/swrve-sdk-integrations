@@ -926,6 +926,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SwrvePhoneGapDemo/SwrvePhoneGapDemo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swrve.smple;
 				PRODUCT_NAME = SwrvePhoneGapDemo;
 			};
 			name = Debug;
@@ -951,6 +952,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SwrvePhoneGapDemo/SwrvePhoneGapDemo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swrve.smple;
 				PRODUCT_NAME = SwrvePhoneGapDemo;
 			};
 			name = Release;
