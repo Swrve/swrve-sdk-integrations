@@ -233,6 +233,7 @@
 				TargetAttributes = {
 					1B2673F11B53B01700B3BF1C = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 38YP67HQGE;
 					};
 					1B26740A1B53B01700B3BF1C = {
 						CreatedOnToolsVersion = 6.4;
@@ -466,6 +467,7 @@
 			baseConfigurationReference = 09F603F0B4DA853EB7FC04EE /* Pods-SwrveAdobeMobileServicesDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 38YP67HQGE;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SwrveAdobeMobileServicesDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -484,6 +486,7 @@
 			baseConfigurationReference = FE99AAC207CC8052FDE4834D /* Pods-SwrveAdobeMobileServicesDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 38YP67HQGE;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SwrveAdobeMobileServicesDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
