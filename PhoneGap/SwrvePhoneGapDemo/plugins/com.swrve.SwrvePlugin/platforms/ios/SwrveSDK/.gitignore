@@ -1,0 +1,10 @@
+Pods/
+Podfile.lock
+DerivedData/
+xcuserdata/
+build/
+
+*.xcarchive
+*.ipa
+.DS_Store
+.idea

@@ -1,1 +1,6 @@
 .DS_Store
+.idea/
+DerivedData/
+.gradle/
+CordovaLib/build/
+PhoneGap/SwrvePhoneGapDemo/platforms/ios/SwrvePhoneGapDemo.xcodeproj/project.xcworkspace/

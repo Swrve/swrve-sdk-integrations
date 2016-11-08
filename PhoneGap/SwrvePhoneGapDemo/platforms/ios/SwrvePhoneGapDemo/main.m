@@ -31,6 +31,7 @@
 int main(int argc, char* argv[])
 {
     @autoreleasepool {
+        // SWRVE TEST CHANGES
         NSString* appDelegateClassName = (TESTING)? @"TestAppDelegate" : @"AppDelegate";
         int retVal = UIApplicationMain(argc, argv, nil, appDelegateClassName);
         return retVal;

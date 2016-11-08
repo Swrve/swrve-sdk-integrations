@@ -27,8 +27,6 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
-
-#import <SwrveSDK/Swrve.h>
 #import "SwrvePlugin.h"
 
 @implementation AppDelegate

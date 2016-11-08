@@ -7,14 +7,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "com.swrve.SwrvePlugin": {
-        "source": {
-            "type": "local",
-            "path": "../SwrvePlugin"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-x-toast": {
         "source": {
             "type": "registry",
@@ -27,6 +19,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-console"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.swrve.SwrvePlugin": {
+        "source": {
+            "type": "local",
+            "path": "../SwrvePlugin"
         },
         "is_top_level": true,
         "variables": {}

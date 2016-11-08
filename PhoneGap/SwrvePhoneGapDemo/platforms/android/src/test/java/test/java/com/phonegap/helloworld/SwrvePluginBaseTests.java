@@ -3,35 +3,12 @@ package test.java.com.phonegap.helloworld;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.net.http.SslError;
-import android.os.Bundle;
-import android.os.Message;
+import android.os.Bundle;;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
-import android.view.InputEvent;
-import android.view.KeyEvent;
-import android.webkit.ClientCertRequest;
-import android.webkit.HttpAuthHandler;
-import android.webkit.JsResult;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
-import com.phonegap.helloworld.MainActivity;
 import com.swrve.SwrvePlugin;
-import com.swrve.sdk.SwrveSDK;
 import com.swrve.sdk.SwrveSDKBase;
 import com.swrve.sdk.config.SwrveConfig;
 
-import org.apache.cordova.CordovaActivity;
-import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.engine.SystemWebChromeClient;
-import org.apache.cordova.engine.SystemWebView;
-import org.apache.cordova.engine.SystemWebViewClient;
-import org.apache.cordova.engine.SystemWebViewEngine;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,8 +20,6 @@ import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Semaphore;
 
@@ -64,6 +39,7 @@ public abstract class SwrvePluginBaseTests extends ActivityInstrumentationTestCa
 
     public void setUp() throws Exception {
         super.setUp();
+
         returnCode = 0;
         lastEventBatches = new ArrayList<String>();
 

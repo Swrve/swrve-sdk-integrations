@@ -17,9 +17,13 @@ Run the rake task 'rake build'. This will update the demo project with the lates
 
 Both platform targets have native tests that are able to test the wrapper code. There are also two rake tasks that you can run:
 
-```testIOSInSimulator["OS=8.3\,name='iPad Air'"]```
+```
+testIOSInSimulator["OS=8.3\,name='iPad Air'"]
+```
 
-```testAndroidInEmulator["2.3.3"]```
+```
+testAndroidInEmulator["2.3.3"]
+```
 
 Contributing
 ------------

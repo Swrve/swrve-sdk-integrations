@@ -1,19 +1,18 @@
 package test.java.com.phonegap.helloworld;
 
+import android.app.Instrumentation;
 import android.content.Intent;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
 
-import com.swrve.sdk.ISwrveBase;
-import com.swrve.sdk.SwrveBase;
-import com.swrve.sdk.SwrveSDK;
+import com.phonegap.helloworld.MainActivity;
+import com.swrve.sdk.SwrvePushEngageReceiver;
+import com.swrve.sdk.messaging.ui.SwrveInAppMessageActivity;
 import com.swrve.sdk.messaging.view.SwrveButtonView;
-import com.swrve.sdk.messaging.view.SwrveDialog;
+import com.swrve.sdk.messaging.view.SwrveMessageView;
 
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class SwrvePluginTests extends SwrvePluginBaseTests {
@@ -160,26 +159,19 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         runJS("window.plugins.swrve.setCustomButtonListener(function(action) { alert('swrve:30:' + action); });");
         runJS("window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);");
 
-        ISwrveBase sdk = SwrveSDK.getInstance();
-        Field dialogField = SwrveBase.class.getSuperclass().getDeclaredField("currentDialog");
-        dialogField.setAccessible(true);
-
-        WeakReference<SwrveDialog> weakDialog;
-        SwrveDialog dialog = null;
+        Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(SwrveInAppMessageActivity.class.getName(), null, false);
+        SwrveInAppMessageActivity iamActivity;
         int retries = 180;
         do {
             runJS("window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);");
-            weakDialog = (WeakReference<SwrveDialog>) dialogField.get(sdk);
-            if (weakDialog == null || weakDialog.get() == null) {
-                Thread.sleep(1000);
-            } else {
-                dialog = weakDialog.get();
-            }
-        } while(retries-- > 0 && (weakDialog == null || weakDialog.get() == null));
-        assertNotNull(dialog);
+            Thread.sleep(1000);
+            iamActivity = (SwrveInAppMessageActivity) monitor.getLastActivity();
+        } while(retries-- > 0 && iamActivity == null);
+        assertNotNull(iamActivity);
 
         boolean clickedButton = false;
-        RelativeLayout innerMessage = (RelativeLayout) dialog.getInnerView().getChildAt(0);
+        ViewGroup parentView = (ViewGroup)iamActivity.findViewById(android.R.id.content);
+        SwrveMessageView innerMessage = (SwrveMessageView)parentView.getChildAt(0);
         int childrenViewsCount = innerMessage.getChildCount();
         for(int i = 0; i < childrenViewsCount; i++) {
             final View childView = innerMessage.getChildAt(i);
@@ -210,16 +202,23 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
     public void testCustomPushPayloadListener() throws Exception {
         runJS("window.plugins.swrve.setPushNotificationListener(function(payload) { alert('swrve:40:' + payload); });");
 
+        Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(MainActivity.class.getName(), null, false);
+
         int retries = 20;
         String payloadJSON;
+        SwrvePushEngageReceiver pushEngageReceiver = new SwrvePushEngageReceiver();
         do {
             Intent intent = getGcmIntent(retries, "custom", "custom_payload");
-            SwrveSDK.processIntent(intent);
+            pushEngageReceiver.onReceive(getInstrumentation().getTargetContext().getApplicationContext(), intent);
+
             payloadJSON = mActivity.getJSReturnValue(40);
             if (payloadJSON == null) {
                 Thread.sleep(1000);
             }
         } while(retries-- > 0 && payloadJSON == null);
         assertNotNull(payloadJSON);
+
+        MainActivity startedActivity = (MainActivity)getInstrumentation().waitForMonitor(monitor);
+        startedActivity.finish();
     }
 }
