@@ -1,11 +1,7 @@
 package com.phonegap.helloworld;
 
 import com.swrve.SwrvePlugin;
-import com.swrve.sdk.SwrveSDK;
 import com.swrve.sdk.config.SwrveConfig;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class Application extends android.app.Application {
 

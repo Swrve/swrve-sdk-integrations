@@ -1,5 +1,6 @@
 package com.swrve;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.swrve.sdk.ISwrveBase;
 import com.swrve.sdk.ISwrveResourcesListener;
 import com.swrve.sdk.ISwrveUserResourcesListener;
 import com.swrve.sdk.SwrveSDK;
@@ -37,7 +39,7 @@ import org.apache.cordova.CordovaWebView;
 
 public class SwrvePlugin extends CordovaPlugin {
 
-    public static String VERSION = "1.0.1";
+    public static String VERSION = "1.0.3";
     private static SwrvePlugin instance;
 
     private boolean resourcesListenerReady;
@@ -344,8 +346,7 @@ public class SwrvePlugin extends CordovaPlugin {
 
     @Override
     public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        SwrveSDK.processIntent(intent);
+        SwrveSDK.onNewIntent(intent);
     }
 
     private void runJS(String js) {
@@ -371,23 +372,29 @@ public class SwrvePlugin extends CordovaPlugin {
     }
 
     public static void resourcesListenerCall() {
-        instance.cordova.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                SwrveSDK.getInstance().getUserResources(new ISwrveUserResourcesListener() {
-                    @Override
-                    public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsString) {
-                        byte[] jsonBytes = new JSONObject(resources).toString().getBytes();
-                        instance.runJS("if (window.swrveProcessResourcesUpdated !== undefined) { window.swrveProcessResourcesUpdated('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
-                    }
+        Activity activity = instance.cordova.getActivity();
+        if (!activity.isFinishing()) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ISwrveBase sdk = SwrveSDK.getInstance();
+                    if (sdk != null) {
+                        sdk.getUserResources(new ISwrveUserResourcesListener() {
+                            @Override
+                            public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsString) {
+                                byte[] jsonBytes = new JSONObject(resources).toString().getBytes();
+                                instance.runJS("if (window.swrveProcessResourcesUpdated !== undefined) { window.swrveProcessResourcesUpdated('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
+                            }
 
-                    @Override
-                    public void onUserResourcesError(Exception exception) {
-                        exception.printStackTrace();
+                            @Override
+                            public void onUserResourcesError(Exception exception) {
+                                exception.printStackTrace();
+                            }
+                        });
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     }
 
     public static ISwrveResourcesListener resourcesListener =  new ISwrveResourcesListener() {

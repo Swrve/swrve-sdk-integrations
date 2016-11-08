@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SwrvePhoneGapDemo.xcscheme_^#shared#^_</key>
+		<key>SwrvePhoneGapDemo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1B50F3591D228A5800A904C4</key>
+		<key>1BED21231DD0C5FF001A2353</key>
 		<dict>
 			<key>primary</key>
 			<true/>

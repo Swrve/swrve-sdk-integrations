@@ -1,6 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "HTTPServer.h"
-#import <SwrveSDK/Swrve.h>
+#import "Swrve.h"
 #import "SwrvePlugin.h"
 
 #import "AppDelegate.h"
@@ -278,13 +278,13 @@
 
     UIViewController* viewController = nil;
     int retries = 30;
-    do {
+    while((viewController == nil || [viewController isKindOfClass:[SwrveMessageViewController class]]) && retries-- > 0) {
         // Launch IAM campaign
         [self runJS:@"window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);"];
         [self waitForSeconds:1];
         // Detect view controller
         viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    } while(retries-- > 0 && (viewController == nil || [viewController class] != [SwrveMessageViewController class]));
+    }
     
     SwrveMessageViewController* iamController = (SwrveMessageViewController*)viewController;
     UIView* messageView = [iamController.view.subviews firstObject];

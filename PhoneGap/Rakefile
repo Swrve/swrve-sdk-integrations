@@ -1,4 +1,5 @@
 require 'open3'
+require 'pathname'
 
 $parentDir = File.dirname(__FILE__)
 
@@ -104,8 +105,53 @@ end
 
 task :default => :build
 
-task :build do
-	execInDir('Updating to latest plugin source', $parentDir, 'sh plugin_dev_sync.sh')
+# https://cordova.apache.org/docs/en/latest/plugin_ref/spec.html
+def generate_file_entries(dir, rel_plugin_path)
+	file_declarations = ""
+	Dir.entries(dir).reject{ |entry| entry == "." || entry == ".." }.each do |entry|
+		entry_path = File.join(dir, entry)
+		if File.directory?(entry_path) && !entry.end_with?(".xcassets")
+			gen = generate_file_entries(entry_path, rel_plugin_path)
+			file_declarations += gen unless gen.empty?
+		else
+			# Add single file
+			relative_path = Pathname.new(entry_path).relative_path_from(Pathname.new(rel_plugin_path))
+			target_path = Pathname.new(relative_path).relative_path_from(Pathname.new("platforms/ios/SwrveSDK/"))
+			tag_type = "source-file"
+			if relative_path.to_s.end_with?('.storyboard') || relative_path.to_s.end_with?('.xcassets')
+				# Add as a resource
+				tag_type = "resource-file"
+			elsif relative_path.to_s.end_with? '.h'
+				# Add as a header
+				tag_type = "header-file"
+			end
+
+			file_declarations += "    <#{tag_type} src=\"#{relative_path}\" target-dir=\"#{target_path}\"/>\n"
+		end
+	end
+
+	file_declarations
+end
+
+task :updatePluginXml do
+	# Upadte plugin.xml to reference all iOS source files individually, as including a folder seems
+	# to be broken
+	file_declarations = ""
+	rel_plugin_path = $parentDir + "/SwrvePlugin/"
+	["SwrveSDK/SwrveSDKCommon", "SwrveSDK/SwrveConversationSDK", "SwrveSDK/SwrveSDK"].each do |folder|
+		pluginPath = $parentDir + "/SwrvePlugin/platforms/ios/#{folder}"
+		gen = generate_file_entries(pluginPath, rel_plugin_path)
+		file_declarations += gen unless gen.empty?
+	end
+
+	# Replace injection point with entries and update plugin.xml
+	injection_point = "<PLEASE_USE_RAKE_updatePluginXml/>"
+	plugin_xml_content = File.read($parentDir + "/SwrvePlugin/plugin.base.xml")
+	plugin_xml_content.sub!(injection_point, file_declarations)
+	File.write($parentDir + "/SwrvePlugin/plugin.xml", plugin_xml_content)
+end
+
+task :build  do
 	execInDir('Preparing', relative('SwrvePhoneGapDemo'), 'phonegap prepare')
 	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile ios')
 	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile android')

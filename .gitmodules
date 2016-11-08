@@ -1,0 +1,4 @@
+[submodule "PhoneGap/SwrvePlugin/platforms/ios/SwrveSDK"]
+	path = PhoneGap/SwrvePlugin/platforms/ios/SwrveSDK
+	url = git@github.com:Swrve/swrve-ios-sdk.git
+	branch = release-4_6_2

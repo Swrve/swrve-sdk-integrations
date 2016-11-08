@@ -1,5 +1,5 @@
 #import <Cordova/CDV.h>
-#import <SwrveSDK/Swrve.h>
+#import "Swrve.h"
 
 @interface SwrvePlugin : CDVPlugin
 
