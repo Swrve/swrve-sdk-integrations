@@ -180,3 +180,16 @@ end
 task :testAndroidConnectedDevice do
 	execInDir("Testing PhoneGap Android wrapper", relative('SwrvePhoneGapDemo/platforms/android'), "./gradlew connectedCheck")
 end
+
+desc "Build and package the PhoneGap wrapper"
+task :createPackage do
+	fileName = "phonegap-wrapper-rc.zip"
+	announce("Packaging PhoneGap wrapper #{fileName}")
+	execInDir(nil, $parentDir, "rm -f #{fileName}")
+	execInDir(nil, $parentDir, "git submodule init; git submodule sync; git submodule update --force;")
+	# Add code
+	execInDir(nil, $parentDir, "git ls-files | zip -@ #{fileName}")
+	# Add swrve-ios-sdk code
+	execInDir(nil, relative('SwrvePlugin/platforms/ios/SwrveSDK/'), "git clean -dfx && git reset --hard")
+	execInDir(nil, $parentDir, "zip -r #{fileName} SwrvePlugin/platforms/ios/SwrveSDK/*")
+end
