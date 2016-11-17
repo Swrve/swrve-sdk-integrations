@@ -8,7 +8,10 @@ This PhoneGap plugin will enable your app to use all of these features on Androi
 
 Getting started
 ---------------
-If using the source and not the release zip, make sure you checkout the correct iOS SDK submodule in SwrvePlugin/platforms/ios/SwrveSDK/.
+If using the source and not the release zip, make sure you checkout the correct iOS SDK submodule in SwrvePlugin/platforms/ios/SwrveSDK/ using the following command:
+```
+git submodule init; git submodule sync; git submodule update --force;
+```
 
 Have a look at the quick integration guide at http://docs.swrve.com/developer-documentation/integration/phonegap/
 
