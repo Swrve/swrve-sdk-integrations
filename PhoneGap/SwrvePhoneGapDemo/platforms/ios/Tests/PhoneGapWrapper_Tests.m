@@ -289,7 +289,7 @@
     SwrveMessageViewController* iamController = (SwrveMessageViewController*)viewController;
     UIView* messageView = [iamController.view.subviews firstObject];
     UIButton* customButton = [messageView.subviews firstObject];
-    [customButton sendActionsForControlEvents: UIControlEventTouchUpInside];
+    [iamController onButtonPressed:customButton];
     
     BOOL customActionReceived = NO;
     for(int i = 0; i < 30 && !customActionReceived; i++) {

@@ -160,7 +160,7 @@ end
 task :testIOSInSimulator, [:simulator] do |t, args|
 	# Example: "OS=8.3,name='iPad Air'"
 	simulator = args[:simulator]
-	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild test -scheme 'SwrvePhoneGapDemo' -destination #{simulator}")
+	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild clean test -scheme 'SwrvePhoneGapDemo' -destination #{simulator}")
 end
 
 task :testAndroidInEmulator, [:emulator] do |t, args|
