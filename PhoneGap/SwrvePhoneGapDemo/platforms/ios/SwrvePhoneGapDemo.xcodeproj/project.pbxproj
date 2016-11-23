@@ -1462,6 +1462,7 @@
 				1BED212C1DD0C5FF001A2353 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "SwrvePhoneGapDemo" */ = {
 			isa = XCConfigurationList;
