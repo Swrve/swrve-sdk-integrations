@@ -2,7 +2,7 @@
 #import <Cordova/CDV.h>
 #import "Swrve.h"
 
-#define SWRVE_WRAPPER_VERSION "1.0.3"
+#define SWRVE_WRAPPER_VERSION "1.1"
 
 CDVViewController* globalViewController;
 
@@ -139,6 +139,30 @@ NSMutableArray* pushNotificationsQueued;
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Attributes were null"];
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)userUpdateDate:(CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    if ([command.arguments count] == 2) {
+        NSString* propertyName = [command.arguments objectAtIndex:0];
+        NSString* propertyValueRaw = [command.arguments objectAtIndex:1];
+
+        // Parse date coming in (for example "2016-12-02T15:39:47.608Z")
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+
+        NSDate* propertyValue = [dateFormatter dateFromString:propertyValueRaw];
+        if (propertyValue != nil) {
+            [[Swrve sharedInstance] userUpdate:propertyName withDate:propertyValue];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Could not parse date"];
+        }
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Not enough args"];
     }
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

@@ -1,5 +1,6 @@
 package com.swrve;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -12,13 +13,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TimeZone;
 
+import com.swrve.sdk.ISwrveBase;
 import com.swrve.sdk.ISwrveResourcesListener;
 import com.swrve.sdk.ISwrveUserResourcesListener;
 import com.swrve.sdk.SwrveSDK;
@@ -37,7 +44,7 @@ import org.apache.cordova.CordovaWebView;
 
 public class SwrvePlugin extends CordovaPlugin {
 
-    public static String VERSION = "1.0.3";
+    public static String VERSION = "1.1";
     private static SwrvePlugin instance;
 
     private boolean resourcesListenerReady;
@@ -142,6 +149,31 @@ public class SwrvePlugin extends CordovaPlugin {
         }
     }
 
+    private void sendUserUpdateDate(JSONArray arguments, final CallbackContext callbackContext) {
+        try {
+            final String propertyName = arguments.getString(0);
+            final String propertyValueRaw = arguments.getString(1);
+
+            TimeZone tz = TimeZone.getTimeZone("UTC");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            df.setTimeZone(tz);
+            final Date propertyValue = df.parse(propertyValueRaw);
+
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    SwrveSDK.userUpdate(propertyName, propertyValue);
+                    callbackContext.success();
+                }
+            });
+        } catch (JSONException e) {
+            callbackContext.error("JSON_EXCEPTION");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            callbackContext.error("PARSE_EXCEPTION");
+            e.printStackTrace();
+        }
+    }
+
     private void sendCurrencyGiven(JSONArray arguments, final CallbackContext callbackContext) {
         try {
             final String currency = arguments.getString(0);
@@ -230,7 +262,11 @@ public class SwrvePlugin extends CordovaPlugin {
                 sendUserUpdate(arguments, callbackContext);
             }
             return true;
-
+        } else if ("userUpdateDate".equals(action)) {
+            if (!isBadArgument(arguments, callbackContext, 2, "user update date arguments need to be supplied.")) {
+                sendUserUpdateDate(arguments, callbackContext);
+            }
+            return true;
         } else if ("currencyGiven".equals(action)) {
             if (!isBadArgument(arguments, callbackContext, 2, "currency given arguments need to be supplied.")) {
                 sendCurrencyGiven(arguments, callbackContext);
@@ -344,8 +380,7 @@ public class SwrvePlugin extends CordovaPlugin {
 
     @Override
     public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        SwrveSDK.processIntent(intent);
+        SwrveSDK.onNewIntent(intent);
     }
 
     private void runJS(String js) {
@@ -371,23 +406,29 @@ public class SwrvePlugin extends CordovaPlugin {
     }
 
     public static void resourcesListenerCall() {
-        instance.cordova.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                SwrveSDK.getInstance().getUserResources(new ISwrveUserResourcesListener() {
-                    @Override
-                    public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsString) {
-                        byte[] jsonBytes = new JSONObject(resources).toString().getBytes();
-                        instance.runJS("if (window.swrveProcessResourcesUpdated !== undefined) { window.swrveProcessResourcesUpdated('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
-                    }
+        Activity activity = instance.cordova.getActivity();
+        if (!activity.isFinishing()) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ISwrveBase sdk = SwrveSDK.getInstance();
+                    if (sdk != null) {
+                        sdk.getUserResources(new ISwrveUserResourcesListener() {
+                            @Override
+                            public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsString) {
+                                byte[] jsonBytes = new JSONObject(resources).toString().getBytes();
+                                instance.runJS("if (window.swrveProcessResourcesUpdated !== undefined) { window.swrveProcessResourcesUpdated('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
+                            }
 
-                    @Override
-                    public void onUserResourcesError(Exception exception) {
-                        exception.printStackTrace();
+                            @Override
+                            public void onUserResourcesError(Exception exception) {
+                                exception.printStackTrace();
+                            }
+                        });
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     }
 
     public static ISwrveResourcesListener resourcesListener =  new ISwrveResourcesListener() {

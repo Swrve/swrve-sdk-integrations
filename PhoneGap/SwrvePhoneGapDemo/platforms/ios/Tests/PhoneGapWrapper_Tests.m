@@ -140,6 +140,7 @@
     [self runJS:@"window.plugins.swrve.event(\"levelup\", undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.event(\"leveldown\", {\"armor\":\"disabled\"}, undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.userUpdate({\"phonegap\":\"TRUE\"}, undefined, undefined);"];
+    [self runJS:@"window.plugins.swrve.userUpdateDate(\"last_subscribed\", new Date(2016, 12, 2, 16, 20, 0, 0), undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.currencyGiven(\"Gold\", 20, undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.purchase(\"sword\", \"Gold\", 2, 15, undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.unvalidatedIap(99.2,\"USD\",\"iap_item\", 15, undefined, undefined);"];
@@ -183,6 +184,11 @@
         && [[event objectForKey:@"cost"] doubleValue] == 99.2
         && [[event objectForKey:@"local_currency"] isEqualToString:@"USD"]
         && [[event objectForKey:@"product_id"] isEqualToString:@"iap_item"];
+    }];
+    // Check for user update event
+    [eventChecks addObject:^BOOL(NSDictionary* event) {
+        return [[event objectForKey:@"type"] isEqualToString:@"user"]
+        && [[[event objectForKey:@"attributes"] objectForKey:@"last_subscribed"] isEqualToString:@"2017-01-02T16:20:00.000Z"];
     }];
 
     // Search for the event in all sent batches

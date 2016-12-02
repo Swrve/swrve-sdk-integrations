@@ -1,5 +1,6 @@
 require 'open3'
 require 'pathname'
+require 'fileutils'
 
 $parentDir = File.dirname(__FILE__)
 
@@ -151,7 +152,7 @@ task :updatePluginXml do
 	File.write($parentDir + "/SwrvePlugin/plugin.xml", plugin_xml_content)
 end
 
-task :build  do
+task :build => [:updatePluginInDemoProject] do
 	execInDir('Preparing', relative('SwrvePhoneGapDemo'), 'phonegap prepare')
 	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile ios')
 	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile android')
@@ -179,6 +180,66 @@ end
 
 task :testAndroidConnectedDevice do
 	execInDir("Testing PhoneGap Android wrapper", relative('SwrvePhoneGapDemo/platforms/android'), "./gradlew connectedCheck")
+end
+
+task :updatePluginInDemoProject do
+	# Having a test scheme prevents us from using plugin uninstall & plugin install with PhoneGap
+	PLUGIN="SwrvePlugin"
+	DEMO="SwrvePhoneGapDemo"
+	DEMOIOS="SwrvePhoneGapDemo/platforms/ios"
+	DEMOANDROID="SwrvePhoneGapDemo/platforms/android"
+
+	# Global plugin
+	execInDir(nil, $parentDir, "cp -R #{PLUGIN}/ #{DEMO}/plugins/com.swrve.SwrvePlugin/")
+
+	# Android platform
+	execInDir(nil, $parentDir, "cp #{PLUGIN}/platforms/android/build.gradle #{DEMOANDROID}/com.swrve.SwrvePlugin/helloworld-build.gradle")
+	execInDir(nil, $parentDir, "cp #{PLUGIN}/platforms/android/src/com/swrve/SwrvePlugin.java #{DEMOANDROID}/src/com/swrve/SwrvePlugin.java")
+	# Add Android JS plugin wrappings
+	File.open("#{PLUGIN}/js/swrve-android.js", "r") do |orig|
+    File.open("#{DEMOANDROID}/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js", "w") do |new|
+        new.write "cordova.define(\"com.swrve.SwrvePlugin.SwrvePlugin\", function(require, exports, module) {"
+        new.write(orig.read())
+				new.write("});")
+    end
+	end
+
+	# iOS platform
+	execInDir(nil, $parentDir, "cp #{PLUGIN}/platforms/ios/SwrvePlugin.* #{DEMOIOS}/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/")
+	["SwrveConversationSDK", "SwrveSDK", "SwrveSDKCommon"].each do |folder|
+		# The final folders contain files with a wrapper folder with the same name:
+		# parent_path/filename/filename
+		# Remove existing target directory
+		FileUtils.rm_r("#{DEMOIOS}/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/#{folder}")
+		# Copy files with wrapper folder
+		Dir.glob("#{PLUGIN}/platforms/ios/SwrveSDK/#{folder}/**/*").each do |f|
+			# Exclude the resources folder
+			unless f.include? 'SwrveConversationSDK/Resources/'
+				unless File.directory?(f)
+					local_entry = f.gsub 'SwrvePlugin/platforms/ios/SwrveSDK/', ''
+					file_name = Pathname.new(local_entry).basename.to_s
+					wrapper_path = local_entry + "/" + file_name
+
+					final_path = "#{DEMOIOS}/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/#{wrapper_path}"
+					FileUtils.mkdir_p(File.dirname(final_path))
+  				FileUtils.cp(f, final_path)
+				end
+			end
+		end
+	end
+
+	# Copy resources to the demo folder (they are not included in the plugin folder)
+	execInDir(nil, $parentDir, "cp -rf #{PLUGIN}/platforms/ios/SwrveSDK/SwrveConversationSDK/Resources/SwrveAssets.xcassets #{DEMOIOS}/SwrvePhoneGapDemo/Resources")
+	execInDir(nil, $parentDir, "cp -f #{PLUGIN}/platforms/ios/SwrveSDK/SwrveConversationSDK/Resources/SwrveConversation.storyboard #{DEMOIOS}/SwrvePhoneGapDemo/Resources/SwrveConversation.storyboard")
+
+	# Add iOS JS plugin wrappings
+	File.open("#{PLUGIN}/js/swrve-ios.js", "r") do |orig|
+		File.open("#{DEMOIOS}/www/plugins/com.swrve.SwrvePlugin/js/swrve-ios.js", "w") do |new|
+        new.write "cordova.define(\"com.swrve.SwrvePlugin.SwrvePlugin\", function(require, exports, module) {"
+        new.write(orig.read())
+				new.write("});")
+    end
+	end
 end
 
 desc "Build and package the PhoneGap wrapper"
