@@ -1,5 +1,6 @@
 package com.swrve;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.swrve.sdk.ISwrveBase;
 import com.swrve.sdk.ISwrveResourcesListener;
 import com.swrve.sdk.ISwrveUserResourcesListener;
 import com.swrve.sdk.SwrveSDK;
@@ -37,7 +39,7 @@ import org.apache.cordova.CordovaWebView;
 
 public class SwrvePlugin extends CordovaPlugin {
 
-    public static String VERSION = "1.0.3";
+    public static String VERSION = "1.0.4";
     private static SwrvePlugin instance;
 
     private boolean resourcesListenerReady;
@@ -344,7 +346,6 @@ public class SwrvePlugin extends CordovaPlugin {
 
     @Override
     public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
         SwrveSDK.onNewIntent(intent);
     }
 
