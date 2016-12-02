@@ -235,10 +235,10 @@ task :updatePluginInDemoProject do
 	# Add iOS JS plugin wrappings
 	File.open("#{PLUGIN}/js/swrve-ios.js", "r") do |orig|
 		File.open("#{DEMOIOS}/www/plugins/com.swrve.SwrvePlugin/js/swrve-ios.js", "w") do |new|
-        new.write "cordova.define(\"com.swrve.SwrvePlugin.SwrvePlugin\", function(require, exports, module) {"
-        new.write(orig.read())
-				new.write("});")
-    end
+			new.write "cordova.define(\"com.swrve.SwrvePlugin.SwrvePlugin\", function(require, exports, module) {"
+			new.write(orig.read())
+			new.write("});")
+		end
 	end
 end
 
