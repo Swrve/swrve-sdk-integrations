@@ -1,5 +1,4 @@
-cordova.define("com.swrve.SwrvePlugin.SwrvePlugin", function(require, exports, module) {
-function SwrvePlugin() {}
+cordova.define("com.swrve.SwrvePlugin.SwrvePlugin", function(require, exports, module) {function SwrvePlugin() {}
 
 SwrvePlugin.prototype.android = false;
 SwrvePlugin.prototype.ios = true;
@@ -17,6 +16,12 @@ SwrvePlugin.prototype.event = function(name, payload, success, fail) {
 // attributes is a JSON object
 SwrvePlugin.prototype.userUpdate = function(attributes, success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "userUpdate", [attributes]);
+};
+
+// name is a string
+// date is a date
+SwrvePlugin.prototype.userUpdateDate = function(name, date, success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "userUpdateDate", [name, date]);
 };
 
 // currency is a string
@@ -99,10 +104,9 @@ SwrvePlugin.install = function () {
     // Decode the base64 encoded string sent by the plugin
     window.swrvePushNotificationListener(JSON.parse(window.atob(base64Payload)));
   };
-  
+
   return window.plugins.swrve;
 };
 
 cordova.addConstructor(SwrvePlugin.install);
-
 });

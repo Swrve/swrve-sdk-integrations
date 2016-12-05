@@ -109,8 +109,6 @@
 		1BED21F11DD0C6A2001A2353 /* SwrveInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EC4DD03EB964716AFC2513A /* SwrveInputItem.m */; };
 		1BED21F21DD0C6A2001A2353 /* SwrveInputMultiValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C451D79DB841B9A98483A7 /* SwrveInputMultiValue.m */; };
 		1BED21F31DD0C6A2001A2353 /* LICENSE in Sources */ = {isa = PBXBuildFile; fileRef = 9542FFE3CE1C4835A556A0DA /* LICENSE */; };
-		1BED21F41DD0C6A2001A2353 /* VERSION in Sources */ = {isa = PBXBuildFile; fileRef = 70F9CA8383DA46679DAF15FB /* VERSION */; };
-		1BED21F51DD0C6A2001A2353 /* VGConversationKitResources-Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 0C7597F428744EB1B8B8F11A /* VGConversationKitResources-Info.plist */; };
 		1BED21F61DD0C6A2001A2353 /* LICENSE in Sources */ = {isa = PBXBuildFile; fileRef = 8DF777B36610413193AF86DE /* LICENSE */; };
 		1BED21F71DD0C6A2001A2353 /* SwrveConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 648F99C2AFDD422E94A6E920 /* SwrveConversation.m */; };
 		1BED21F81DD0C6A2001A2353 /* SwrveConversationCampaign.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7492DF32814345BA467F27 /* SwrveConversationCampaign.m */; };
@@ -178,9 +176,7 @@
 		BF64A3BC7A9D4F58A10BDAD5 /* SwrveCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BFB2030F1F46D2A2A5A6E8 /* SwrveCommon.m */; };
 		C05538E1B1DB4886B9A902C0 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B1BC0D8D4D42C6A09E2018 /* Toast+UIView.m */; };
 		C6143107351148E8974D47AC /* SwrveConversationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8EC6CD49EB4C4AA24C0D7D /* SwrveConversationPane.m */; };
-		CBC51D43F6F1434E8898FC7B /* VGConversationKitResources-Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 0C7597F428744EB1B8B8F11A /* VGConversationKitResources-Info.plist */; };
 		CF845C75E3EB410F8EBA1624 /* SwrveContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B2AF584ACA49D89B3333C2 /* SwrveContentItem.m */; };
-		D42DB86DA68640C48773928A /* VERSION in Sources */ = {isa = PBXBuildFile; fileRef = 70F9CA8383DA46679DAF15FB /* VERSION */; };
 		D73D7E46696544FC9030E80D /* ISHPermissionRequestAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 830E7E914CF8486CADB5B662 /* ISHPermissionRequestAddressBook.m */; };
 		DB253028DDDB41B98B51DCF8 /* LICENSE in Sources */ = {isa = PBXBuildFile; fileRef = 7B9373328CD340519F227E15 /* LICENSE */; };
 		DBC4B189E28D46929B6BFF18 /* SwrveResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0A6751CF8641F9A05A0AFD /* SwrveResourceManager.m */; };
@@ -238,7 +234,6 @@
 		08443930537449EAB54D4B4F /* ISHPermissionRequestPhotoCamera.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = ISHPermissionRequestPhotoCamera.m; path = com.swrve.SwrvePlugin/SwrveSDKCommon/Common/Permissions/ISHPermissionRequestPhotoCamera.m/ISHPermissionRequestPhotoCamera.m; sourceTree = "<group>"; };
 		0BD92E36C9694D34972BBEB2 /* ISHPermissionRequestPhotoLibrary.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = ISHPermissionRequestPhotoLibrary.h; path = com.swrve.SwrvePlugin/SwrveSDKCommon/Common/Permissions/ISHPermissionRequestPhotoLibrary.h/ISHPermissionRequestPhotoLibrary.h; sourceTree = "<group>"; };
 		0C1FE3A1330F4B39B9E46056 /* SwrveInputMultiValue.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = SwrveInputMultiValue.h; path = com.swrve.SwrvePlugin/SwrveConversationSDK/Conversation/SwrveInputMultiValue.h/SwrveInputMultiValue.h; sourceTree = "<group>"; };
-		0C7597F428744EB1B8B8F11A /* VGConversationKitResources-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "VGConversationKitResources-Info.plist"; path = "com.swrve.SwrvePlugin/SwrveConversationSDK/Resources/VGConversationKitResources-Info.plist/VGConversationKitResources-Info.plist"; sourceTree = "<group>"; };
 		0DD81D7E31764A868A29E1F2 /* Toast.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = Toast.m; path = "cordova-plugin-x-toast/Toast.m"; sourceTree = "<group>"; };
 		13A71D713DD9405A8A2F078D /* SwrveImage.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = SwrveImage.m; path = com.swrve.SwrvePlugin/SwrveSDK/SDK/Talk/SwrveImage.m/SwrveImage.m; sourceTree = "<group>"; };
 		15D0BD9F01A04CE69EFD1496 /* CDVLogger.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLogger.h; path = "cordova-plugin-console/CDVLogger.h"; sourceTree = "<group>"; };
@@ -386,7 +381,6 @@
 		6E8E322E552845019CFEF5E8 /* ISHPermissionRequestAddressBook.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = ISHPermissionRequestAddressBook.h; path = com.swrve.SwrvePlugin/SwrveSDKCommon/Common/Permissions/ISHPermissionRequestAddressBook.h/ISHPermissionRequestAddressBook.h; sourceTree = "<group>"; };
 		6EC4DD03EB964716AFC2513A /* SwrveInputItem.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = SwrveInputItem.m; path = com.swrve.SwrvePlugin/SwrveConversationSDK/Conversation/SwrveInputItem.m/SwrveInputItem.m; sourceTree = "<group>"; };
 		6F506EB782F543D2B92CFDC2 /* LICENSE */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = LICENSE; path = com.swrve.SwrvePlugin/SwrveSDKCommon/LICENSE/LICENSE; sourceTree = "<group>"; };
-		70F9CA8383DA46679DAF15FB /* VERSION */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = VERSION; path = com.swrve.SwrvePlugin/SwrveConversationSDK/Resources/VERSION/VERSION; sourceTree = "<group>"; };
 		713BB13353364895ACE75CF2 /* SwrveConversationAtomFactory.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = SwrveConversationAtomFactory.h; path = com.swrve.SwrvePlugin/SwrveConversationSDK/Conversation/SwrveConversationAtomFactory.h/SwrveConversationAtomFactory.h; sourceTree = "<group>"; };
 		71AA06BE507C4B20B6917664 /* SwrveBaseConversation.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = SwrveBaseConversation.h; path = com.swrve.SwrvePlugin/SwrveConversationSDK/Conversation/SwrveBaseConversation.h/SwrveBaseConversation.h; sourceTree = "<group>"; };
 		7409FD0DD88A4EB6BA68D2B3 /* ISHPermissionRequest.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = ISHPermissionRequest.h; path = com.swrve.SwrvePlugin/SwrveSDKCommon/Common/Permissions/ISHPermissionRequest.h/ISHPermissionRequest.h; sourceTree = "<group>"; };
@@ -835,8 +829,6 @@
 				6EC4DD03EB964716AFC2513A /* SwrveInputItem.m */,
 				E9C451D79DB841B9A98483A7 /* SwrveInputMultiValue.m */,
 				9542FFE3CE1C4835A556A0DA /* LICENSE */,
-				70F9CA8383DA46679DAF15FB /* VERSION */,
-				0C7597F428744EB1B8B8F11A /* VGConversationKitResources-Info.plist */,
 				8DF777B36610413193AF86DE /* LICENSE */,
 				648F99C2AFDD422E94A6E920 /* SwrveConversation.m */,
 				EF7492DF32814345BA467F27 /* SwrveConversationCampaign.m */,
@@ -1122,8 +1114,6 @@
 				1BED21F11DD0C6A2001A2353 /* SwrveInputItem.m in Sources */,
 				1BED21F21DD0C6A2001A2353 /* SwrveInputMultiValue.m in Sources */,
 				1BED21F31DD0C6A2001A2353 /* LICENSE in Sources */,
-				1BED21F41DD0C6A2001A2353 /* VERSION in Sources */,
-				1BED21F51DD0C6A2001A2353 /* VGConversationKitResources-Info.plist in Sources */,
 				1BED22471DD0C6B9001A2353 /* MainViewController.m in Sources */,
 				1BED21F61DD0C6A2001A2353 /* LICENSE in Sources */,
 				1BED21F71DD0C6A2001A2353 /* SwrveConversation.m in Sources */,
@@ -1234,8 +1224,6 @@
 				6CD765B72BDC4C35AE89BA03 /* SwrveInputItem.m in Sources */,
 				7C5008CE9ADF485DAFF65841 /* SwrveInputMultiValue.m in Sources */,
 				E42DEE3C86A14A0E88ECF7BD /* LICENSE in Sources */,
-				D42DB86DA68640C48773928A /* VERSION in Sources */,
-				CBC51D43F6F1434E8898FC7B /* VGConversationKitResources-Info.plist in Sources */,
 				1BED224D1DD0CE7B001A2353 /* TestAppDelegate.m in Sources */,
 				ED63D6D07D094832AC31D31F /* LICENSE in Sources */,
 				033532D6C35F4917866629B9 /* SwrveConversation.m in Sources */,

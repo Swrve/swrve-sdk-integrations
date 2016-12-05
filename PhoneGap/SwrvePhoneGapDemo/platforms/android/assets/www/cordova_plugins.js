@@ -19,13 +19,13 @@ module.exports = [
         ]
     }
 ];
-module.exports.metadata = 
+module.exports.metadata =
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-x-toast": "2.5.2",
     "cordova-plugin-console": "1.0.3",
-    "com.swrve.SwrvePlugin": "1.0.3"
+    "com.swrve.SwrvePlugin": "1.1"
 };
 // BOTTOM OF METADATA
 });

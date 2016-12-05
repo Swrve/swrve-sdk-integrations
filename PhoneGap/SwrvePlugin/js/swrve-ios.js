@@ -18,6 +18,12 @@ SwrvePlugin.prototype.userUpdate = function(attributes, success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "userUpdate", [attributes]);
 };
 
+// name is a string
+// date is a date
+SwrvePlugin.prototype.userUpdateDate = function(name, date, success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "userUpdateDate", [name, date]);
+};
+
 // currency is a string
 // quantity is an int
 SwrvePlugin.prototype.currencyGiven = function(currency, quantity, success, fail) {
@@ -98,7 +104,7 @@ SwrvePlugin.install = function () {
     // Decode the base64 encoded string sent by the plugin
     window.swrvePushNotificationListener(JSON.parse(window.atob(base64Payload)));
   };
-  
+
   return window.plugins.swrve;
 };
 
