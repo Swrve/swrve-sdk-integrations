@@ -154,6 +154,7 @@ public class SwrvePlugin extends CordovaPlugin {
             final String propertyName = arguments.getString(0);
             final String propertyValueRaw = arguments.getString(1);
 
+            // We assume it is a variation of the ISO 8601 date format
             TimeZone tz = TimeZone.getTimeZone("UTC");
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             df.setTimeZone(tz);

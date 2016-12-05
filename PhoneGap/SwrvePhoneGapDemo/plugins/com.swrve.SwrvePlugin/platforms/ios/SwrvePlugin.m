@@ -152,7 +152,7 @@ NSMutableArray* pushNotificationsQueued;
 
         // Parse date coming in (for example "2016-12-02T15:39:47.608Z")
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
 
         NSDate* propertyValue = [dateFormatter dateFromString:propertyValueRaw];
         if (propertyValue != nil) {
