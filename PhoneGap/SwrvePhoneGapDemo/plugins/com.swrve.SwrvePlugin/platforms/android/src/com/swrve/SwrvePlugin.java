@@ -1,5 +1,6 @@
 package com.swrve;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.swrve.sdk.ISwrveBase;
 import com.swrve.sdk.ISwrveResourcesListener;
 import com.swrve.sdk.ISwrveUserResourcesListener;
 import com.swrve.sdk.SwrveSDK;
@@ -37,14 +39,15 @@ import org.apache.cordova.CordovaWebView;
 
 public class SwrvePlugin extends CordovaPlugin {
 
-    public static String VERSION = "1.0.4";
+    public static String VERSION = "1.0.5";
     private static SwrvePlugin instance;
 
     private boolean resourcesListenerReady;
     private boolean mustCallResourcesListener;
 
     private boolean pushNotificationListenerReady;
-    private List<String> pushNotificationsQueued;
+    private static final Object pushNotificationsQueuedLock = new Object();
+    private static List<String> pushNotificationsQueued;
 
     public static void createInstance(Context context, int appId, String apiKey) {
         createInstance(context, appId, apiKey, null);
@@ -64,7 +67,11 @@ public class SwrvePlugin extends CordovaPlugin {
     public SwrvePlugin() {
         super();
         instance = this;
-        pushNotificationsQueued = new ArrayList<String>();
+        synchronized (pushNotificationsQueuedLock) {
+            if (pushNotificationsQueued == null) {
+                pushNotificationsQueued = new ArrayList<String>();
+            }
+        }
     }
 
     @Override
@@ -338,14 +345,17 @@ public class SwrvePlugin extends CordovaPlugin {
 
     @Override
     public void onDestroy() {
+        // Once the app is resumed again a new instance of the SwrvePlugin will be created. This new
+        // instance is the one that should get the push callback.
+        pushNotificationListenerReady = false;
+
         SwrveSDK.onDestroy(cordova.getActivity());
         super.onDestroy();
     }
 
     @Override
     public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        SwrveSDK.processIntent(intent);
+        SwrveSDK.onNewIntent(intent);
     }
 
     private void runJS(String js) {
@@ -371,23 +381,29 @@ public class SwrvePlugin extends CordovaPlugin {
     }
 
     public static void resourcesListenerCall() {
-        instance.cordova.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                SwrveSDK.getInstance().getUserResources(new ISwrveUserResourcesListener() {
-                    @Override
-                    public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsString) {
-                        byte[] jsonBytes = new JSONObject(resources).toString().getBytes();
-                        instance.runJS("if (window.swrveProcessResourcesUpdated !== undefined) { window.swrveProcessResourcesUpdated('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
-                    }
+        Activity activity = instance.cordova.getActivity();
+        if (!activity.isFinishing()) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ISwrveBase sdk = SwrveSDK.getInstance();
+                    if (sdk != null) {
+                        sdk.getUserResources(new ISwrveUserResourcesListener() {
+                            @Override
+                            public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsString) {
+                                byte[] jsonBytes = new JSONObject(resources).toString().getBytes();
+                                instance.runJS("if (window.swrveProcessResourcesUpdated !== undefined) { window.swrveProcessResourcesUpdated('" + Base64.encodeToString(jsonBytes, Base64.NO_WRAP) + "'); }");
+                            }
 
-                    @Override
-                    public void onUserResourcesError(Exception exception) {
-                        exception.printStackTrace();
+                            @Override
+                            public void onUserResourcesError(Exception exception) {
+                                exception.printStackTrace();
+                            }
+                        });
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     }
 
     public static ISwrveResourcesListener resourcesListener =  new ISwrveResourcesListener() {
@@ -416,8 +432,12 @@ public class SwrvePlugin extends CordovaPlugin {
 
     private void setPushNotificationListenerReady() {
         this.pushNotificationListenerReady = true;
+        sendQueuedPushNotifications();
+    }
+
+    private void sendQueuedPushNotifications() {
         // Send queued notification payloads
-        synchronized (pushNotificationsQueued) {
+        synchronized (pushNotificationsQueuedLock) {
             if (pushNotificationsQueued.size() > 0) {
                 final List<String> copyOfNotificationQueue = new ArrayList<String>(pushNotificationsQueued);
                 instance.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -452,7 +472,7 @@ public class SwrvePlugin extends CordovaPlugin {
             String jsonString = json.toString();
             byte[] jsonBytes = jsonString.getBytes();
             final String base64Encoded = Base64.encodeToString(jsonBytes, Base64.NO_WRAP);
-            if (instance.pushNotificationListenerReady) {
+            if (instance != null && instance.pushNotificationListenerReady) {
                 instance.cordova.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -460,8 +480,11 @@ public class SwrvePlugin extends CordovaPlugin {
                     }
                 });
             } else {
-                synchronized (instance.pushNotificationsQueued) {
-                    instance.pushNotificationsQueued.add(base64Encoded);
+                synchronized (pushNotificationsQueuedLock) {
+                    if (pushNotificationsQueued == null) {
+                        pushNotificationsQueued = new ArrayList<String>();
+                    }
+                    pushNotificationsQueued.add(base64Encoded);
                 }
             }
         }
