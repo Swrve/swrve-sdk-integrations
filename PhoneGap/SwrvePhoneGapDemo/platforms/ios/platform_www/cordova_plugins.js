@@ -44,7 +44,7 @@ module.exports.metadata =
     "cordova-plugin-console": "1.0.3",
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-x-toast": "2.5.2",
-    "com.swrve.SwrvePlugin": "1.0.4"
+    "com.swrve.SwrvePlugin": "1.0.5"
 }
 // BOTTOM OF METADATA
 });

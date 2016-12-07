@@ -2,7 +2,7 @@
 #import <Cordova/CDV.h>
 #import "Swrve.h"
 
-#define SWRVE_WRAPPER_VERSION "1.0.4"
+#define SWRVE_WRAPPER_VERSION "1.0.5"
 
 CDVViewController* globalViewController;
 
