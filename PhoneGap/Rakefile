@@ -177,8 +177,16 @@ task :testAndroidInEmulator, [:emulator] do |t, args|
 	killEmulator
 
 	startEmulator(emulator, emulatorPort)
+	# Output logcat to packages folder for when we need it
+	logcatThread = Thread.new {
+		while true do
+			%x{ #{$adbPath} logcat -d > #{$parentDir}/emu_#{emulator}.logcat }
+			sleep(0.5)
+		end
+	}
 	Rake::Task["testAndroidConnectedDevice"].execute
 	sleep(5)
+	logcatThread.exit
 
 	killEmulator
 end
