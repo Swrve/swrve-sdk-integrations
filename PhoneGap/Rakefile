@@ -43,6 +43,10 @@ def killEmulator
 	%x{ #{$adbPath} -s emulator-5556 emu kill 2>/dev/null }
 end
 
+def killallXcode
+  `killall Xcode; killall xcodebuild; killall Simulator;`
+end
+
 def waitForBoot(port)
 	# If an emulator is not connected to within this time, we give up
 	emulatorBootTimeout = 5*60
@@ -158,9 +162,11 @@ task :build  do
 end
 
 task :testIOSInSimulator, [:simulator] do |t, args|
+	killallXcode
 	# Example: "OS=8.3,name='iPad Air'"
 	simulator = args[:simulator]
 	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild clean test -scheme 'SwrvePhoneGapDemo' -destination #{simulator}")
+	killallXcode
 end
 
 task :testAndroidInEmulator, [:emulator] do |t, args|
