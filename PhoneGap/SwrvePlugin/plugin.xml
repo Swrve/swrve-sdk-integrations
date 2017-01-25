@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.swrve.SwrvePlugin" version="1.0.5">
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.swrve.SwrvePlugin" version="1.1.0">
   <name>SwrvePlugin</name>
   <description>Android and iOS Cordova plugin for Swrve.</description>
   <author>Swrve Mobile Inc</author>
@@ -158,6 +158,8 @@
     <header-file src="platforms/ios/SwrveSDK/SwrveSDK/SDK/Track/SwrveFileManagement.h" target-dir="SwrveSDK/SDK/Track/SwrveFileManagement.h"/>
     <source-file src="platforms/ios/SwrveSDK/SwrveSDK/SDK/Track/SwrveFileManagement.m" target-dir="SwrveSDK/SDK/Track/SwrveFileManagement.m"/>
     <header-file src="platforms/ios/SwrveSDK/SwrveSDK/SDK/Track/SwrveInternalAccess.h" target-dir="SwrveSDK/SDK/Track/SwrveInternalAccess.h"/>
+    <header-file src="platforms/ios/SwrveSDK/SwrveSDK/SDK/Track/SwrveMigrationsManager.h" target-dir="SwrveSDK/SDK/Track/SwrveMigrationsManager.h"/>
+    <source-file src="platforms/ios/SwrveSDK/SwrveSDK/SDK/Track/SwrveMigrationsManager.m" target-dir="SwrveSDK/SDK/Track/SwrveMigrationsManager.m"/>
     <header-file src="platforms/ios/SwrveSDK/SwrveSDK/SDK/Track/SwrveReceiptProvider.h" target-dir="SwrveSDK/SDK/Track/SwrveReceiptProvider.h"/>
     <source-file src="platforms/ios/SwrveSDK/SwrveSDK/SDK/Track/SwrveReceiptProvider.m" target-dir="SwrveSDK/SDK/Track/SwrveReceiptProvider.m"/>
     <header-file src="platforms/ios/SwrveSDK/SwrveSDK/SDK/Track/SwrveResourceManager.h" target-dir="SwrveSDK/SDK/Track/SwrveResourceManager.h"/>

@@ -39,7 +39,7 @@ import org.apache.cordova.CordovaWebView;
 
 public class SwrvePlugin extends CordovaPlugin {
 
-    public static String VERSION = "1.0.5";
+    public static String VERSION = "1.1.0";
     private static SwrvePlugin instance;
 
     private boolean resourcesListenerReady;
@@ -59,7 +59,6 @@ public class SwrvePlugin extends CordovaPlugin {
         }
         SwrveSDK.createInstance(context, appId, apiKey, config);
         SwrveSDK.setResourcesListener(SwrvePlugin.resourcesListener);
-        SwrveSDK.setCustomButtonListener(SwrvePlugin.customButtonListener);
         SwrveSDK.setPushNotificationListener(SwrvePlugin.pushNotificationListener);
     }
 
@@ -325,6 +324,12 @@ public class SwrvePlugin extends CordovaPlugin {
             return true;
         } else if ("pushNotificationListenerReady".equals(action)) {
             setPushNotificationListenerReady();
+            return true;
+        } else if ("customButtonListenerReady".equals(action)) {
+            SwrveSDK.setCustomButtonListener(SwrvePlugin.customButtonListener);
+            return true;
+        } else if ("getUserId".equals(action)) {
+            callbackContext.success(SwrveSDK.getUserId());
             return true;
         }
 

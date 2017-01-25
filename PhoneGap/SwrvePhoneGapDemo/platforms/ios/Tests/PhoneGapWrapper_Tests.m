@@ -27,7 +27,7 @@
 - (void)setUp
 {
     [super setUp];
-    
+
     // Setup local servers
     NSString *rootPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"UnitTestServer"];
     httpEventServer = [[HTTPServer alloc] init];
@@ -38,7 +38,7 @@
     if(![httpEventServer start:&error]) {
         NSLog(@"Error starting event HTTP Server: %@", error);
     }
-    
+
     httpContentServer = [[HTTPServer alloc] init];
     [httpContentServer setConnectionClass:[TestHTTPConnection class]];
     [httpContentServer setPort:8083];
@@ -46,7 +46,7 @@
     if(![httpContentServer start:&error]) {
         NSLog(@"Error starting content HTTP Server: %@", error);
     }
-    
+
     // Emulate user resources and campaigns endpoints
     NSURL* path = [[NSBundle bundleForClass:[PhoneGapWrapper_Tests class]] URLForResource:@"test_campaigns_and_resources" withExtension:@"json"];
     NSString* testresourcesAndCampaigns = [NSString stringWithContentsOfURL:path encoding:NSUTF8StringEncoding error:nil];
@@ -57,7 +57,7 @@
         NSString* testResourcesDiff = @"[{ \"uid\": \"house\", \"diff\": { \"cost\": { \"old\": \"550\", \"new\": \"666\" }}}]";
         return [[TestHTTPResponse alloc] initWithString:testResourcesDiff];
     }];
-    
+
     // Emulate event endpoint
     lastEventBatches = [[NSMutableArray alloc] init];
     [TestHTTPConnection setHandler:@"1/batch" handler:^NSObject<HTTPResponse>*(NSString* path, HTTPMessage *request) {
@@ -65,7 +65,7 @@
         [lastEventBatches addObject:batchBody];
         return [[TestHTTPResponse alloc] initWithData:[@"OK" dataUsingEncoding:NSUTF8StringEncoding]];
     }];
-    
+
     // Image in CDN
     [TestHTTPConnection setHandler:@"/cdn/" handler:^NSObject<HTTPResponse>*(NSString* urlPath, HTTPMessage *request) {
         NSString* fileName = [urlPath stringByReplacingOccurrencesOfString:@"/cdn/" withString:@""];
@@ -81,7 +81,7 @@
         }
         return response;
     }];
-    
+
     appDelegate = [[UIApplication sharedApplication] delegate];
     controller = appDelegate.viewController;
 }
@@ -89,12 +89,12 @@
 - (void)tearDown
 {
     [super tearDown];
-    
+
     if (httpEventServer != nil) {
         [httpEventServer stop];
         httpEventServer = nil;
     }
-    
+
     if (httpContentServer != nil) {
         [httpContentServer stop];
         httpContentServer = nil;
@@ -135,7 +135,7 @@
     // Send any previous events now
     [self runJS:@"window.plugins.swrve.sendEvents(undefined, undefined);"];
     [self waitForSeconds:1];
-    
+
     // Send all instrumented events
     [self runJS:@"window.plugins.swrve.event(\"levelup\", undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.event(\"leveldown\", {\"armor\":\"disabled\"}, undefined, undefined);"];
@@ -144,7 +144,7 @@
     [self runJS:@"window.plugins.swrve.purchase(\"sword\", \"Gold\", 2, 15, undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.unvalidatedIap(99.2,\"USD\",\"iap_item\", 15, undefined, undefined);"];
     [self runJS:@"window.plugins.swrve.sendEvents(undefined, undefined);"];
-    
+
     typedef BOOL (^EventChecker)(NSDictionary* event);
     NSMutableArray *eventChecks = [[NSMutableArray alloc] init];
     // Check for event
@@ -208,12 +208,12 @@
                 allChecksPass = NO;
             }
         }
-        
+
         if (!allChecksPass) {
             [self waitForSeconds:1];
         }
     }
-    
+
     XCTAssertTrue(allChecksPass);
 }
 
@@ -226,22 +226,22 @@
      @"window.plugins.swrve.getUserResourcesDiff(function(resourcesDiff) {"
         @"window.testResourcesDiff = resourcesDiff;"
      @"}, function () {});"];
-    
+
     [self runJS:
      @"window.plugins.swrve.getUserResources(function(resources) {"
         @"window.testResources = resources;"
      @"}, function () {});"];
-    
+
     [self runJS:
      @"window.plugins.swrve.setResourcesListener(function(resources) {"
         @"window.testResourcesListener = resources;"
      @"});"];
-    
+
     // Give 30 seconds for the response to be received by the Javascript callbacks
     NSString* userResourcesObtainedJSON = nil;
     NSString* userResourcesListenerObtainedJSON = nil;
     NSString* userResourcesDiffObtainedJSON = nil;
-    
+
     BOOL resourcesReceived = NO;
     for(int i = 0; i < 30 && !resourcesReceived; i++) {
         userResourcesObtainedJSON = [self runJS:@"JSON.stringify(window.testResources)"];
@@ -253,7 +253,7 @@
         }
     }
     XCTAssertTrue(resourcesReceived);
-    
+
     // Check user resources obtained through the plugin
     NSDictionary *userResourcesObtained = [NSJSONSerialization JSONObjectWithData:[userResourcesObtainedJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     XCTAssertEqual([[[userResourcesObtained objectForKey:@"house"] objectForKey:@"cost"] integerValue], 999);
@@ -261,7 +261,7 @@
     // Check user resources obtained through the listener
     NSDictionary *userResourcesListenerObtained = [NSJSONSerialization JSONObjectWithData:[userResourcesListenerObtainedJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     XCTAssertEqual([[[userResourcesListenerObtained objectForKey:@"house"] objectForKey:@"cost"] integerValue], 999);
-    
+
     // Check user resources diff obtained through the plugin
     NSDictionary *userResourcesDiffObtained = [NSJSONSerialization JSONObjectWithData:[userResourcesDiffObtainedJSON dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     XCTAssertEqual([[[[userResourcesDiffObtained objectForKey:@"new"] objectForKey:@"house"] objectForKey:@"cost"] integerValue], 666);
@@ -271,7 +271,7 @@
 - (void)testCustomButtonListener
 {
     [self waitForPhoneGapAppToLoad];
-    
+
     // Display IAM to check that the custom button listener works
     // Inject javascript listeners
     [self runJS:@"window.plugins.swrve.setCustomButtonListener(function(action) { window.testCustomAction = action; });"];
@@ -285,12 +285,12 @@
         // Detect view controller
         viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     }
-    
+
     SwrveMessageViewController* iamController = (SwrveMessageViewController*)viewController;
     UIView* messageView = [iamController.view.subviews firstObject];
     UIButton* customButton = [messageView.subviews firstObject];
     [iamController onButtonPressed:customButton];
-    
+
     BOOL customActionReceived = NO;
     for(int i = 0; i < 30 && !customActionReceived; i++) {
         NSString* listenerCustomAction = [self runJS:@"window.testCustomAction"];
@@ -305,7 +305,7 @@
 - (void)testCustomPushPayloadListener
 {
     [self waitForPhoneGapAppToLoad];
-    
+
     // Send fake remote notification to check that the custom push payload listener works
     // Inject javascript listeners
     [self runJS:@"window.testPushPayload = {};"];
@@ -314,12 +314,12 @@
     // Mock state of the app to be in the background
     UIApplication* backgroundStateApp = mock([UIApplication class]);
     [given([backgroundStateApp applicationState]) willReturnInt:UIApplicationStateBackground];
-    
+
     BOOL customPayloadReceived = NO;
     for(int i = 0; i < 30 && !customPayloadReceived; i++) {
         NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"_p", @"custom", @"custom_payload", nil];
         [appDelegate application:backgroundStateApp didReceiveRemoteNotification:userInfo];
-    
+
         NSString* listenerPushPayloadPayload = [self runJS:@"window.testPushPayload.custom_payload"];
         customPayloadReceived = [listenerPushPayloadPayload isEqualToString:@"custom"];
         if (!customPayloadReceived) {
@@ -327,6 +327,26 @@
         }
     }
     XCTAssert(customPayloadReceived);
+}
+
+- (void)testGetUserId
+{
+    [self waitForPhoneGapAppToLoad];
+
+    // Inject javascript listeners
+    [self runJS:@"window.testUserId = 'hey';"];
+    [self runJS:@"window.plugins.swrve.getUserId(function(userId) { window.testUserId = userId; });"];
+    [self waitForSeconds:1];
+
+    BOOL userIdReceived = NO;
+    for(int i = 0; i < 30 && !userIdReceived; i++) {
+        NSString* testUserId = [self runJS:@"window.testUserId"];
+        userIdReceived = (testUserId != nil && testUserId.length > 0);
+        if (!userIdReceived) {
+            [self waitForSeconds:1];
+        }
+    }
+    XCTAssert(userIdReceived);
 }
 
 @end

@@ -111,5 +111,13 @@ var app = {
                 window.plugins.toast.showShortTop("Error: could not get resources diff");
             });
         });
+        parentElement.querySelector('.swrve-get-user-id-button').addEventListener('click', function() {
+            window.plugins.swrve.getUserId(function(userId) {
+                // JSON object containing the resources
+                window.plugins.toast.showShortTop(userId);
+            }, function () {
+                window.plugins.toast.showShortTop("Error: could not get the user id");
+            });
+        });
     }
 };

@@ -221,4 +221,18 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         MainActivity startedActivity = (MainActivity)getInstrumentation().waitForMonitor(monitor);
         startedActivity.finish();
     }
+
+    public void testGetUserId() throws Exception {
+        runJS("window.plugins.swrve.getUserId(function(userId) { alert('swrve:40:' + userId); });");
+
+        int retries = 20;
+        String testUserId;
+        do {
+            testUserId = mActivity.getJSReturnValue(40);
+            if (testUserId == null) {
+                Thread.sleep(1000);
+            }
+        } while(retries-- > 0 && testUserId == null);
+        assertNotNull(testUserId);
+    }
 }

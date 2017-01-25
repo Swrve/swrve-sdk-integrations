@@ -1,5 +1,4 @@
-cordova.define("com.swrve.SwrvePlugin.SwrvePlugin", function(require, exports, module) {
-function SwrvePlugin() {}
+cordova.define("com.swrve.SwrvePlugin.SwrvePlugin", function(require, exports, module) {function SwrvePlugin() {}
 
 SwrvePlugin.prototype.android = true;
 SwrvePlugin.prototype.ios = false;
@@ -77,15 +76,24 @@ SwrvePlugin.prototype.setResourcesListener = function(listener) {
 
 SwrvePlugin.prototype.setCustomButtonListener = function(listener) {
   window.swrveCustomButtonListener = listener;
+  window.plugins.swrve.customButtonListenerReady();
 };
 
 SwrvePlugin.prototype.pushNotificationListenerReady = function() {
   return cordova.exec(undefined, undefined, "SwrvePlugin", "pushNotificationListenerReady", []);
 };
 
+SwrvePlugin.prototype.customButtonListenerReady = function() {
+  return cordova.exec(undefined, undefined, "SwrvePlugin", "customButtonListenerReady", []);
+};
+
 SwrvePlugin.prototype.setPushNotificationListener = function(listener) {
   window.swrvePushNotificationListener = listener;
   window.plugins.swrve.pushNotificationListenerReady();
+};
+
+SwrvePlugin.prototype.getUserId = function(success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "getUserId", []);
 };
 
 SwrvePlugin.install = function () {
@@ -108,10 +116,9 @@ SwrvePlugin.install = function () {
     // Decode the base64 encoded string sent by the plugin
     window.swrvePushNotificationListener(JSON.parse(window.atob(base64Payload)));
   };
-  
+
   return window.plugins.swrve;
 };
 
 cordova.addConstructor(SwrvePlugin.install);
-
 });

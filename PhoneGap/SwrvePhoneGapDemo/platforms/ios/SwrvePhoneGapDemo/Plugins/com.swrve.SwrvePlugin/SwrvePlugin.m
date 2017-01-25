@@ -2,7 +2,7 @@
 #import <Cordova/CDV.h>
 #import "Swrve.h"
 
-#define SWRVE_WRAPPER_VERSION "1.0.3"
+#define SWRVE_WRAPPER_VERSION "1.1.0"
 
 CDVViewController* globalViewController;
 
@@ -43,10 +43,6 @@ NSMutableArray* pushNotificationsQueued;
     if (remoteNotification) {
         [SwrvePlugin processRemoteNotification:remoteNotification];
     }
-    // Notify the Swrve JS plugin of the IAM custom button click
-    [Swrve sharedInstance].talk.customButtonCallback = ^(NSString* action) {
-        [SwrvePlugin evaluateString:[NSString stringWithFormat:@"if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('%@'); }", action] onWebView:globalViewController.webView];
-    };
 
     // Send the wrapper version at init
     [[Swrve sharedInstance] userUpdate:[[NSDictionary alloc] initWithObjectsAndKeys:@SWRVE_WRAPPER_VERSION, @"swrve.wrapper_version", nil]];
@@ -273,5 +269,21 @@ NSMutableArray* pushNotificationsQueued;
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)customButtonListenerReady:(CDVInvokedUrlCommand *)command
+{
+    // Notify the Swrve JS plugin of the IAM custom button click
+    [Swrve sharedInstance].talk.customButtonCallback = ^(NSString* action) {
+        [SwrvePlugin evaluateString:[NSString stringWithFormat:@"if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('%@'); }", action] onWebView:globalViewController.webView];
+    };
+
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getUserId:(CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[Swrve sharedInstance].userID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 
 @end
