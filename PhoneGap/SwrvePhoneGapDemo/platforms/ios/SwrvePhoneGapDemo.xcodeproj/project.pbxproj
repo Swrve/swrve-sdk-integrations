@@ -17,6 +17,8 @@
 		188ED524E4FF4959ABB8F15D /* SwrveConversationResourceManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B787C818DA473EB9C04596 /* SwrveConversationResourceManagement.m */; };
 		1A89375AC980486C9A660EFB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE5B60915A540F0BB02E41A /* QuartzCore.framework */; };
 		1AED4ADA27584D9EA69A1B02 /* SwrveConversationKit-Prefix.pch in Sources */ = {isa = PBXBuildFile; fileRef = BC8F0C470FC344DBB9352281 /* SwrveConversationKit-Prefix.pch */; };
+		1B4E7F9F1E3900EB002CD147 /* SwrveMigrationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7F9E1E3900EB002CD147 /* SwrveMigrationsManager.m */; };
+		1B4E7FA01E3900EB002CD147 /* SwrveMigrationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E7F9E1E3900EB002CD147 /* SwrveMigrationsManager.m */; };
 		1BED21921DD0C61A001A2353 /* 8721fd4e657980a5e12d498e73aed6e6a565dfca in Resources */ = {isa = PBXBuildFile; fileRef = 1BED212F1DD0C61A001A2353 /* 8721fd4e657980a5e12d498e73aed6e6a565dfca */; };
 		1BED21931DD0C61A001A2353 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1BED21311DD0C61A001A2353 /* .gitignore */; };
 		1BED21941DD0C61A001A2353 /* .hgignore in Resources */ = {isa = PBXBuildFile; fileRef = 1BED21321DD0C61A001A2353 /* .hgignore */; };
@@ -244,6 +246,8 @@
 		15D0BD9F01A04CE69EFD1496 /* CDVLogger.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLogger.h; path = "cordova-plugin-console/CDVLogger.h"; sourceTree = "<group>"; };
 		17C891AD862849ADA495E941 /* SwrveTrigger.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = SwrveTrigger.m; path = com.swrve.SwrvePlugin/SwrveSDK/SDK/Talk/SwrveTrigger.m/SwrveTrigger.m; sourceTree = "<group>"; };
 		189CACF193374DE9A987982D /* Toast.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = Toast.h; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; };
+		1B4E7F9E1E3900EB002CD147 /* SwrveMigrationsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwrveMigrationsManager.m; path = com.swrve.SwrvePlugin/SwrveSDK/SDK/Track/SwrveMigrationsManager.m/SwrveMigrationsManager.m; sourceTree = "<group>"; };
+		1B4E7FA11E390107002CD147 /* SwrveMigrationsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SwrveMigrationsManager.h; path = com.swrve.SwrvePlugin/SwrveSDK/SDK/Track/SwrveMigrationsManager.h/SwrveMigrationsManager.h; sourceTree = "<group>"; };
 		1B735E3456F341C498FC7711 /* SwrveConversationContainerViewController.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = SwrveConversationContainerViewController.h; path = com.swrve.SwrvePlugin/SwrveConversationSDK/Conversation/SwrveConversationContainerViewController.h/SwrveConversationContainerViewController.h; sourceTree = "<group>"; };
 		1BED21241DD0C5FF001A2353 /* SwrvePhoneGapDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwrvePhoneGapDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BED21281DD0C5FF001A2353 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -852,6 +856,8 @@
 				17C891AD862849ADA495E941 /* SwrveTrigger.m */,
 				298297C8873445F8B55BF796 /* SwrveTriggerCondition.m */,
 				ABB62F0A995943E9A800D4C3 /* Swrve.m */,
+				1B4E7FA11E390107002CD147 /* SwrveMigrationsManager.h */,
+				1B4E7F9E1E3900EB002CD147 /* SwrveMigrationsManager.m */,
 				3FF500201027486F8E8FE543 /* SwrveFileManagement.m */,
 				9AA4EF1B47A6444BB2FDDB2D /* SwrveReceiptProvider.m */,
 				BA0A6751CF8641F9A05A0AFD /* SwrveResourceManager.m */,
@@ -1088,6 +1094,7 @@
 				1BED21D01DD0C6A2001A2353 /* ISHPermissionRequestLocation.m in Sources */,
 				1BED21D11DD0C6A2001A2353 /* ISHPermissionRequestNotificationsRemote.m in Sources */,
 				1BED21D21DD0C6A2001A2353 /* ISHPermissionRequestPhotoCamera.m in Sources */,
+				1B4E7FA01E3900EB002CD147 /* SwrveMigrationsManager.m in Sources */,
 				1BED21D31DD0C6A2001A2353 /* ISHPermissionRequestPhotoLibrary.m in Sources */,
 				1BED21D41DD0C6A2001A2353 /* LICENSE in Sources */,
 				1BED21D51DD0C6A2001A2353 /* SwrveCommon.m in Sources */,
@@ -1225,6 +1232,7 @@
 				AD49DC6581F24DF4A75FF179 /* SwrveConversationEvents.m in Sources */,
 				5367BAE986344EF8A609EECB /* SwrveConversationItemViewController.m in Sources */,
 				1AED4ADA27584D9EA69A1B02 /* SwrveConversationKit-Prefix.pch in Sources */,
+				1B4E7F9F1E3900EB002CD147 /* SwrveMigrationsManager.m in Sources */,
 				C6143107351148E8974D47AC /* SwrveConversationPane.m in Sources */,
 				2554E62BBC6A478688C36E27 /* SwrveConversationResource.m in Sources */,
 				188ED524E4FF4959ABB8F15D /* SwrveConversationResourceManagement.m in Sources */,

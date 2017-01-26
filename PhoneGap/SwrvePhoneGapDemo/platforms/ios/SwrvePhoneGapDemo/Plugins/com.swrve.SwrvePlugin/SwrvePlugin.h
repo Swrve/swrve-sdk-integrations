@@ -9,6 +9,7 @@
 
 - (void)event:(CDVInvokedUrlCommand*)command;
 - (void)userUpdate:(CDVInvokedUrlCommand*)command;
+- (void)userUpdateDate:(CDVInvokedUrlCommand*)command;
 - (void)currencyGiven:(CDVInvokedUrlCommand*)command;
 - (void)purchase:(CDVInvokedUrlCommand*)command;
 - (void)unvalidatedIap:(CDVInvokedUrlCommand *)command;

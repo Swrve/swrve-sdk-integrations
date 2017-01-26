@@ -55,6 +55,13 @@ var app = {
                 window.plugins.toast.showShortTop("Error: user update not queued");
             });
         });
+        parentElement.querySelector('.swrve-update-date-button').addEventListener('click', function() {
+            window.plugins.swrve.userUpdateDate("last_subscribed", new Date(), function() {
+                window.plugins.toast.showShortTop("User update date queued");
+            }, function () {
+                window.plugins.toast.showShortTop("Error: user update date not queued");
+            });
+        });
         parentElement.querySelector('.swrve-currency-given').addEventListener('click', function() {
             window.plugins.swrve.currencyGiven("Gold", 20, function() {
                 window.plugins.toast.showShortTop("Currency given queued");
@@ -109,6 +116,14 @@ var app = {
                 window.plugins.toast.showShortTop(JSON.stringify(resourcesDiff));
             }, function () {
                 window.plugins.toast.showShortTop("Error: could not get resources diff");
+            });
+        });
+        parentElement.querySelector('.swrve-get-user-id-button').addEventListener('click', function() {
+            window.plugins.swrve.getUserId(function(userId) {
+                // JSON object containing the resources
+                window.plugins.toast.showShortTop(userId);
+            }, function () {
+                window.plugins.toast.showShortTop("Error: could not get the user id");
             });
         });
     }

@@ -1,5 +1,6 @@
 require 'open3'
 require 'pathname'
+require 'fileutils'
 
 $parentDir = File.dirname(__FILE__)
 
@@ -7,6 +8,8 @@ $androidHome = ENV['ANDROID_HOME']
 raise 'Please set the ANDROID_HOME environment variable'.red.bold if $androidHome.nil?
 $adbPath = "#{$androidHome}/platform-tools/adb"
 $emulatorPath = "#{$androidHome}/tools/emulator"
+
+$iosPluginSource = ["SwrveSDKCommon", "SwrveConversationSDK", "SwrveSDK"]
 
 class String
 	def green;          "\033[32m#{self}\033[0m" end
@@ -137,13 +140,14 @@ def generate_file_entries(dir, rel_plugin_path)
 	file_declarations
 end
 
+desc "Update the iOS plugin file references to native code"
 task :updatePluginXml do
 	# Upadte plugin.xml to reference all iOS source files individually, as including a folder seems
 	# to be broken
 	file_declarations = ""
 	rel_plugin_path = $parentDir + "/SwrvePlugin/"
-	["SwrveSDK/SwrveSDKCommon", "SwrveSDK/SwrveConversationSDK", "SwrveSDK/SwrveSDK"].each do |folder|
-		pluginPath = $parentDir + "/SwrvePlugin/platforms/ios/#{folder}"
+	$iosPluginSource.each do |folder|
+		pluginPath = $parentDir + "/SwrvePlugin/platforms/ios/SwrveSDK/#{folder}"
 		gen = generate_file_entries(pluginPath, rel_plugin_path)
 		file_declarations += gen unless gen.empty?
 	end
@@ -155,12 +159,78 @@ task :updatePluginXml do
 	File.write($parentDir + "/SwrvePlugin/plugin.xml", plugin_xml_content)
 end
 
-task :build  do
+desc "Build the demo for iOS and Android"
+task :build => [:syncDemoPluginSource] do
 	execInDir('Preparing', relative('SwrvePhoneGapDemo'), 'phonegap prepare')
 	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile ios')
 	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile android')
 end
 
+desc "Sync the Demo's plugin source workaround"
+task :syncDemoPluginSource do
+	# Unfortunately with the modifications done to the Demo reinstalling the plugin won't work (known bug in cordova/phonegap).
+	PLUGIN = "SwrvePlugin"
+	DEMO = "SwrvePhoneGapDemo"
+	DEMOIOS = "SwrvePhoneGapDemo/platforms/ios"
+	DEMOANDROID = "SwrvePhoneGapDemo/platforms/android"
+
+	# Global plugin
+	FileUtils.copy_entry("#{PLUGIN}/", "#{DEMO}/plugins/com.swrve.SwrvePlugin/")
+
+	# Android platform
+	FileUtils.copy_entry("#{PLUGIN}/platforms/android/build.gradle", "#{DEMOANDROID}/com.swrve.SwrvePlugin/helloworld-build.gradle")
+	FileUtils.copy_entry("#{PLUGIN}/platforms/android/src/com/swrve/SwrvePlugin.java", "#{DEMOANDROID}/src/com/swrve/SwrvePlugin.java")
+	# Add JS plugin wrappings
+	File.write("#{DEMOANDROID}/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js", ("cordova.define(\"com.swrve.SwrvePlugin.SwrvePlugin\", function(require, exports, module) {" + File.read("#{PLUGIN}/js/swrve-android.js") + "});"))
+
+	FileUtils.copy_entry("#{DEMOANDROID}/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js", "#{DEMOANDROID}/platform_www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js")
+
+	# iOS platform
+	# Copy main plugin
+	FileUtils.copy_entry("#{PLUGIN}/platforms/ios/SwrvePlugin.h", "#{DEMOIOS}/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/SwrvePlugin.h")
+	FileUtils.copy_entry("#{PLUGIN}/platforms/ios/SwrvePlugin.m", "#{DEMOIOS}/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/SwrvePlugin.m")
+
+	# Copy native code
+	except_extensions = [".xcassets", ".storyboard"]
+	$iosPluginSource.each do |folder|
+		copyWithWrappingFolder("#{PLUGIN}/platforms/ios/SwrveSDK/#{folder}/", "#{DEMOIOS}/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/#{folder}/", except_extensions)
+	end
+
+	# Copy resources
+	FileUtils.copy_entry("#{PLUGIN}/platforms/ios/SwrveSDK/SwrveConversationSDK/Resources/SwrveAssets.xcassets", "#{DEMOIOS}/SwrvePhoneGapDemo/Resources/SwrveAssets.xcassets")
+	FileUtils.copy_entry("#{PLUGIN}/platforms/ios/SwrveSDK/SwrveConversationSDK/Resources/SwrveConversation.storyboard", "#{DEMOIOS}/SwrvePhoneGapDemo/Resources/SwrveConversation.storyboard")
+
+	# Add JS plugin wrappings
+	File.write("#{DEMOIOS}/www/plugins/com.swrve.SwrvePlugin/js/swrve-ios.js", ("cordova.define(\"com.swrve.SwrvePlugin.SwrvePlugin\", function(require, exports, module) {" + File.read("#{PLUGIN}/js/swrve-ios.js") + "});"))
+
+	FileUtils.copy_entry("#{DEMOIOS}/www/plugins/com.swrve.SwrvePlugin/js/swrve-ios.js", "#{DEMOIOS}/platform_www/plugins/com.swrve.SwrvePlugin/js/swrve-ios.js")
+end
+
+def copyWithWrappingFolder(orig, dest, except_extensions)
+	Dir.entries(orig).each do |entry|
+		if entry != '.' && entry != '..'
+			orig_path = File.join(orig, entry)
+			dest_path = File.join(dest, entry)
+
+			unless except_extensions.any? { |extension| entry.end_with? extension }
+				if File.directory? orig_path
+					copyWithWrappingFolder(orig_path, dest_path, except_extensions)
+				else
+					# Create wrapping folder for it like Cordova does
+					unless File.exists? dest_path
+						FileUtils::mkdir_p(dest_path)
+					end
+
+					# Copy file inside the wrapper folder
+					entry_wrapped_path = File.join(dest_path, entry)
+					FileUtils.copy_entry(orig_path, entry_wrapped_path)
+				end
+			end
+		end
+	end
+end
+
+desc "Launch iOS simulator and tests"
 task :testIOSInSimulator, [:simulator] do |t, args|
 	killallXcode
 	# Example: "OS=8.3,name='iPad Air'"
@@ -169,6 +239,7 @@ task :testIOSInSimulator, [:simulator] do |t, args|
 	killallXcode
 end
 
+desc "Launch Android emulator and tests"
 task :testAndroidInEmulator, [:emulator] do |t, args|
 	# Example: "Nexus"
 	emulator = args[:emulator]
@@ -191,6 +262,7 @@ task :testAndroidInEmulator, [:emulator] do |t, args|
 	killEmulator
 end
 
+desc "Launch tests on the connected Android device"
 task :testAndroidConnectedDevice do
 	execInDir("Testing PhoneGap Android wrapper", relative('SwrvePhoneGapDemo/platforms/android'), "./gradlew connectedCheck")
 end

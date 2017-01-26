@@ -25,6 +25,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         runJS("window.plugins.swrve.event(\"levelup\", undefined, undefined);");
         runJS("window.plugins.swrve.event(\"leveldown\", {\"armor\":\"disabled\"}, undefined, undefined);");
         runJS("window.plugins.swrve.userUpdate({\"phonegap\":\"TRUE\"}, undefined, undefined);");
+        runJS("window.plugins.swrve.userUpdateDate(\"last_subscribed\", new Date(2016, 12, 2, 16, 20, 0, 0), undefined, undefined);");
         runJS("window.plugins.swrve.currencyGiven(\"Gold\", 20, undefined, undefined);");
         runJS("window.plugins.swrve.purchase(\"sword\", \"Gold\", 2, 15, undefined, undefined);");
         runJS("window.plugins.swrve.iap(2, \"sword\", 99.5, \"USD\", undefined, undefined);");
@@ -94,6 +95,13 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
                         && event.optString("receipt", "").equals("fake_purchase_data")
                         && event.optString("receipt_signature", "").equals("fake_purchase_signature")
                         && event.optString("rewards", "").equals("{}");
+            }
+        });
+        eventChecks.add(new EventChecker("user update date") {
+            @Override
+            public boolean check(JSONObject event) {
+                JSONObject attributes = event.optJSONObject("attributes");
+                return event.optString("type", "").equals("user") && (attributes != null && attributes.optString("last_subscribed", "").equals("2017-01-02T16:20:00.000Z"));
             }
         });
         // Find events in the sent batches
@@ -220,5 +228,19 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
 
         MainActivity startedActivity = (MainActivity)getInstrumentation().waitForMonitor(monitor);
         startedActivity.finish();
+    }
+
+    public void testGetUserId() throws Exception {
+        runJS("window.plugins.swrve.getUserId(function(userId) { alert('swrve:40:' + userId); });");
+
+        int retries = 20;
+        String testUserId;
+        do {
+            testUserId = mActivity.getJSReturnValue(40);
+            if (testUserId == null) {
+                Thread.sleep(1000);
+            }
+        } while(retries-- > 0 && testUserId == null);
+        assertNotNull(testUserId);
     }
 }

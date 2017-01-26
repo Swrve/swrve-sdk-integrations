@@ -2,7 +2,7 @@
 #import <Cordova/CDV.h>
 #import "Swrve.h"
 
-#define SWRVE_WRAPPER_VERSION "1.0.3"
+#define SWRVE_WRAPPER_VERSION "1.1.0"
 
 CDVViewController* globalViewController;
 
@@ -43,10 +43,6 @@ NSMutableArray* pushNotificationsQueued;
     if (remoteNotification) {
         [SwrvePlugin processRemoteNotification:remoteNotification];
     }
-    // Notify the Swrve JS plugin of the IAM custom button click
-    [Swrve sharedInstance].talk.customButtonCallback = ^(NSString* action) {
-        [SwrvePlugin evaluateString:[NSString stringWithFormat:@"if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('%@'); }", action] onWebView:globalViewController.webView];
-    };
 
     // Send the wrapper version at init
     [[Swrve sharedInstance] userUpdate:[[NSDictionary alloc] initWithObjectsAndKeys:@SWRVE_WRAPPER_VERSION, @"swrve.wrapper_version", nil]];
@@ -139,6 +135,30 @@ NSMutableArray* pushNotificationsQueued;
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Attributes were null"];
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)userUpdateDate:(CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    if ([command.arguments count] == 2) {
+        NSString* propertyName = [command.arguments objectAtIndex:0];
+        NSString* propertyValueRaw = [command.arguments objectAtIndex:1];
+
+        // Parse date coming in (for example "2016-12-02T15:39:47.608Z")
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ";
+
+        NSDate* propertyValue = [dateFormatter dateFromString:propertyValueRaw];
+        if (propertyValue != nil) {
+            [[Swrve sharedInstance] userUpdate:propertyName withDate:propertyValue];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Could not parse date"];
+        }
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Not enough args"];
     }
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -273,5 +293,21 @@ NSMutableArray* pushNotificationsQueued;
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)customButtonListenerReady:(CDVInvokedUrlCommand *)command
+{
+    // Notify the Swrve JS plugin of the IAM custom button click
+    [Swrve sharedInstance].talk.customButtonCallback = ^(NSString* action) {
+        [SwrvePlugin evaluateString:[NSString stringWithFormat:@"if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('%@'); }", action] onWebView:globalViewController.webView];
+    };
+
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getUserId:(CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[Swrve sharedInstance].userID];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 
 @end
