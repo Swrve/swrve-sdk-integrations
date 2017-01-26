@@ -18,6 +18,12 @@ SwrvePlugin.prototype.userUpdate = function(attributes, success, fail) {
   return cordova.exec(success, fail, "SwrvePlugin", "userUpdate", [attributes]);
 };
 
+// name is a string
+// date is a date
+SwrvePlugin.prototype.userUpdateDate = function(name, date, success, fail) {
+  return cordova.exec(success, fail, "SwrvePlugin", "userUpdateDate", [name, date]);
+};
+
 // currency is a string
 // quantity is an int
 SwrvePlugin.prototype.currencyGiven = function(currency, quantity, success, fail) {

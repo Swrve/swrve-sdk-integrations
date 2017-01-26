@@ -55,6 +55,13 @@ var app = {
                 window.plugins.toast.showShortTop("Error: user update not queued");
             });
         });
+        parentElement.querySelector('.swrve-update-date-button').addEventListener('click', function() {
+            window.plugins.swrve.userUpdateDate("last_subscribed", new Date(), function() {
+                window.plugins.toast.showShortTop("User update date queued");
+            }, function () {
+                window.plugins.toast.showShortTop("Error: user update date not queued");
+            });
+        });
         parentElement.querySelector('.swrve-currency-given').addEventListener('click', function() {
             window.plugins.swrve.currencyGiven("Gold", 20, function() {
                 window.plugins.toast.showShortTop("Currency given queued");

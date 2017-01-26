@@ -13,12 +13,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TimeZone;
 
 import com.swrve.sdk.ISwrveBase;
 import com.swrve.sdk.ISwrveResourcesListener;
@@ -148,6 +153,32 @@ public class SwrvePlugin extends CordovaPlugin {
         }
     }
 
+    private void sendUserUpdateDate(JSONArray arguments, final CallbackContext callbackContext) {
+        try {
+            final String propertyName = arguments.getString(0);
+            final String propertyValueRaw = arguments.getString(1);
+
+            // We assume it is a variation of the ISO 8601 date format
+            TimeZone tz = TimeZone.getTimeZone("UTC");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            df.setTimeZone(tz);
+            final Date propertyValue = df.parse(propertyValueRaw);
+
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    SwrveSDK.userUpdate(propertyName, propertyValue);
+                    callbackContext.success();
+                }
+            });
+        } catch (JSONException e) {
+            callbackContext.error("JSON_EXCEPTION");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            callbackContext.error("PARSE_EXCEPTION");
+            e.printStackTrace();
+        }
+    }
+
     private void sendCurrencyGiven(JSONArray arguments, final CallbackContext callbackContext) {
         try {
             final String currency = arguments.getString(0);
@@ -234,6 +265,12 @@ public class SwrvePlugin extends CordovaPlugin {
         } else if ("userUpdate".equals(action)) {
             if (!isBadArgument(arguments, callbackContext, 1, "user update arguments need to be supplied.")) {
                 sendUserUpdate(arguments, callbackContext);
+            }
+            return true;
+
+        } else if ("userUpdateDate".equals(action)) {
+            if (!isBadArgument(arguments, callbackContext, 2, "user update date arguments need to be supplied.")) {
+                sendUserUpdateDate(arguments, callbackContext);
             }
             return true;
 
