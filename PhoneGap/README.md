@@ -27,7 +27,7 @@ testIOSInSimulator["OS=8.3\,name='iPad Air'"]
 ```
 
 ```
-testAndroidInEmulator["2.3.3"]
+testAndroidInEmulator["6.0.1"]
 ```
 
 Contributing
