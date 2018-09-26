@@ -1,6 +1,10 @@
 Swrve SDK Cordova Plugin
 ========================
 
+DEPRECATED
+----------
+This SDK is no longer supported.
+
 What is Swrve
 -------------
 Swrve is a single integrated platform delivering everything you need to drive mobile engagement and create valuable consumer relationships on mobile.  
