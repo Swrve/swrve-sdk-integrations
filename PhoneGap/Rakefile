@@ -23,9 +23,10 @@ end
 
 def exec(title, cmd)
 	announce(title) unless title.nil?
+
 	sh cmd do |ok, res|
- 		raise "[####] #{title} failed with exit code #{res.exitstatus}".bg_red.bold unless ok || title.nil?
- 		raise "[####] Last command failed with exit code #{res.exitstatus}".bg_red.bold unless ok
+ 		puts "[####] #{title} failed with exit code #{res.exitstatus}".bg_red.bold unless ok || title.nil?
+ 		raise "[####] Last command (#{cmd}) in (#{Dir.pwd}) failed with exit code #{res.exitstatus}".bg_red.bold unless ok
  	end
 end
 
