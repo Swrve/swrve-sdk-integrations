@@ -9,15 +9,15 @@
         "parents": {
           "/*": [
             {
+              "xml": "<feature name=\"SwrvePlugin\"><param name=\"android-package\" value=\"com.swrve.SwrvePlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
               "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
             },
             {
               "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"SwrvePlugin\"><param name=\"android-package\" value=\"com.swrve.SwrvePlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
             }
           ]
@@ -40,44 +40,43 @@
     }
   },
   "installed_plugins": {
+    "com.swrve.SwrvePlugin": {
+      "PACKAGE_NAME": "com.phonegap.helloworld"
+    },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.phonegap.helloworld"
     },
     "cordova-plugin-x-toast": {
-      "PACKAGE_NAME": "com.phonegap.helloworld"
-    },
-    "cordova-plugin-console": {
-      "PACKAGE_NAME": "com.phonegap.helloworld"
-    },
-    "com.swrve.SwrvePlugin": {
       "PACKAGE_NAME": "com.phonegap.helloworld"
     }
   },
   "dependent_plugins": {},
   "modules": [
     {
-      "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+      "id": "com.swrve.SwrvePlugin.SwrvePlugin",
+      "file": "plugins/com.swrve.SwrvePlugin/js/swrve-android.js",
+      "pluginId": "com.swrve.SwrvePlugin",
+      "clobbers": [
+        "SwrvePlugin"
+      ]
+    },
+    {
       "id": "cordova-plugin-x-toast.Toast",
+      "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+      "pluginId": "cordova-plugin-x-toast",
       "clobbers": [
         "window.plugins.toast"
       ]
     },
     {
+      "id": "cordova-plugin-x-toast.tests",
       "file": "plugins/cordova-plugin-x-toast/test/tests.js",
-      "id": "cordova-plugin-x-toast.tests"
-    },
-    {
-      "file": "plugins/com.swrve.SwrvePlugin/js/swrve-android.js",
-      "id": "com.swrve.SwrvePlugin.SwrvePlugin",
-      "clobbers": [
-        "SwrvePlugin"
-      ]
+      "pluginId": "cordova-plugin-x-toast"
     }
   ],
   "plugin_metadata": {
+    "com.swrve.SwrvePlugin": "1.1.0",
     "cordova-plugin-whitelist": "1.2.2",
-    "cordova-plugin-x-toast": "2.5.2",
-    "cordova-plugin-console": "1.0.3",
-    "com.swrve.SwrvePlugin": "1.1.0"
+    "cordova-plugin-x-toast": "2.5.2"
   }
 }

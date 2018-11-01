@@ -8,12 +8,10 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
-
 #import "ISHPermissionRequestPhotoCamera.h"
 #import "ISHPermissionRequest+Private.h"
 
-#if !defined(SWRVE_NO_PHOTO_CAMERA)
-
+#if defined(SWRVE_PHOTO_CAMERA)
 @implementation ISHPermissionRequestPhotoCamera
 
 - (ISHPermissionState)permissionState {
@@ -23,7 +21,7 @@
     //if (!captureInput) {
     //    return ISHPermissionStateUnsupported;
     //}
-    
+
     if ([AVCaptureDevice respondsToSelector:@selector(authorizationStatusForMediaType:)]) {
         AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
         switch (authStatus) {
@@ -33,12 +31,12 @@
             case AVAuthorizationStatusDenied:
             case AVAuthorizationStatusRestricted:
                 return ISHPermissionStateDenied;
-                
+
             case AVAuthorizationStatusNotDetermined:
                 return [self internalPermissionState];
         }
     }
-    
+
     return ISHPermissionStateUnsupported;
 }
 
@@ -51,7 +49,7 @@
         }
         return;
     }
-    
+
     if ([AVCaptureDevice respondsToSelector:@selector(requestAccessForMediaType: completionHandler:)]) {
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{

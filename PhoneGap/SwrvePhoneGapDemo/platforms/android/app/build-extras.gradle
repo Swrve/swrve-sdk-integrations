@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://maven.google.com"
+        }
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+    }
+}
+
+apply plugin: 'android'
+
+android {
+    com.android.ddmlib.DdmPreferences.setTimeOut(60000)
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    repositories {
+        mavenCentral()
+    }
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.9.5'
+    testImplementation 'com.nanohttpd:nanohttpd:2.1.0'
+}
+
+ext.cdvBuildToolsVersion = '27.0.3'
+ext.cdvCompileSdkVersion = 27

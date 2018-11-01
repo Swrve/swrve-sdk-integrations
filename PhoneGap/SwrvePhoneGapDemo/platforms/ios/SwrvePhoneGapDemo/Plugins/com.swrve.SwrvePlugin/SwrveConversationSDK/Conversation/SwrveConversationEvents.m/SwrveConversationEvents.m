@@ -10,7 +10,7 @@
 @implementation SwrveConversationEvents
 
 +(void)eventInternal:(NSString*)eventName payload:(NSDictionary*)eventPayload {
-    [[SwrveCommon sharedInstance] eventInternal:eventName payload:eventPayload triggerCallback:true];
+    [[SwrveCommon sharedInstance] eventInternal:eventName payload:eventPayload triggerCallback:false];
 }
 
 +(void)started:(SwrveBaseConversation*)conversation onStartPage:(NSString*)pageTag {
@@ -89,7 +89,9 @@
                 NSString *eventName = [self nameOf:@"choice" for:conversation];
                 [self eventInternal:eventName payload:payload];
             }
-        } else if ([atom isKindOfClass:[SwrveContentVideo class]]) {
+        }
+#if TARGET_OS_IOS /** exclude tvOS **/
+        else if ([atom isKindOfClass:[SwrveContentVideo class]]) {
             SwrveContentVideo *item = (SwrveContentVideo*)atom;
             if (item.interactedWith) {
                 NSDictionary *payload =
@@ -102,7 +104,9 @@
                 NSString *eventName = [self nameOf:@"play" for:conversation];
                 [self eventInternal:eventName payload:payload];
             }
-        }  else if ([atom isKindOfClass:[SwrveContentStarRating class]]) {
+        }
+#endif
+        else if ([atom isKindOfClass:[SwrveContentStarRating class]]) {
             SwrveContentStarRating *item = (SwrveContentStarRating*)atom;
                 NSDictionary *payload =
                 @{

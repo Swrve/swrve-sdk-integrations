@@ -14,6 +14,7 @@ static NSString* swrve_permission_photos                = @"Swrve.permission.ios
 static NSString* swrve_permission_camera                = @"Swrve.permission.ios.camera";
 static NSString* swrve_permission_contacts              = @"Swrve.permission.ios.contacts";
 static NSString* swrve_permission_push_notifications    = @"Swrve.permission.ios.push_notifications";
+static NSString* swrve_permission_push_bg_refresh       = @"Swrve.permission.ios.push_bg_refresh";
 
 static NSString* swrve_permission_requestable           = @".requestable";
 
@@ -23,31 +24,31 @@ static NSString* swrve_permission_requestable           = @".requestable";
 + (BOOL)processPermissionRequest:(NSString*)action withSDK:(id<SwrveCommonDelegate>)sdk;
 + (NSDictionary*) currentStatusWithSDK:(id<SwrveCommonDelegate>)sdk;
 + (void)compareStatusAndQueueEventsWithSDK:(id<SwrveCommonDelegate>)sdk;
-+ (NSArray*) currentPermissionFiltersWithSDK:(id<SwrveCommonDelegate>)sdk;
++ (NSArray*) currentPermissionFilters;
 
-#if !defined(SWRVE_NO_LOCATION)
+#if defined(SWRVE_LOCATION) || defined(SWRVE_LOCATION_SDK)
 + (ISHPermissionState)checkLocationAlways;
 + (void)requestLocationAlways:(id<SwrveCommonDelegate>)sdk;
-#endif //!defined(SWRVE_NO_LOCATION)
+#endif //defined(SWRVE_LOCATION) || defined(SWRVE_LOCATION_SDK)
 
-#if !defined(SWRVE_NO_PHOTO_LIBRARY)
+#if defined(SWRVE_PHOTO_LIBRARY)
 + (ISHPermissionState)checkPhotoLibrary;
 + (void)requestPhotoLibrary:(id<SwrveCommonDelegate>)sdk;
-#endif //!defined(SWRVE_NO_PHOTO_LIBRARY)
+#endif //defined(SWRVE_PHOTO_LIBRARY)
 
-#if !defined(SWRVE_NO_PHOTO_CAMERA)
+#if defined(SWRVE_PHOTO_CAMERA)
 + (ISHPermissionState)checkCamera;
 + (void)requestCamera:(id<SwrveCommonDelegate>)sdk;
-#endif //!defined(SWRVE_NO_PHOTO_CAMERA)
+#endif //defined(SWRVE_PHOTO_CAMERA)
 
-#if !defined(SWRVE_NO_ADDRESS_BOOK)
+#if defined(SWRVE_ADDRESS_BOOK)
 + (ISHPermissionState)checkContacts;
 + (void)requestContacts:(id<SwrveCommonDelegate>)sdk;
-#endif //!defined(SWRVE_NO_ADDRESS_BOOK)
+#endif //defined(SWRVE_ADDRESS_BOOK)
 
-#if !defined(SWRVE_NO_PUSH)
-+ (ISHPermissionState)checkPushNotificationsWithSDK:(id<SwrveCommonDelegate>)sdk;
+#if !defined(SWRVE_NO_PUSH) && TARGET_OS_IOS
 + (void)requestPushNotifications:(id<SwrveCommonDelegate>)sdk withCallback:(BOOL)callback;
++ (NSString*) pushAuthorizationWithSDK: (id<SwrveCommonDelegate>)sdk;
 #endif //!defined(SWRVE_NO_PUSH)
 
 @end
@@ -62,6 +63,6 @@ static inline NSString *stringFromPermissionState(ISHPermissionState state) {
             return swrve_permission_status_denied;
         case ISHPermissionStateAuthorized:
             return swrve_permission_status_authorized;
-            
+
     }
 }

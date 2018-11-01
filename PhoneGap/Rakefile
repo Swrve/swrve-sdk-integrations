@@ -114,12 +114,15 @@ end
 task :default => :build
 
 # https://cordova.apache.org/docs/en/latest/plugin_ref/spec.html
-def generate_file_entries(dir, rel_plugin_path)
+def generate_file_entries(dir, rel_plugin_path, ignore_list)
 	file_declarations = ""
-	Dir.entries(dir).reject{ |entry| entry == "." || entry == ".." }.each do |entry|
+	entries = Dir.entries(dir).reject{ |entry| entry == "." || entry == ".." }
+		.reject { |entry| ignore_list.any? { |ignore| entry.include?(ignore) } }
+
+	entries.each do |entry|
 		entry_path = File.join(dir, entry)
 		if File.directory?(entry_path) && !entry.end_with?(".xcassets")
-			gen = generate_file_entries(entry_path, rel_plugin_path)
+			gen = generate_file_entries(entry_path, rel_plugin_path, ignore_list)
 			file_declarations += gen unless gen.empty?
 		else
 			# Add single file
@@ -147,9 +150,10 @@ task :updatePluginXml do
 	# to be broken
 	file_declarations = ""
 	rel_plugin_path = $parentDir + "/SwrvePlugin/"
+	ignore_list = ["SwrveConversation-tvos.storyboard"]
 	$iosPluginSource.each do |folder|
 		pluginPath = $parentDir + "/SwrvePlugin/platforms/ios/SwrveSDK/#{folder}"
-		gen = generate_file_entries(pluginPath, rel_plugin_path)
+		gen = generate_file_entries(pluginPath, rel_plugin_path, ignore_list)
 		file_declarations += gen unless gen.empty?
 	end
 
@@ -162,9 +166,10 @@ end
 
 desc "Build the demo for iOS and Android"
 task :build => [:syncDemoPluginSource] do
-	execInDir('Preparing', relative('SwrvePhoneGapDemo'), 'phonegap prepare')
-	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile ios')
-	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'phonegap compile android')
+	# Using cordova instead of phonegap CLI to avoid errors being hidden in the output
+	execInDir('Preparing', relative('SwrvePhoneGapDemo'), 'cordova prepare --no-telemetry')
+	execInDir('Building PhoneGap iOS Demo', relative('SwrvePhoneGapDemo'), 'cordova compile ios --no-telemetry')
+	execInDir('Building PhoneGap Android Demo', relative('SwrvePhoneGapDemo'), 'cordova compile android --no-telemetry')
 end
 
 desc "Sync the Demo's plugin source workaround"
@@ -178,15 +183,14 @@ task :syncDemoPluginSource do
 	# Global plugin
 	FileUtils.copy_entry("#{PLUGIN}/", "#{DEMO}/plugins/com.swrve.SwrvePlugin/")
 
-	# Android platform
+	## Android platform
 	FileUtils.copy_entry("#{PLUGIN}/platforms/android/build.gradle", "#{DEMOANDROID}/com.swrve.SwrvePlugin/helloworld-build.gradle")
-	FileUtils.copy_entry("#{PLUGIN}/platforms/android/src/com/swrve/SwrvePlugin.java", "#{DEMOANDROID}/src/com/swrve/SwrvePlugin.java")
+	FileUtils.copy_entry("#{PLUGIN}/platforms/android/src/com/swrve/SwrvePlugin.java", "#{DEMOANDROID}/app/src/main/java/com/swrve/SwrvePlugin.java")
 	# Add JS plugin wrappings
-	File.write("#{DEMOANDROID}/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js", ("cordova.define(\"com.swrve.SwrvePlugin.SwrvePlugin\", function(require, exports, module) {" + File.read("#{PLUGIN}/js/swrve-android.js") + "});"))
+	File.write("#{DEMOANDROID}/app/src/main/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js", ("cordova.define(\"com.swrve.SwrvePlugin.SwrvePlugin\", function(require, exports, module) {" + File.read("#{PLUGIN}/js/swrve-android.js") + "});"))
+	FileUtils.copy_entry("#{DEMOANDROID}/app/src/main/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js", "#{DEMOANDROID}/platform_www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js")
 
-	FileUtils.copy_entry("#{DEMOANDROID}/assets/www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js", "#{DEMOANDROID}/platform_www/plugins/com.swrve.SwrvePlugin/js/swrve-android.js")
-
-	# iOS platform
+	## iOS platform
 	# Copy main plugin
 	FileUtils.copy_entry("#{PLUGIN}/platforms/ios/SwrvePlugin.h", "#{DEMOIOS}/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/SwrvePlugin.h")
 	FileUtils.copy_entry("#{PLUGIN}/platforms/ios/SwrvePlugin.m", "#{DEMOIOS}/SwrvePhoneGapDemo/Plugins/com.swrve.SwrvePlugin/SwrvePlugin.m")

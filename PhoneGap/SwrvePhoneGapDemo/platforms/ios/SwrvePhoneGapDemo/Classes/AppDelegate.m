@@ -34,11 +34,11 @@
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     self.viewController = [[MainViewController alloc] init];
-    
+
     // SWRVE CHANGES
     [self setupSwrveWithLaunchOptions:launchOptions];
     // END OF CHANGES
-    
+
     return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
@@ -47,7 +47,9 @@
 {
     SwrveConfig* config = [[SwrveConfig alloc] init];
     config.pushEnabled = true;
-    [SwrvePlugin initWithAppID:1030 apiKey:@"SwrveDevApple" config:config viewController:self.viewController launchOptions:launchOptions];
+    
+    // Set your app id and api key here
+    [SwrvePlugin initWithAppID:-1 apiKey:@"api_key" config:config viewController:self.viewController launchOptions:launchOptions];
 }
 
 #ifndef DISABLE_PUSH_NOTIFICATIONS
