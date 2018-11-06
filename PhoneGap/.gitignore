@@ -1,7 +1,7 @@
 *.zip
 xcuserdata/
 .DS_Store
-node_modules/
+node_modules2/
 *.logcat
 SwrvePhoneGapDemo/platforms/android/app/build/
 SwrvePhoneGapDemo/platforms/android/CordovaLib/build/
