@@ -7,7 +7,7 @@ $parentDir = File.dirname(__FILE__)
 $androidHome = ENV['ANDROID_HOME']
 raise 'Please set the ANDROID_HOME environment variable'.red.bold if $androidHome.nil?
 $adbPath = "#{$androidHome}/platform-tools/adb"
-$emulatorPath = "#{$androidHome}/tools/emulator"
+$emulatorPath = "#{$androidHome}/emulator/emulator"
 
 $iosPluginSource = ["SwrveSDKCommon", "SwrveConversationSDK", "SwrveSDK"]
 
