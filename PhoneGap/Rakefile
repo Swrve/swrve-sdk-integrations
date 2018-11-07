@@ -240,7 +240,7 @@ task :testIOSInSimulator, [:simulator] do |t, args|
 	killallXcode
 	# Example: "OS=8.3,name='iPad Air'"
 	simulator = args[:simulator]
-	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild clean test -scheme 'SwrvePhoneGapDemo' -destination #{simulator}")
+	execInDir("Testing PhoneGap iOS wrapper on #{simulator}", relative('SwrvePhoneGapDemo/platforms/ios'), "xcodebuild clean test -scheme 'SwrvePhoneGapDemo' -workspace SwrvePhoneGapDemo.xcworkspace -destination #{simulator}")
 	killallXcode
 end
 
