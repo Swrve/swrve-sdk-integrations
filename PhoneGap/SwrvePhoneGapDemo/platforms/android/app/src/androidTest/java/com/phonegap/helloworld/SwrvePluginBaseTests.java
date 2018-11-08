@@ -21,8 +21,10 @@ import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Properties;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
+
+import fi.iki.elonen.NanoHTTPD;
 
 public abstract class SwrvePluginBaseTests extends ActivityInstrumentationTestCase2<MainTestActivity> {
 
@@ -45,22 +47,24 @@ public abstract class SwrvePluginBaseTests extends ActivityInstrumentationTestCa
         lastEventBatches = new ArrayList<String>();
 
         final Context context = getInstrumentation().getTargetContext().getApplicationContext();
+        cleanCacheDir(context);
+
         applicationOnCreate((Application)context);
 
         // Setup mock servers
-        httpEventServer = new MockHttpServer();
-        httpEventServer.start(8085, new File("."));
+        httpEventServer = new MockHttpServer(8085);
+        httpEventServer.start();
 
-        httpContentServer = new MockHttpServer();
-        httpContentServer.start(8083, new File("."));
+        httpContentServer = new MockHttpServer(8083);
+        httpContentServer.start();
         // Mock image response
         httpContentServer.setHandler("/cdn/", new MockHttpServer.IMockHttpServerHandler() {
             @Override
-            public NanoHTTPD.Response serve(String uri, String method, Properties header, Properties params) {
+            public NanoHTTPD.Response serve(String uri, NanoHTTPD.Method method, Map<String, String> headers, InputStream inputStream) {
                 try {
                     AssetManager assetManager = context.getAssets();
                     InputStream in = assetManager.open(uri.replace("/cdn/", ""));
-                    return new NanoHTTPD.Response(NanoHTTPD.HTTP_OK, "image/png", in);
+                    return NanoHTTPD.newChunkedResponse(NanoHTTPD.Response.Status.OK, "image/png", in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -77,12 +81,20 @@ public abstract class SwrvePluginBaseTests extends ActivityInstrumentationTestCa
         // Mock events api
         httpEventServer.setHandler("1/batch", new MockHttpServer.IMockHttpServerHandler() {
             @Override
-            public NanoHTTPD.Response serve(String uri, String method, Properties header, Properties params) {
-                String body = (String)params.get("jsonData");
-                synchronized (lastEventBatches) {
-                    lastEventBatches.add(body);
+            public NanoHTTPD.Response serve(String uri, NanoHTTPD.Method method, Map<String, String> headers, InputStream inputStream) {
+                java.util.Scanner s = new java.util.Scanner(inputStream).useDelimiter("\\A");
+                String body = s.hasNext() ? s.next() : "";
+                if (body != null) {
+                    synchronized (lastEventBatches) {
+                        lastEventBatches.add(body);
+                    }
                 }
-                return new NanoHTTPD.Response(NanoHTTPD.HTTP_OK, "application/json", "");
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.OK, "application/json", "");
             }
         });
 
@@ -107,6 +119,14 @@ public abstract class SwrvePluginBaseTests extends ActivityInstrumentationTestCa
         }
         mActivity.clearJSReturnValues();
         assertNotNull(pluginLoaded);
+    }
+
+    private void cleanCacheDir(Context context) {
+        File cacheDir = context.getCacheDir();
+        String[] cacheFiles = cacheDir.list();
+        for (int i = 0; i < cacheFiles.length; i++) {
+            new File(cacheDir, cacheFiles[i]).delete();
+        }
     }
 
     public void tearDown() throws Exception {

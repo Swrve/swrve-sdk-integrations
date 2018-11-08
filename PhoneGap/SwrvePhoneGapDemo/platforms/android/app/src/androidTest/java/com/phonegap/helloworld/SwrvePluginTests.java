@@ -4,8 +4,8 @@ import android.app.Instrumentation;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.phonegap.helloworld.MainActivity;
+
 import com.swrve.sdk.SwrveNotificationEngageReceiver;
 import com.swrve.sdk.messaging.ui.SwrveInAppMessageActivity;
 import com.swrve.sdk.messaging.view.SwrveButtonView;
@@ -168,18 +168,22 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         runJS("window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);");
 
         Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(SwrveInAppMessageActivity.class.getName(), null, false);
-        SwrveInAppMessageActivity iamActivity;
+        SwrveInAppMessageActivity iamActivity = null;
+        SwrveMessageView innerMessage = null;
         int retries = 180;
         do {
             runJS("window.plugins.swrve.event(\"campaign_trigger\", undefined, undefined);");
             Thread.sleep(1000);
             iamActivity = (SwrveInAppMessageActivity) monitor.getLastActivity();
-        } while(retries-- > 0 && iamActivity == null);
+            if (iamActivity != null) {
+                ViewGroup parentView = (ViewGroup)iamActivity.findViewById(android.R.id.content);
+                innerMessage = (SwrveMessageView)parentView.getChildAt(0);
+            }
+        } while(retries-- > 0 && (iamActivity == null || innerMessage == null));
         assertNotNull(iamActivity);
+        assertNotNull(innerMessage);
 
         boolean clickedButton = false;
-        ViewGroup parentView = (ViewGroup)iamActivity.findViewById(android.R.id.content);
-        SwrveMessageView innerMessage = (SwrveMessageView)parentView.getChildAt(0);
         int childrenViewsCount = innerMessage.getChildCount();
         for(int i = 0; i < childrenViewsCount; i++) {
             final View childView = innerMessage.getChildAt(i);
