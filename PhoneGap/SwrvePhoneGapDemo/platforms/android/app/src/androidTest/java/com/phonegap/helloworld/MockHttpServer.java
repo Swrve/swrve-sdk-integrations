@@ -16,7 +16,7 @@ public class MockHttpServer extends NanoHTTPD {
     }
 
     public interface IMockHttpServerHandler {
-        Response serve(String uri, Method method, Map<String, String> headers, InputStream inputStream);
+        Response serve(String uri, Method method, Map<String, String> headers, String postData);
     }
 
     private final Map<String, IMockHttpServerHandler> handlers = new HashMap<>();
@@ -28,7 +28,7 @@ public class MockHttpServer extends NanoHTTPD {
     public void setResponseHandler(final String uriContains, final String mimeType, final String body) {
         setHandler(uriContains, new IMockHttpServerHandler() {
             @Override
-            public Response serve(String uri, Method method, Map<String, String> headers, InputStream inputStream) {
+            public Response serve(String uri, Method method, Map<String, String> headers, String postData) {
                 return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.OK, mimeType, body);
             }
         });
@@ -40,15 +40,25 @@ public class MockHttpServer extends NanoHTTPD {
 
         String uri = session.getUri();
         Iterator<String> it = handlers.keySet().iterator();
-        while(it.hasNext() && result == null) {
-            String key = it.next();
-            if (uri.contains(key)) {
-                result = handlers.get(key).serve(uri, session.getMethod(), session.getHeaders(), session.getInputStream());
+        try {
+            while (it.hasNext() && result == null) {
+                String key = it.next();
+                if (uri.contains(key)) {
+                    final HashMap<String, String> map = new HashMap<String, String>();
+                    String postData = null;
+                    if (session.getMethod() == Method.POST) {
+                        session.parseBody(map);
+                        postData = map.get("postData");
+                    }
+                    result = handlers.get(key).serve(uri, session.getMethod(), session.getHeaders(), postData);
+                }
             }
-        }
 
-        if (result == null) {
-            result = NanoHTTPD.newFixedLengthResponse(defaultResponseCode, MIME_JSON, defaultResponseBody);
+            if (result == null) {
+                result = NanoHTTPD.newFixedLengthResponse(defaultResponseCode, MIME_JSON, defaultResponseBody);
+            }
+        } catch(Exception exp) {
+            exp.printStackTrace();
         }
 
         return result;

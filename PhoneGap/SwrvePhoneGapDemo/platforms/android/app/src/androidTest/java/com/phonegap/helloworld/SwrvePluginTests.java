@@ -2,6 +2,7 @@ package com.phonegap.helloworld;
 
 import android.app.Instrumentation;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import com.phonegap.helloworld.MainActivity;
@@ -110,6 +111,7 @@ public class SwrvePluginTests extends SwrvePluginBaseTests {
         do {
             failedChecker = returnFailedChecker(eventChecks);
             if (failedChecker != null) {
+                runJS("window.plugins.swrve.sendEvents(undefined, undefined);");
                 Thread.sleep(1000);
             }
         } while (retries-- > 0 && failedChecker != null);

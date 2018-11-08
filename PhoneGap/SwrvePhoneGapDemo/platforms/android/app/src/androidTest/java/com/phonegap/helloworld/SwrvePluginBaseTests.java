@@ -60,7 +60,7 @@ public abstract class SwrvePluginBaseTests extends ActivityInstrumentationTestCa
         // Mock image response
         httpContentServer.setHandler("/cdn/", new MockHttpServer.IMockHttpServerHandler() {
             @Override
-            public NanoHTTPD.Response serve(String uri, NanoHTTPD.Method method, Map<String, String> headers, InputStream inputStream) {
+            public NanoHTTPD.Response serve(String uri, NanoHTTPD.Method method, Map<String, String> headers, String postData) {
                 try {
                     AssetManager assetManager = context.getAssets();
                     InputStream in = assetManager.open(uri.replace("/cdn/", ""));
@@ -81,18 +81,11 @@ public abstract class SwrvePluginBaseTests extends ActivityInstrumentationTestCa
         // Mock events api
         httpEventServer.setHandler("1/batch", new MockHttpServer.IMockHttpServerHandler() {
             @Override
-            public NanoHTTPD.Response serve(String uri, NanoHTTPD.Method method, Map<String, String> headers, InputStream inputStream) {
-                java.util.Scanner s = new java.util.Scanner(inputStream).useDelimiter("\\A");
-                String body = s.hasNext() ? s.next() : "";
-                if (body != null) {
+            public NanoHTTPD.Response serve(String uri, NanoHTTPD.Method method, Map<String, String> headers, String postData) {
+                if (postData != null) {
                     synchronized (lastEventBatches) {
-                        lastEventBatches.add(body);
+                        lastEventBatches.add(postData);
                     }
-                }
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
                 return NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.OK, "application/json", "");
             }
