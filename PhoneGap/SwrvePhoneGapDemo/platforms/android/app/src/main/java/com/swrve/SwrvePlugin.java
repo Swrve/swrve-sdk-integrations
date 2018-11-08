@@ -45,7 +45,7 @@ import org.apache.cordova.CordovaWebView;
 
 public class SwrvePlugin extends CordovaPlugin {
 
-    public static String VERSION = "1.2.0";
+    public static String VERSION = "2.0.0";
     private static SwrvePlugin instance;
 
     private boolean resourcesListenerReady;
