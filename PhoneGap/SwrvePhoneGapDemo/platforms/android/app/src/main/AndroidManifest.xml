@@ -8,10 +8,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Add to your Application AndroidManifest.xml -->
         <meta-data android:name="SWRVE_PUSH_ICON" android:resource="@mipmap/icon" />
-        <meta-data android:name="SWRVE_PUSH_ICON_MATERIAL" android:resource="@mipmap/icon"/>
-        <meta-data android:name="SWRVE_PUSH_ICON_LARGE" android:resource="@mipmap/icon"/>
+        <meta-data android:name="SWRVE_PUSH_ICON_MATERIAL" android:resource="@mipmap/icon" />
+        <meta-data android:name="SWRVE_PUSH_ICON_LARGE" android:resource="@mipmap/icon" />
         <meta-data android:name="SWRVE_PUSH_ACTIVITY" android:value=".MainActivity" />
         <meta-data android:name="SWRVE_PUSH_TITLE" android:value="Your app title" />
         <receiver android:exported="true" android:name="com.google.android.gms.gcm.GcmReceiver" android:permission="com.google.android.c2dm.permission.SEND">
@@ -31,14 +30,11 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-        <receiver
-            android:name="com.swrve.sdk.SwrveInstallReferrerReceiver"
-            android:exported="true" >
+        <receiver android:exported="true" android:name="com.swrve.sdk.SwrveInstallReferrerReceiver">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
-        <!-- End of additions -->
         <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/activity_name" android:launchMode="singleTop" android:name="com.phonegap.helloworld.MainTestActivity" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
