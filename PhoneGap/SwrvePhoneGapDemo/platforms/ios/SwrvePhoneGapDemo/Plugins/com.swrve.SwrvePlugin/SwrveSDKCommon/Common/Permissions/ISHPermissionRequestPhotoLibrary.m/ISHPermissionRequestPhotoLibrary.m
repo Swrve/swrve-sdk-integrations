@@ -7,19 +7,22 @@
 //  Copyright (c) 2014 iosphere GmbH. All rights reserved.
 //
 
+#import "ISHPermissionRequestPhotoLibrary.h"
+#import "ISHPermissionRequest+Private.h"
+
+#if TARGET_OS_IOS /** exclude tvOS **/
 #import <AssetsLibrary/AssetsLibrary.h>
 #if defined(__IPHONE_9_0)
 #import <Photos/Photos.h>
 #endif //defined(__IPHONE_9_0)
-#import "ISHPermissionRequestPhotoLibrary.h"
-#import "ISHPermissionRequest+Private.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-#if !defined(SWRVE_NO_PHOTO_LIBRARY)
+#if defined(SWRVE_PHOTO_LIBRARY)
 
 @interface ISHPermissionRequestPhotoLibrary ()
 @end
+
 
 @implementation ISHPermissionRequestPhotoLibrary
 - (ISHPermissionState)permissionState {
@@ -62,7 +65,7 @@
         }
         return;
     }
-    
+
 #if defined(__IPHONE_9_0)
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")) {
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
@@ -77,7 +80,7 @@
         return;
     }
 #endif //defined(__IPHONE_9_0)
-    
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     ALAssetsLibrary *assetsLibrary = [ALAssetsLibrary new];
@@ -104,4 +107,5 @@
 
 @end
 
-#endif //!defined(SWRVE_NO_PHOTO_LIBRARY)
+#endif //defined(SWRVE_PHOTO_LIBRARY)
+#endif //TARGET_OS_IOS

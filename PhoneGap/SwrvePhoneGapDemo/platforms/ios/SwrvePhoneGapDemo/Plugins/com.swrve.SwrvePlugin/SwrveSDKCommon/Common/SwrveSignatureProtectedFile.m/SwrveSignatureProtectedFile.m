@@ -1,30 +1,93 @@
 #import "SwrveCommon.h"
 #import "SwrveSignatureProtectedFile.h"
 #import <CommonCrypto/CommonHMAC.h>
+#import "SwrveLocalStorage.h"
 
 @implementation SwrveSignatureProtectedFile
 
 @synthesize filename;
 @synthesize signatureFilename;
 @synthesize key;
-@synthesize signatureErrorListener;
+@synthesize signatureErrorDelegate;
+    
+    
+- (id) protectedFileType:(int)fileType
+                  userID:(NSString*)userID
+            signatureKey:(NSString*)signatureKey
+           errorDelegate:(id<SwrveSignatureErrorDelegate>)delegate {
+    
+    NSString *filePath = nil;
+    NSString *signatureFilePath = nil;
+    
+    switch (fileType)
+    
+    {
+        case SWRVE_LOCATION_FILE:
+        
+        filePath = [SwrveLocalStorage locationCampaignFilePathForUserId:userID];
+        signatureFilePath = [SwrveLocalStorage locationCampaignSignatureFilePathForUserId:userID];
+        
+        break;
+        
+        case SWRVE_RESOURCE_FILE:
+        
+        filePath = [SwrveLocalStorage userResourcesFilePathForUserId:userID];
+        signatureFilePath = [SwrveLocalStorage userResourcesSignatureFilePathForUserId:userID];
+        
+        break;
+            
+        case SWRVE_RESOURCE_DIFF_FILE:
+            
+            filePath = [SwrveLocalStorage userResourcesDiffFilePathForUserId:userID];
+            signatureFilePath = [SwrveLocalStorage userResourcesDiffSignatureFilePathForUserId:userID];
+            
+            break;
+        
+        case SWRVE_CAMPAIGN_FILE:
+        
+            filePath = [SwrveLocalStorage campaignsFilePathForUserId:userID];
+            signatureFilePath = [SwrveLocalStorage campaignsSignatureFilePathForUserId:userID];
+            
+             break;
+            
+        case SWRVE_AD_CAMPAIGN_FILE:
+            
+            filePath = [SwrveLocalStorage campaignsAdFilePathForUserId:userID];
+            signatureFilePath = [SwrveLocalStorage campaignsAdSignatureFilePathForUserId:userID];
+        
+        break;
+            
+        case SWRVE_NOTIFICATION_CAMPAIGN_FILE_DEBUG:
+            
+            filePath = [SwrveLocalStorage debugCampaignsNoticationFilePathForUserId:userID];
+            signatureFilePath = [SwrveLocalStorage debugCampaignsNotificationSignatureFilePathForUserId:userID];
+            
+            break;
+        
+    }
+    
+    NSURL* fileURL = [NSURL fileURLWithPath:filePath];
+    NSURL* signatureURL = [NSURL fileURLWithPath:signatureFilePath];
+    
+    return [self initFile:fileURL signatureFilename:signatureURL usingKey:signatureKey signatureErrorDelegate:delegate];
+}
 
 - (id) initFile:(NSURL*)file signatureFilename:(NSURL*)signatureFile usingKey:(NSString*)signatureKey
 {
-    return [self initFile:file signatureFilename:signatureFile usingKey:signatureKey signatureErrorListener:nil];
+    return [self initFile:file signatureFilename:signatureFile usingKey:signatureKey signatureErrorDelegate:nil];
 }
 
-- (id) initFile:(NSURL*)file signatureFilename:(NSURL*)signatureFile usingKey:(NSString*)signatureKey signatureErrorListener:(id<SwrveSignatureErrorListener>)listener
+- (id) initFile:(NSURL*)file signatureFilename:(NSURL*)signatureFile usingKey:(NSString*)signatureKey signatureErrorDelegate:(id<SwrveSignatureErrorDelegate>)delegate
 {
     if (self = [super init]) {
         key = signatureKey;
         self.filename = file;
         self.signatureFilename = signatureFile;
         
-        if (listener == nil) {
-            self.signatureErrorListener = self;
+        if (delegate == nil) {
+            self.signatureErrorDelegate = self;
         } else {
-            self.signatureErrorListener = listener;
+            self.signatureErrorDelegate = delegate;
         }
     }
     return self;
@@ -42,8 +105,23 @@
     }
 }
 
-- (NSData*) readFromFile
-{
+- (void) writeToDefaults:(NSData*)content {
+    NSData* signature = [self createHMACWithMD5:content];
+    [[NSUserDefaults standardUserDefaults] setValue:content forKey:self.filename.lastPathComponent];
+    [[NSUserDefaults standardUserDefaults] setValue:signature forKey:self.signatureFilename.lastPathComponent];
+    [[NSUserDefaults standardUserDefaults]  synchronize];
+}
+
+- (void) writeWithRespectToPlatform:(NSData*)content {
+#if TARGET_OS_IOS
+    [self writeToFile:content];
+#elif TARGET_OS_TV
+    // tvOS has a much more aggressive cache than iOS, which means most things have to be stored to the tvOS defaults rather than the cache
+    [self writeToDefaults:content];
+#endif
+}
+
+- (NSData*) readFromFile {
     NSData* content = [NSData dataWithContentsOfURL:[self filename]];
     
     if (content != nil) {
@@ -57,12 +135,47 @@
             {
                 return content;
             } else {
-                [[self signatureErrorListener] signatureError:[self filename]];
+                [[self signatureErrorDelegate] signatureError:[self filename]];
             }
         }
     }
     
     return nil;
+}
+
+- (NSData*) readFromDefaults {
+    NSURL *filePath = [self filename];
+    NSURL *sigFilePath = [self signatureFilename];
+
+    NSData* content = [[NSUserDefaults standardUserDefaults] dataForKey:filePath.lastPathComponent];
+    
+    if (content != nil) {
+        NSData* actual_signature = [[NSUserDefaults standardUserDefaults] dataForKey:sigFilePath.lastPathComponent];
+        
+        if (actual_signature != nil) {
+            // Check signature
+            NSData* computed_signature = [self createHMACWithMD5:content];
+            
+            if ([actual_signature isEqualToData:computed_signature])
+            {
+                return content;
+            } else {
+                [[self signatureErrorDelegate] signatureError:[self filename]];
+            }
+        }
+    }
+    
+    return nil;
+    
+}
+
+- (NSData*) readWithRespectToPlatform {
+#if TARGET_OS_IOS
+    return [self readFromFile];
+#elif TARGET_OS_TV
+    // tvOS has a much more aggressive cache than iOS, which means most things have to be stored to the tvOS defaults rather than the cache
+    return [self readFromDefaults];
+#endif
 }
 
 - (NSData*) createHMACWithMD5:(NSData*)source

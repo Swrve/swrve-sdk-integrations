@@ -1,8 +1,8 @@
 #import "SwrvePlugin.h"
 #import <Cordova/CDV.h>
-#import "Swrve.h"
+#import "SwrveSDK.h"
 
-#define SWRVE_WRAPPER_VERSION "1.1.0"
+#define SWRVE_WRAPPER_VERSION "2.0.0"
 
 CDVViewController* globalViewController;
 
@@ -30,13 +30,13 @@ NSMutableArray* pushNotificationsQueued;
     // Set a resource callback
     config.resourcesUpdatedCallback = ^() {
         if (resourcesListenerReady) {
-            NSDictionary* userResources = [[[Swrve sharedInstance] getSwrveResourceManager] getResources];
+            NSDictionary* userResources = [[SwrveSDK resourceManager] resources];
             [SwrvePlugin resourcesListenerCall:userResources];
         } else {
             mustCallResourcesListener = YES;
         }
     };
-    [Swrve sharedInstanceWithAppID:appId apiKey:apiKey config:config];
+    [SwrveSDK sharedInstanceWithAppID:appId apiKey:apiKey config:config];
 
     // Tell the Swrve SDK your app was launched from a push notification
     NSDictionary * remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -45,7 +45,7 @@ NSMutableArray* pushNotificationsQueued;
     }
 
     // Send the wrapper version at init
-    [[Swrve sharedInstance] userUpdate:[[NSDictionary alloc] initWithObjectsAndKeys:@SWRVE_WRAPPER_VERSION, @"swrve.wrapper_version", nil]];
+    [SwrveSDK userUpdate:[[NSDictionary alloc] initWithObjectsAndKeys:@SWRVE_WRAPPER_VERSION, @"swrve.wrapper_version", nil]];
 }
 
 + (void) evaluateString:(NSString*)jsString onWebView:(UIView*)webView
@@ -85,7 +85,7 @@ NSMutableArray* pushNotificationsQueued;
 
 + (void)processRemoteNotification:(NSDictionary* )userInfo
 {
-    [[Swrve sharedInstance].talk pushNotificationReceived:userInfo];
+    [SwrveSDK pushNotificationReceived:userInfo];
 
     // Notify the Swrve JS plugin of this remote notification
     NSError *error;
@@ -114,9 +114,9 @@ NSMutableArray* pushNotificationsQueued;
     if (eventName != nil) {
         if ([command.arguments count] == 2) {
             NSDictionary* payload = [command.arguments objectAtIndex:1];
-            [[Swrve sharedInstance] event:eventName payload:payload];
+            [SwrveSDK event:eventName payload:payload];
         } else {
-            [[Swrve sharedInstance] event:eventName];
+            [SwrveSDK event:eventName];
         }
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
@@ -131,7 +131,7 @@ NSMutableArray* pushNotificationsQueued;
     NSDictionary* attributes = [command.arguments objectAtIndex:0];
 
     if (attributes != nil) {
-        [[Swrve sharedInstance] userUpdate:attributes];
+        [SwrveSDK userUpdate:attributes];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Attributes were null"];
@@ -152,7 +152,7 @@ NSMutableArray* pushNotificationsQueued;
 
         NSDate* propertyValue = [dateFormatter dateFromString:propertyValueRaw];
         if (propertyValue != nil) {
-            [[Swrve sharedInstance] userUpdate:propertyName withDate:propertyValue];
+            [SwrveSDK userUpdate:propertyName withDate:propertyValue];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Could not parse date"];
@@ -170,7 +170,7 @@ NSMutableArray* pushNotificationsQueued;
         NSString* currencyName = [command.arguments objectAtIndex:0];
         NSNumber* amount = [command.arguments objectAtIndex:1];
 
-        [[Swrve sharedInstance] currencyGiven:currencyName givenAmount:[amount doubleValue]];
+        [SwrveSDK currencyGiven:currencyName givenAmount:[amount doubleValue]];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Not enough args"];
@@ -187,7 +187,7 @@ NSMutableArray* pushNotificationsQueued;
         NSNumber* quantity = [command.arguments objectAtIndex:2];
         NSNumber* cost = [command.arguments objectAtIndex:3];
 
-        [[Swrve sharedInstance] purchaseItem:itemName currency:currencyName cost:[cost intValue] quantity:[quantity intValue]];
+        [SwrveSDK purchaseItem:itemName currency:currencyName cost:[cost intValue] quantity:[quantity intValue]];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Not enough args"];
@@ -204,7 +204,7 @@ NSMutableArray* pushNotificationsQueued;
         NSString* productId = [command.arguments objectAtIndex:2];
         NSNumber* quantity = [command.arguments objectAtIndex:3];
 
-        [[Swrve sharedInstance] unvalidatedIap:nil localCost:[localCost doubleValue] localCurrency:localCurrency productId:productId productIdQuantity:[quantity intValue]];
+        [SwrveSDK unvalidatedIap:nil localCost:[localCost doubleValue] localCurrency:localCurrency productId:productId productIdQuantity:[quantity intValue]];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Not enough args"];
@@ -215,7 +215,7 @@ NSMutableArray* pushNotificationsQueued;
 - (void)sendEvents:(CDVInvokedUrlCommand *)command
 {
     @try {
-        [[Swrve sharedInstance] sendQueuedEvents];
+        [SwrveSDK sendQueuedEvents];
 
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"OK"];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -228,14 +228,14 @@ NSMutableArray* pushNotificationsQueued;
 
 - (void)getUserResources:(CDVInvokedUrlCommand *)command
 {
-    NSDictionary* userResourcesDic = [[[Swrve sharedInstance] getSwrveResourceManager] getResources];
+    NSDictionary* userResourcesDic = [[SwrveSDK resourceManager] resources];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:userResourcesDic];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)getUserResourcesDiff:(CDVInvokedUrlCommand *)command
 {
-    [[Swrve sharedInstance] getUserResourcesDiff:^(NSDictionary *oldResourcesValues, NSDictionary *newResourcesValues, NSString *resourcesAsJSON) {
+    [SwrveSDK userResourcesDiff:^(NSDictionary *oldResourcesValues, NSDictionary *newResourcesValues, NSString *resourcesAsJSON) {
         NSMutableDictionary* resourcesDictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:newResourcesValues, @"new", oldResourcesValues, @"old", nil];
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resourcesDictionary];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -244,7 +244,7 @@ NSMutableArray* pushNotificationsQueued;
 
 - (void)refreshCampaignsAndResources:(CDVInvokedUrlCommand *)command
 {
-    [[Swrve sharedInstance] refreshCampaignsAndResources];
+    [SwrveSDK refreshCampaignsAndResources];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -253,7 +253,7 @@ NSMutableArray* pushNotificationsQueued;
 {
     resourcesListenerReady = YES;
     if (mustCallResourcesListener) {
-        NSDictionary* userResources = [[[Swrve sharedInstance] getSwrveResourceManager] getResources];
+        NSDictionary* userResources = [[SwrveSDK resourceManager] resources];
         [SwrvePlugin resourcesListenerCall:userResources];
     }
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -296,7 +296,7 @@ NSMutableArray* pushNotificationsQueued;
 - (void)customButtonListenerReady:(CDVInvokedUrlCommand *)command
 {
     // Notify the Swrve JS plugin of the IAM custom button click
-    [Swrve sharedInstance].talk.customButtonCallback = ^(NSString* action) {
+    [SwrveSDK messaging].customButtonCallback = ^(NSString* action) {
         [SwrvePlugin evaluateString:[NSString stringWithFormat:@"if (window.swrveCustomButtonListener !== undefined) { window.swrveCustomButtonListener('%@'); }", action] onWebView:globalViewController.webView];
     };
 
@@ -306,7 +306,7 @@ NSMutableArray* pushNotificationsQueued;
 
 - (void)getUserId:(CDVInvokedUrlCommand*)command
 {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[Swrve sharedInstance].userID];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[SwrveSDK userID]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 

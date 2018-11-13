@@ -1,18 +1,13 @@
 #import <Foundation/Foundation.h>
 
-#if COCOAPODS
-
+#if __has_include(<SwrveConversationSDK/SwrveBaseConversation.h>)
 #import <SwrveConversationSDK/SwrveBaseConversation.h>
-
 #else
-
 #import "SwrveBaseConversation.h"
-
 #endif
 
 @class SwrveMessageController;
 @class SwrveConversationCampaign;
-@class SwrveConversationPane;
 
 @interface SwrveConversation : SwrveBaseConversation
 
@@ -29,6 +24,6 @@
  * \param controller Message controller.
  * \returns Parsed conversation.
  */
-+(SwrveConversation*)fromJSON:(NSDictionary*)json forCampaign:(SwrveConversationCampaign*)campaign forController:(SwrveMessageController*)controller;
+- (id)initWithJSON:(NSDictionary *)json forCampaign:(SwrveConversationCampaign *)campaign forController:(SwrveMessageController *)controller;
 
 @end

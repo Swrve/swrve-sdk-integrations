@@ -8,6 +8,8 @@
 
 #import "ISHPermissionRequestNotificationsRemote.h"
 #import "ISHPermissionRequest+Private.h"
+#import "SwrveCommon.h"
+#if TARGET_OS_IOS /** exclude tvOS **/
 
 @interface ISHPermissionRequestNotificationsRemote ()
 @property (atomic, copy) ISHPermissionRequestCompletionBlock completionBlock;
@@ -16,6 +18,8 @@
 @implementation ISHPermissionRequestNotificationsRemote
 
 @synthesize notificationSettings;
+@synthesize notificationAuthOptions;
+@synthesize notificationCategories;
 @synthesize completionBlock;
 
 - (BOOL)allowsConfiguration {
@@ -35,36 +39,58 @@
         }
         return;
     }
-    
+
     self.completionBlock = completion;
-    [ISHPermissionRequestNotificationsRemote registerForRemoteNotifications:self.notificationSettings];
+    [ISHPermissionRequestNotificationsRemote registerForRemoteNotifications:self.notificationAuthOptions withCategories:self.notificationCategories andBackwardsCompatibility:self.notificationSettings];
 }
 
--(void)requestUserPermissionWithoutCompleteBlock {
-    [ISHPermissionRequestNotificationsRemote registerForRemoteNotifications:self.notificationSettings];
+- (void)requestUserPermissionWithoutCompleteBlock {
+
+    [ISHPermissionRequestNotificationsRemote registerForRemoteNotifications:self.notificationAuthOptions withCategories:self.notificationCategories andBackwardsCompatibility:self.notificationSettings];
 }
 
-+(void)registerForRemoteNotifications:(UIUserNotificationSettings*)notificationSettings {
-    UIApplication* app = [UIApplication sharedApplication];
-#if defined(__IPHONE_8_0)
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
-    // Check if the new push API is not available
-    if (![app respondsToSelector:@selector(registerUserNotificationSettings:)])
-    {
-        // Use the old API
-        [app registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
++ (void)registerForRemoteNotifications:(UIUserNotificationSettings*)notificationSettings {
+    [ISHPermissionRequestNotificationsRemote registerForRemoteNotifications:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge) withCategories:nil andBackwardsCompatibility:notificationSettings];
+}
+
++(void)registerForRemoteNotifications:(UNAuthorizationOptions)notificationAuthOptions withCategories:(NSSet<UNNotificationCategory *> *)notificationCategories andBackwardsCompatibility:(UIUserNotificationSettings *)notificationSettings {
+#pragma unused (notificationCategories)
+
+    UIApplication* app = [SwrveCommon sharedUIApplication];
+#if defined(__IPHONE_10_0)
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+        UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+        [center requestAuthorizationWithOptions:(notificationAuthOptions)
+                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                  if (granted) {
+                                      /** Add sdk-defined categories **/
+                                      [center setNotificationCategories:notificationCategories];
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          [app registerForRemoteNotifications];
+                                      });
+                                  }
+
+                                  if (error) {
+                                      DebugLog(@"Error obtaining permission for notification center: %@ %@", [error localizedDescription], [error localizedFailureReason]);
+                                  }
+                              }];
     }
-    else
-#endif //__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
-    {
+#endif
+
+#if defined(__IPHONE_8_0)
+    if(SYSTEM_VERSION_LESS_THAN(@"10.0")){
         NSAssert(notificationSettings, @"Requested notification settings should be set for request before requesting user permission", nil);
-        [app registerUserNotificationSettings:notificationSettings];
-        [app registerForRemoteNotifications];
+        // UIApplication calls must be performed on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [app registerUserNotificationSettings:notificationSettings];
+            [app registerForRemoteNotifications];
+        });
     }
 #else
-    // Not building with the latest XCode that contains iOS 8 definitions
-    [app registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    // Since we no longer support pre-iOS8 builds, this has to be excluded from compilation, here in case
+    [app registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeNewsstandContentAvailability];
+    }
 #endif //defined(__IPHONE_8_0)
 }
-
 @end
+#endif

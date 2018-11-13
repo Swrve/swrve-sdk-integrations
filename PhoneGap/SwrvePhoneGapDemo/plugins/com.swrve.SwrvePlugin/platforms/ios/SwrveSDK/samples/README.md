@@ -1,5 +1,8 @@
 Swrve SDK Samples
 -----------------
 Examples of usage of the Swrve SDK:
-- [Message Center API (Swift)](samples/Swift/MessageCenterSample)
-- [Message Center API (Objective-C)](samples/Objective-C/MessageCenterSample)
+
+- [Minimal Integration App (ObjC and Swift)](MinimalIntegrationSample)
+- [Message Center API (ObjC and Swift)](MessageCenterSample)
+- [Integrating Rich Push (ObjC and Swift)](RichPushSample)
+

@@ -8,10 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "ISHPermissionRequest.h"
+#import <UserNotifications/UserNotifications.h>
+#if TARGET_OS_IOS /** exclude tvOS **/
 
 @interface ISHPermissionRequestNotificationsRemote : ISHPermissionRequest
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
 @property (nonatomic) UIUserNotificationSettings *notificationSettings;
-
+@property (nonatomic) UNAuthorizationOptions notificationAuthOptions;
+@property (nonatomic) NSSet<UNNotificationCategory *> * notificationCategories;
+#pragma clang diagnostic pop
+    
 -(void)requestUserPermissionWithoutCompleteBlock;
++(void)registerForRemoteNotifications:(UIUserNotificationSettings*)notificationSettings NS_AVAILABLE_IOS(8.0);
++(void)registerForRemoteNotifications:(UNAuthorizationOptions)notificationAuthOptions withCategories:(NSSet<UNNotificationCategory *> *)notificationCategories andBackwardsCompatibility:(UIUserNotificationSettings *)notificationSettings NS_AVAILABLE_IOS(10.0);
 
 @end
+#endif

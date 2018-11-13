@@ -26,6 +26,7 @@
 
 #import <UIKit/UIKit.h>
 
+// SWRVE TEST CHANGES
 #define TESTING [[NSUserDefaults standardUserDefaults] boolForKey:@"TESTING"]
 
 int main(int argc, char* argv[])

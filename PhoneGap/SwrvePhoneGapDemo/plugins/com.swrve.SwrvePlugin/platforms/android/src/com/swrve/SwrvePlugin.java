@@ -1,6 +1,7 @@
 package com.swrve;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -26,12 +27,12 @@ import java.util.Set;
 import java.util.TimeZone;
 
 import com.swrve.sdk.ISwrveBase;
-import com.swrve.sdk.ISwrveResourcesListener;
-import com.swrve.sdk.ISwrveUserResourcesListener;
+import com.swrve.sdk.SwrveResourcesListener;
+import com.swrve.sdk.SwrveUserResourcesListener;
 import com.swrve.sdk.SwrveSDK;
 import com.swrve.sdk.config.SwrveConfig;
-import com.swrve.sdk.gcm.ISwrvePushNotificationListener;
-import com.swrve.sdk.messaging.ISwrveCustomButtonListener;
+import com.swrve.sdk.SwrvePushNotificationListener;
+import com.swrve.sdk.messaging.SwrveCustomButtonListener;
 import com.swrve.sdk.runnable.UIThreadSwrveResourcesRunnable;
 import com.swrve.sdk.UIThreadSwrveUserResourcesListener;
 import com.swrve.sdk.runnable.UIThreadSwrveResourcesDiffRunnable;
@@ -44,7 +45,7 @@ import org.apache.cordova.CordovaWebView;
 
 public class SwrvePlugin extends CordovaPlugin {
 
-    public static String VERSION = "1.1.0";
+    public static String VERSION = "2.0.0";
     private static SwrvePlugin instance;
 
     private boolean resourcesListenerReady;
@@ -54,15 +55,15 @@ public class SwrvePlugin extends CordovaPlugin {
     private static final Object pushNotificationsQueuedLock = new Object();
     private static List<String> pushNotificationsQueued;
 
-    public static void createInstance(Context context, int appId, String apiKey) {
-        createInstance(context, appId, apiKey, null);
+    public static void createInstance(Application application, int appId, String apiKey) {
+        createInstance(application, appId, apiKey, null);
     }
 
-    public static void createInstance(Context context, int appId, String apiKey, SwrveConfig config) {
+    public static void createInstance(Application application, int appId, String apiKey, SwrveConfig config) {
         if (config == null) {
             config = new SwrveConfig();
         }
-        SwrveSDK.createInstance(context, appId, apiKey, config);
+        SwrveSDK.createInstance(application, appId, apiKey, config);
         SwrveSDK.setResourcesListener(SwrvePlugin.resourcesListener);
         SwrveSDK.setPushNotificationListener(SwrvePlugin.pushNotificationListener);
     }
@@ -81,8 +82,6 @@ public class SwrvePlugin extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        // Activity started
-        SwrveSDK.onCreate(cordova.getActivity());
         // Sent the wrapper
         Map<String, String> userUpdateWrapperVersion = new HashMap<String, String>();
         userUpdateWrapperVersion.put("swrve.wrapper_version", VERSION);
@@ -373,33 +372,6 @@ public class SwrvePlugin extends CordovaPlugin {
         return false;
     }
 
-    @Override
-    public void onResume(boolean multitasking) {
-        super.onResume(multitasking);
-        SwrveSDK.onResume(cordova.getActivity());
-    }
-
-    @Override
-    public void onPause(boolean multitasking) {
-        super.onPause(multitasking);
-        SwrveSDK.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        // Once the app is resumed again a new instance of the SwrvePlugin will be created. This new
-        // instance is the one that should get the push callback.
-        pushNotificationListenerReady = false;
-
-        SwrveSDK.onDestroy(cordova.getActivity());
-        super.onDestroy();
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        SwrveSDK.onNewIntent(intent);
-    }
-
     private void runJS(String js) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             SystemWebView systemWebView = (SystemWebView)webView.getView();
@@ -430,7 +402,7 @@ public class SwrvePlugin extends CordovaPlugin {
                 public void run() {
                     ISwrveBase sdk = SwrveSDK.getInstance();
                     if (sdk != null) {
-                        sdk.getUserResources(new ISwrveUserResourcesListener() {
+                        sdk.getUserResources(new SwrveUserResourcesListener() {
                             @Override
                             public void onUserResourcesSuccess(Map<String, Map<String, String>> resources, String resourcesAsString) {
                                 byte[] jsonBytes = new JSONObject(resources).toString().getBytes();
@@ -448,7 +420,7 @@ public class SwrvePlugin extends CordovaPlugin {
         }
     }
 
-    public static ISwrveResourcesListener resourcesListener =  new ISwrveResourcesListener() {
+    public static SwrveResourcesListener resourcesListener =  new SwrveResourcesListener() {
         @Override
         public void onResourcesUpdated() {
             if (instance.resourcesListenerReady) {
@@ -460,7 +432,7 @@ public class SwrvePlugin extends CordovaPlugin {
         }
     };
 
-    public static ISwrveCustomButtonListener customButtonListener = new ISwrveCustomButtonListener() {
+    public static SwrveCustomButtonListener customButtonListener = new SwrveCustomButtonListener() {
         @Override
         public void onAction(final String action) {
             instance.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -499,18 +471,9 @@ public class SwrvePlugin extends CordovaPlugin {
         runJS("if (window.swrveProcessPushNotification !== undefined) { window.swrveProcessPushNotification('" + base64Payload + "'); }");
     }
 
-    public static ISwrvePushNotificationListener pushNotificationListener = new ISwrvePushNotificationListener() {
+    public static SwrvePushNotificationListener pushNotificationListener = new SwrvePushNotificationListener() {
         @Override
-        public void onPushNotification(Bundle bundle) {
-            JSONObject json = new JSONObject();
-            Set<String> keys = bundle.keySet();
-            for (String key : keys) {
-                try {
-                    json.put(key, bundle.get(key));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+        public void onPushNotification(JSONObject json) {
             String jsonString = json.toString();
             byte[] jsonBytes = jsonString.getBytes();
             final String base64Encoded = Base64.encodeToString(jsonBytes, Base64.NO_WRAP);

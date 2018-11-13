@@ -1,0 +1,30 @@
+{
+  "name": "com.swrve.SwrvePlugin",
+  "version": "1.2.0",
+  "description": "Android and iOS Cordova plugin for Swrve.",
+  "cordova": {
+    "id": "com.swrve.SwrvePlugin",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swrve/swrve-sdk-integrations.git"
+  },
+  "keywords": [
+    "swrve",
+    "analytics",
+    "messaging",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Swrve Mobile Inc",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/Swrve/swrve-sdk-integrations/issues"
+  },
+  "homepage": "https://github.com/Swrve/swrve-sdk-integrations#readme"
+}
